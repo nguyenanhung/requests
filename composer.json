@@ -1,0 +1,35 @@
+{
+    "name": "nguyenanhung/requests",
+    "type": "library",
+    "description": "My Requests Library",
+    "keywords": [
+        "request",
+        "http",
+        "curl",
+        "get_content"
+    ],
+    "homepage": "https://github.com/nguyenanhung/requests",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "curl/curl": "^1.9",
+        "rmccue/requests": "^1.7",
+        "guzzlehttp/guzzle": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\MyRequests\\": "src/"
+        }
+    }
+}
