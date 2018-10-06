@@ -13,6 +13,14 @@ namespace nguyenanhung\MyRequests\Interfaces;
 interface ProjectInterface
 {
     const VERSION = '0.1.0';
+    const GET     = 'GET';
+    const HEAD    = 'HEAD';
+    const DELETE  = 'DELETE';
+    const TRACE   = 'TRACE';
+    const POST    = 'POST';
+    const PUT     = 'PUT';
+    const OPTIONS = 'OPTIONS';
+    const PATCH   = 'PATCH';
 
     /**
      * Function getVersion

@@ -47,7 +47,6 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-
     }
 
     /**

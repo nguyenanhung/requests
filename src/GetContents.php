@@ -18,9 +18,14 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\GetContentsInterface')
 use \Exception;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
+use nguyenanhung\MyRequests\Helpers\Debug;
 
 class GetContents implements ProjectInterface, GetContentsInterface
 {
+    private $debug;
+    public  $debugStatus     = FALSE;
+    public  $debugLoggerPath = NULL;
+    public  $debugLoggerFilename;
     /**
      * Response from Request
      *
@@ -140,6 +145,18 @@ class GetContents implements ProjectInterface, GetContentsInterface
      */
     public function __construct($url = '', $method = 'GET', $data = [], $headers = [])
     {
+        $this->debug = new Debug();
+        if (empty($this->debugLoggerPath)) {
+            $this->debugStatus = FALSE;
+        }
+        $this->debug->setDebugStatus($this->debugStatus);
+        $this->debug->setLoggerPath($this->debugLoggerPath);
+        $this->debug->setLoggerSubPath(__CLASS__);
+        if (empty($this->debugLoggerFilename)) {
+            $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
+        }
+        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        // Set Params
         if ($url) {
             $this->setURL($url);
         }
