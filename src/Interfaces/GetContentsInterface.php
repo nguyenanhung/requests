@@ -9,7 +9,6 @@
 
 namespace nguyenanhung\MyRequests\Interfaces;
 
-
 interface GetContentsInterface
 {
     public function getContent();

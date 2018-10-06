@@ -25,10 +25,11 @@
         "ext-iconv": "*",
         "ext-openssl": "*",
         "ext-mbstring": "*",
+        "monolog/monolog": "^1.23",
         "curl/curl": "^1.9",
         "rmccue/requests": "^1.7",
         "guzzlehttp/guzzle": "^5.3",
-        "fergusean/nusoap": "^0.9.5",
+        "nguyenanhung/nusoap": "^0.9.5",
         "byjg/webrequest": "^1.0"
     },
     "autoload": {
