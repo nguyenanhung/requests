@@ -400,16 +400,16 @@
         },
         {
             "name": "nguyenanhung/nusoap",
-            "version": "v0.9.5",
+            "version": "v0.9.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nguyenanhung/nusoap.git",
-                "reference": "233862b58efb782564d67885e03b97e497040d99"
+                "reference": "bd59a7fbe8809bd7676541d9c245a2c0c5b44802"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/233862b58efb782564d67885e03b97e497040d99",
-                "reference": "233862b58efb782564d67885e03b97e497040d99",
+                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/bd59a7fbe8809bd7676541d9c245a2c0c5b44802",
+                "reference": "bd59a7fbe8809bd7676541d9c245a2c0c5b44802",
                 "shasum": ""
             },
             "require": {
@@ -449,7 +449,7 @@
                 "http",
                 "request"
             ],
-            "time": "2018-10-06T20:00:24+00:00"
+            "time": "2018-10-06T20:34:16+00:00"
         },
         {
             "name": "psr/log",
