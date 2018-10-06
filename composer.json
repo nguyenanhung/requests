@@ -20,18 +20,19 @@
     ],
     "require": {
         "php": ">=5.4",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "ext-iconv": "*",
-        "ext-openssl": "*",
-        "ext-mbstring": "*",
         "monolog/monolog": "^1.23",
         "cocur/slugify": "^3.1",
         "curl/curl": "^1.9",
         "rmccue/requests": "^1.7",
         "guzzlehttp/guzzle": "^5.3",
-        "nguyenanhung/nusoap": "^0.9.5",
-        "byjg/webrequest": "^1.0"
+        "nguyenanhung/nusoap": "^0.9.5"
+    },
+    "require-dev": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-iconv": "*",
+        "ext-openssl": "*",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {
