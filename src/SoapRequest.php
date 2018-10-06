@@ -47,6 +47,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->debug->debug(__FUNCTION__, '/------------------------------------> SOAP Requests <------------------------------------\\');
     }
 
     /**
@@ -128,6 +129,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function clientRequestWsdl()
     {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         if (!class_exists('nusoap_client')) {
             $this->debug->critical(__FUNCTION__, 'nusoap_client is unavailable, class is not exists');
 

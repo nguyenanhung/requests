@@ -54,6 +54,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->debug->debug(__FUNCTION__, '/------------------------------------> Send Requests <------------------------------------\\');
     }
 
     /**
@@ -80,7 +81,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     public function setHeader($headers = [])
     {
         $this->headers = $headers;
-        var_dump($this->debug->info(__FUNCTION__, 'setHeaders: ', $this->headers));
+        $this->debug->info(__FUNCTION__, 'setHeaders: ', $this->headers);
     }
 
     /**
@@ -94,7 +95,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     public function setCookie($cookies = [])
     {
         $this->cookies = $cookies;
-        var_dump($this->debug->info(__FUNCTION__, 'setCookie: ', $this->cookies));
+        $this->debug->info(__FUNCTION__, 'setCookie: ', $this->cookies);
     }
 
     /**
@@ -211,6 +212,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
 
     /**
      * Function pyRequest
+     * Send Request use Requests - https://packagist.org/packages/rmccue/requests
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 05:07
@@ -223,7 +225,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
      */
     public function pyRequest($url = '', $data = [], $method = 'GET')
     {
-        $this->debug->debug(__FUNCTION__, '/---------------------------> ' . __FUNCTION__ . ' <---------------------------\\');
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
@@ -273,28 +275,27 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
             }
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
 
     /**
      * Function curlRequest
-     * Send Request with \Curl\Curl class
+     * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:35
+     * @time  : 10/7/18 05:54
      *
      * @param string $url
      * @param array  $data
      * @param string $method
      *
      * @return null|string
-     * @throws \ErrorException
      */
     public function curlRequest($url = '', $data = [], $method = 'GET')
     {
-        $this->debug->debug(__FUNCTION__, '/---------------------------> ' . __FUNCTION__ . ' <---------------------------\\');
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
@@ -306,73 +307,78 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
             $this->debug->critical(__FUNCTION__, 'class \Curl\Curl() is not exits');
             $response = NULL;
         } else {
-            $curl = new Curl();
-            if ($this->isJson) {
-                $data = json_encode($data);
-                $this->debug->info(__FUNCTION__, 'isJson Data: ', $data);
-            }
-            if ($this->userAgent) {
-                $curl->setUserAgent($this->userAgent);
-            }
-            if (is_array($this->headers) && count($this->headers) > 0) {
-                foreach ($this->headers as $key => $value) {
-                    $curl->setCookie($key, $value);
+            try {
+                $curl = new Curl();
+                if ($this->isJson) {
+                    $data = json_encode($data);
+                    $this->debug->info(__FUNCTION__, 'isJson Data: ', $data);
                 }
-            }
-            if (is_array($this->cookies) && count($this->cookies) > 0) {
-                foreach ($this->cookies as $key => $value) {
-                    $curl->setHeader($key, $value);
+                if ($this->userAgent) {
+                    $curl->setUserAgent($this->userAgent);
                 }
+                if (is_array($this->headers) && count($this->headers) > 0) {
+                    foreach ($this->headers as $key => $value) {
+                        $curl->setCookie($key, $value);
+                    }
+                }
+                if (is_array($this->cookies) && count($this->cookies) > 0) {
+                    foreach ($this->cookies as $key => $value) {
+                        $curl->setHeader($key, $value);
+                    }
+                }
+                if ($this->basicAuthentication) {
+                    $curl->setBasicAuthentication($this->basicAuthentication['username'], $this->basicAuthentication['password']);
+                }
+                if ($this->referrer) {
+                    $curl->setReferer($this->referrer);
+                }
+                $curl->setOpt(CURLOPT_RETURNTRANSFER, 1);
+                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
+                $curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
+                $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
+                $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
+                $curl->setOpt(CURLOPT_TIMEOUT, $this->timeout);
+                $curl->setOpt(CURLOPT_CONNECTTIMEOUT, $this->timeout);
+                $curl->setOpt(CURLOPT_FOLLOWLOCATION, TRUE);
+                // Request
+                if (self::POST == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->post($url, $data);
+                } elseif (self::PUT == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->put($url, $data);
+                } elseif (self::PATCH == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->patch($url, $data);
+                } elseif (self::DELETE == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->delete($url, $data);
+                } elseif (self::GET == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->get($url, $data);
+                } else {
+                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $curl->get($url, $data);
+                }
+                // Response
+                if (($curl->error)) {
+                    $response = "cURL Error: " . $curl->error_message;
+                } else {
+                    $response = $curl->response;
+                }
+                // Close Request
+                $curl->close();
+                // Log Response
+                $this->debug->info('Final Result from Request: ', $response);
+                $this->debug->debug('Error Code: ', $curl->error_code);
+                $this->debug->debug('HTTP Status Code: ', $curl->http_status_code);
+                $this->debug->debug('HTTP Error: ', $curl->http_error);
+                $this->debug->debug('HTTP Error Message: ', $curl->http_error_message);
+                $this->debug->debug('Request Header: ', $curl->request_headers);
+                $this->debug->debug('Response Header: ', $curl->response_headers);
             }
-            if ($this->basicAuthentication) {
-                $curl->setBasicAuthentication($this->basicAuthentication['username'], $this->basicAuthentication['password']);
-            }
-            if ($this->referrer) {
-                $curl->setReferer($this->referrer);
-            }
-            $curl->setOpt(CURLOPT_RETURNTRANSFER, 1);
-            $curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
-            $curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
-            $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
-            $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
-            $curl->setOpt(CURLOPT_TIMEOUT, $this->timeout);
-            $curl->setOpt(CURLOPT_CONNECTTIMEOUT, $this->timeout);
-            $curl->setOpt(CURLOPT_FOLLOWLOCATION, TRUE);
-            // Request
-            if (self::POST == $method) {
-                $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
-                $curl->post($url, $data);
-            } elseif (self::PUT == $method) {
-                $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
-                $curl->put($url, $data);
-            } elseif (self::PATCH == $method) {
-                $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
-                $curl->patch($url, $data);
-            } elseif (self::DELETE == $method) {
-                $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
-                $curl->delete($url, $data);
-            } elseif (self::GET == $method) {
-                $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
-                $curl->get($url, $data);
-            } else {
-                $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
-                $curl->get($url, $data);
-            }
-            // Response
-            if (($curl->error)) {
-                $response = "cURL Error: " . $curl->error_message;
-            } else {
-                $response = $curl->response;
-            }
-            // Close Request
-            $curl->close();
-            // Log Response
-            $this->debug->info('Response: ', $response);
-            if (isset($curl->request_headers)) {
-                $this->debug->info('Request Header: ', $curl->request_headers);
-            }
-            if (isset($curl->response_headers)) {
-                $this->debug->info('Response Header: ', $curl->response_headers);
+            catch (\Exception $e) {
+                $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
             }
         }
 

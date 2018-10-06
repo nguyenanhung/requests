@@ -156,6 +156,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->debug->debug(__FUNCTION__, '/------------------------------------> File Get Contents Requests <------------------------------------\\');
         if ($url) {
             $this->setURL($url);
         }
@@ -388,7 +389,6 @@ class GetContents implements ProjectInterface, GetContentsInterface
         } elseif ($this->method == 'POST' && count($this->data) > 0) {
             $headerArray[] = 'Content-type: application/x-www-form-urlencoded';
         }
-
         if (count($this->cookies) > 0) {
             $cookies = '';
             foreach ($this->cookies as $key => $value) {
