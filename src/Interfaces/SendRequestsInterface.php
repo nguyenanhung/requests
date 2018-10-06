@@ -24,13 +24,19 @@ interface SendRequestsInterface
 
     public function setReferrer($referrer = '');
 
+    public function setUserBody($isBody = FALSE);
+
     public function setRequestIsXml($isXml = FALSE);
 
     public function setRequestIsJson($isJson = FALSE);
 
     public function setBasicAuthentication($username = '', $password = '');
 
+    public function setDigestAuthentication($username = '', $password = '');
+
     public function pyRequest($url = '', $data = [], $method = 'GET');
+
+    public function guzzlePhpRequest($url = '', $data = [], $method = 'GET');
 
     public function curlRequest($url = '', $data = [], $method = 'GET');
 }

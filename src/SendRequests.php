@@ -20,7 +20,6 @@ use nguyenanhung\MyRequests\Interfaces\SendRequestsInterface;
 use nguyenanhung\MyRequests\Helpers\Debug;
 use Requests;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Curl\Curl;
 
 class SendRequests implements ProjectInterface, SendRequestsInterface
@@ -32,6 +31,8 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     private $userAgent;
     private $referrer;
     private $basicAuthentication;
+    private $digestAuthentication;
+    private $isBody;
     private $isJson;
     private $isXml;
     private $debug;
@@ -156,6 +157,20 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     }
 
     /**
+     * Function setUserBody
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:25
+     *
+     * @param bool $isBody
+     */
+    public function setUserBody($isBody = FALSE)
+    {
+        $this->isBody = $isBody;
+        $this->debug->info(__FUNCTION__, 'setUserBody: ', $this->referrer);
+    }
+
+    /**
      * Function setRequestIsXml
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -212,6 +227,21 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     }
 
     /**
+     * Function setDigestAuthentication
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:28
+     *
+     * @param string $username
+     * @param string $password
+     */
+    public function setDigestAuthentication($username = '', $password = '')
+    {
+        $this->digestAuthentication = [$username, $password, 'digest'];
+        $this->debug->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
+    }
+
+    /**
      * Function pyRequest
      * Send Request use Requests - https://packagist.org/packages/rmccue/requests
      *
@@ -234,6 +264,9 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
         ];
         $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
         $method = strtoupper($method);
+        if (version_compare(PHP_VERSION, '5.4', '<')) {
+            return $this->curlRequest($url, $data, $method);
+        }
         if ((($method == self::GET || $method == self::HEAD || $method == self::TRACE || $method == self::DELETE) && !empty($data))) {
             $endpoint = trim($url) . '?' . http_build_query($data);
         } else {
@@ -266,11 +299,122 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
                 } elseif ($method == self::OPTIONS) {
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
                     $request = Requests::options($endpoint, $this->headers, $data, $this->options);
+                } elseif ($method == self::PATCH) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $request = Requests::patch($endpoint, $this->headers, $data, $this->options);
                 } else {
                     $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $request = Requests::get($endpoint, $this->headers, $this->options);
                 }
                 $result = isset($request->body) ? $request->body : $request;
+            }
+            catch (\Exception $e) {
+                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
+            }
+        }
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+
+        return $result;
+    }
+
+    /**
+     * Function guzzlePhpRequest
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:45
+     *
+     * @param string $url
+     * @param array  $data
+     * @param string $method
+     *
+     * @return \GuzzleHttp\Stream\StreamInterface|null|string
+     */
+    public function guzzlePhpRequest($url = '', $data = [], $method = 'GET')
+    {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $inputParams = [
+            'url'    => $url,
+            'data'   => $data,
+            'method' => $method,
+        ];
+        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $method   = strtoupper($method);
+        $endpoint = trim($url);
+        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        if (version_compare(PHP_VERSION, '5.4', '<')) {
+            return $this->curlRequest($url, $data, $method);
+        }
+        if (!class_exists('GuzzleHttp\Client')) {
+            $this->debug->critical(__FUNCTION__, 'class GuzzleHttp\Client is not exits');
+            $result = NULL;
+        } else {
+            try {
+                $client = new Client();
+                // Create options
+                $options = [
+                    'timeout'         => $this->timeout,
+                    'connect_timeout' => $this->timeout,
+                ];
+                if (is_array($this->headers) && count($this->headers) > 0) {
+                    $options = [
+                        'headers' => $this->headers
+                    ];
+                }
+                if (is_array($this->cookies) && count($this->cookies) > 0) {
+                    $options = [
+                        'cookies' => $this->cookies
+                    ];
+                }
+                if ($this->basicAuthentication) {
+                    $options['auth'] = $this->basicAuthentication;
+                }
+                if ($this->digestAuthentication) {
+                    $options['auth'] = $this->digestAuthentication;
+                }
+                if (($this->isBody == TRUE) && ($method == self::POST || $method == self::PUT || $method == self::PATCH || $method == self::OPTIONS)) {
+                    if ($this->isJson) {
+                        $options['body'] = json_encode($data);
+                    } else {
+                        $options['body'] = $data;
+                    }
+                } else {
+                    $options['query'] = $data;
+                }
+                $this->setOptions($options);
+                if ($method == self::GET) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->get($endpoint, $this->options);
+                } elseif ($method == self::HEAD) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->head($endpoint, $this->options);
+                } elseif ($method == self::DELETE) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->delete($endpoint, $this->options);
+                } elseif ($method == self::POST) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->post($endpoint, $this->options);
+                } elseif ($method == self::PUT) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->put($endpoint, $this->options);
+                } elseif ($method == self::OPTIONS) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->options($endpoint, $this->options);
+                } elseif ($method == self::PATCH) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $client->patch($endpoint, $this->options);
+                } else {
+                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $request = $client->get($endpoint, $this->options);
+                }
+                // Logger
+                $result          = $request->getBody();
+                $getHeaders      = $request->getHeaders();
+                $getStatusCode   = $request->getStatusCode();
+                $getEffectiveUrl = $request->getEffectiveUrl();
+                $this->debug->debug(__FUNCTION__, 'getBody from Request: ', $result);
+                $this->debug->debug(__FUNCTION__, 'getHeaders from Request: ', $getHeaders);
+                $this->debug->debug(__FUNCTION__, 'getStatusCode from Request: ', $getStatusCode);
+                $this->debug->debug(__FUNCTION__, 'getEffectiveUrl from Request: ', $getEffectiveUrl);
             }
             catch (\Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
