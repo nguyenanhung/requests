@@ -13,25 +13,26 @@ require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'functions.
 
 use nguyenanhung\MyRequests\SendRequests;
 
-$url  = 'http://vcms.gviet.vn/api/v1/shared-content/vietlott.html';
-$data = [
+$debug                    = [
+    'debugStatus'     => TRUE,
+    'debugLoggerPath' => testLogPath()
+];
+$url                      = 'http://vcms.gviet.vn/api/v1/shared-content/vietlott.html';
+$data                     = [
     'date'    => date('Y-m-d'),
     'service' => 'ME',
     'token'   => 'empty'
 ];
-
 $method                   = 'GET';
 $headers                  = [];
 $options                  = [];
-
 $request                  = new SendRequests();
-
 $request->debugStatus     = TRUE;
-$request->debugLoggerPath = '../logs/';
+$request->debugLoggerPath = testLogPath();
+$request->__construct();
+$request->setHeaders($headers);
+$request->setOptions($options);
 
-//$request->setHeaders($headers);
-//$request->setOptions($options);
-//
-//$result = $request->pyRequest($url, $data, $method);
+$result = $request->pyRequest($url, $data, $method);
 
-var_dump($result->body);
+var_dump($result);

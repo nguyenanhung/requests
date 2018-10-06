@@ -24,12 +24,12 @@ use Curl\Curl;
 
 class SendRequests implements ProjectInterface, SendRequestsInterface
 {
+    private $headers         = [];
+    private $options         = [];
+    private $timeout         = 60;
     private $debug;
-    private $headers = [];
-    private $options = [];
-    private $timeout = 60;
-    public  $debugStatus;
-    public  $debugLoggerPath;
+    public  $debugStatus     = FALSE;
+    public  $debugLoggerPath = NULL;
     public  $debugLoggerFilename;
 
     /**
@@ -37,11 +37,11 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
      */
     public function __construct()
     {
-        var_dump(__CLASS__, $this->debugStatus);
-        var_dump(__CLASS__, $this->debugLoggerPath);
-
         $this->debug = new Debug();
-        $this->debug->setDebugStatus(TRUE);
+        if (empty($this->debugLoggerPath)) {
+            $this->debugStatus = FALSE;
+        }
+        $this->debug->setDebugStatus($this->debugStatus);
         $this->debug->setLoggerPath($this->debugLoggerPath);
         $this->debug->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
@@ -105,8 +105,21 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
         $this->debug->info(__FUNCTION__, 'setTimeout: ', $this->timeout);
     }
 
+    /**
+     * Function pyRequest
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:07
+     *
+     * @param string $url
+     * @param array  $data
+     * @param string $method
+     *
+     * @return null|\Requests_Response|string
+     */
     public function pyRequest($url = '', $data = [], $method = 'GET')
     {
+        $this->debug->debug(__FUNCTION__, '/---------------------------> ' . __FUNCTION__ . ' <---------------------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
@@ -122,28 +135,34 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
         $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!class_exists('Requests')) {
             $this->debug->critical(__FUNCTION__, 'class Requests is not exits');
-            $request = NULL;
+            $result = NULL;
         } else {
-            if ($method == self::GET) {
-                $request = Requests::get($endpoint, $this->headers, $this->options);
-            } elseif ($method == self::HEAD) {
-                $request = Requests::head($endpoint, $this->headers, $this->options);
-            } elseif ($method == self::DELETE) {
-                $request = Requests::delete($endpoint, $this->headers, $this->options);
-            } elseif ($method == self::TRACE) {
-                $request = Requests::trace($endpoint, $this->headers, $this->options);
-            } elseif ($method == self::POST) {
-                $request = Requests::post($endpoint, $this->headers, $data, $this->options);
-            } elseif ($method == self::PUT) {
-                $request = Requests::put($endpoint, $this->headers, $data, $this->options);
-            } elseif ($method == self::OPTIONS) {
-                $request = Requests::options($endpoint, $this->headers, $data, $this->options);
-            } else {
-                $request = Requests::get($endpoint, $this->headers, $this->options);
+            try {
+                if ($method == self::GET) {
+                    $request = Requests::get($endpoint, $this->headers, $this->options);
+                } elseif ($method == self::HEAD) {
+                    $request = Requests::head($endpoint, $this->headers, $this->options);
+                } elseif ($method == self::DELETE) {
+                    $request = Requests::delete($endpoint, $this->headers, $this->options);
+                } elseif ($method == self::TRACE) {
+                    $request = Requests::trace($endpoint, $this->headers, $this->options);
+                } elseif ($method == self::POST) {
+                    $request = Requests::post($endpoint, $this->headers, $data, $this->options);
+                } elseif ($method == self::PUT) {
+                    $request = Requests::put($endpoint, $this->headers, $data, $this->options);
+                } elseif ($method == self::OPTIONS) {
+                    $request = Requests::options($endpoint, $this->headers, $data, $this->options);
+                } else {
+                    $request = Requests::get($endpoint, $this->headers, $this->options);
+                }
+                $result = isset($request->body) ? $request->body : $request;
+            }
+            catch (\Exception $e) {
+                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
             }
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ' . json_encode($request));
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
 
-        return $request;
+        return $result;
     }
 }

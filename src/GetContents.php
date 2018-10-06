@@ -156,7 +156,6 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        // Set Params
         if ($url) {
             $this->setURL($url);
         }

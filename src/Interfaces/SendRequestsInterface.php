@@ -18,4 +18,6 @@ interface SendRequestsInterface
     public function setOptions($options = []);
 
     public function setTimeout($timeout = 60);
+
+    public function pyRequest($url = '', $data = [], $method = 'GET');
 }
