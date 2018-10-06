@@ -29,6 +29,7 @@
         "cocur/slugify": "^3.1",
         "curl/curl": "^1.9",
         "rmccue/requests": "^1.7",
+        "guzzlehttp/psr7": "^1.4",
         "guzzlehttp/guzzle": "^5.3",
         "nguyenanhung/nusoap": "^0.9.5"
     },

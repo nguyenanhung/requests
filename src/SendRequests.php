@@ -20,6 +20,7 @@ use nguyenanhung\MyRequests\Interfaces\SendRequestsInterface;
 use nguyenanhung\MyRequests\Helpers\Debug;
 use Requests;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Curl\Curl;
 
 class SendRequests implements ProjectInterface, SendRequestsInterface
