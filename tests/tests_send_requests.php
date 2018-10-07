@@ -11,7 +11,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'functions.
  * Time: 14:54
  */
 
-use nguyenanhung\MyRequests\SendRequests;
+use nguyenanhung\MyRequests\MyRequests;
 
 $debug                    = [
     'debugStatus'     => TRUE,
@@ -26,7 +26,7 @@ $data                     = [
 $method                   = 'GET';
 $headers                  = [];
 $options                  = [];
-$request                  = new SendRequests();
+$request                  = new MyRequests();
 $request->debugStatus     = TRUE;
 $request->debugLoggerPath = testLogPath();
 $request->__construct();
@@ -37,4 +37,4 @@ $request->setOptions($options);
 //var_dump($pyRequest);
 
 $curlRequest = $request->curlRequest($url, $data, $method);
-var_dump($curlRequest);
+d($curlRequest);

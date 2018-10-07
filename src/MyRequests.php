@@ -35,6 +35,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     private $isBody;
     private $isJson;
     private $isXml;
+    private $isSSL           = FALSE;
     private $debug;
     public  $debugStatus     = FALSE;
     public  $debugLoggerPath = NULL;
@@ -209,6 +210,22 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     }
 
     /**
+     * Function setRequestIsSSL
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 20:03
+     *
+     * @param bool $isSSL
+     *
+     * @return mixed|void
+     */
+    public function setRequestIsSSL($isSSL = FALSE)
+    {
+        $this->isSSL = $isSSL;
+        $this->debug->info(__FUNCTION__, 'setRequestIsSSL: ', $this->isSSL);
+    }
+
+    /**
      * Function setBasicAuthentication
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -306,6 +323,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $request = Requests::get($endpoint, $this->headers, $this->options);
                 }
+                $this->debug->debug(__FUNCTION__, 'Response from Request: ', $request);
                 $result = isset($request->body) ? $request->body : $request;
             }
             catch (\Exception $e) {
@@ -407,14 +425,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $request = $client->get($endpoint, $this->options);
                 }
                 // Logger
-                $result          = $request->getBody();
-                $getHeaders      = $request->getHeaders();
-                $getStatusCode   = $request->getStatusCode();
-                $getEffectiveUrl = $request->getEffectiveUrl();
+                $result = $request->getBody();
                 $this->debug->debug(__FUNCTION__, 'getBody from Request: ', $result);
-                $this->debug->debug(__FUNCTION__, 'getHeaders from Request: ', $getHeaders);
-                $this->debug->debug(__FUNCTION__, 'getStatusCode from Request: ', $getStatusCode);
-                $this->debug->debug(__FUNCTION__, 'getEffectiveUrl from Request: ', $getEffectiveUrl);
+                $this->debug->debug(__FUNCTION__, 'getHeaders from Request: ', $request->getHeaders());
+                $this->debug->debug(__FUNCTION__, 'getStatusCode from Request: ', $request->getStatusCode());
+                $this->debug->debug(__FUNCTION__, 'getEffectiveUrl from Request: ', $request->getEffectiveUrl());
             }
             catch (\Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
@@ -477,14 +492,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
                 }
-                $curl->setOpt(CURLOPT_RETURNTRANSFER, 1);
-                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
-                $curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
+                $curl->setOpt(CURLOPT_RETURNTRANSFER, self::RETURN_TRANSFER);
+                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
+                $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
                 $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
                 $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
                 $curl->setOpt(CURLOPT_TIMEOUT, $this->timeout);
                 $curl->setOpt(CURLOPT_CONNECTTIMEOUT, $this->timeout);
-                $curl->setOpt(CURLOPT_FOLLOWLOCATION, TRUE);
+                $curl->setOpt(CURLOPT_FOLLOWLOCATION, self::FOLLOW_LOCATION);
                 // Request
                 if (self::POST == $method) {
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
@@ -514,13 +529,28 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 // Close Request
                 $curl->close();
                 // Log Response
-                $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $response);
-                $this->debug->debug(__FUNCTION__, 'Error Code: ', $curl->error_code);
-                $this->debug->debug(__FUNCTION__, 'HTTP Status Code: ', $curl->http_status_code);
-                $this->debug->debug(__FUNCTION__, 'HTTP Error: ', $curl->http_error);
-                $this->debug->debug(__FUNCTION__, 'HTTP Error Message: ', $curl->http_error_message);
-                $this->debug->debug(__FUNCTION__, 'Request Header: ', $curl->request_headers);
-                $this->debug->debug(__FUNCTION__, 'Response Header: ', $curl->response_headers);
+                if (isset($response)) {
+                    $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $response);
+                }
+                if (isset($curl->error_code)) {
+                    $this->debug->debug(__FUNCTION__, 'Error Code: ', $curl->error_code);
+                }
+                if (isset($curl->http_status_code)) {
+                    $this->debug->debug(__FUNCTION__, 'HTTP Status Code: ', $curl->http_status_code);
+                }
+                if (isset($curl->http_error)) {
+                    $this->debug->debug(__FUNCTION__, 'HTTP Error: ', $curl->http_error);
+                }
+                if (isset($curl->http_error_message)) {
+                    $this->debug->debug(__FUNCTION__, 'HTTP Error Message: ', $curl->http_error_message);
+                }
+                if (isset($curl->request_headers)) {
+                    $this->debug->debug(__FUNCTION__, 'Request Header: ', $curl->request_headers);
+                }
+                if (isset($curl->response_headers)) {
+                    $this->debug->debug(__FUNCTION__, 'Response Header: ', $curl->response_headers);
+
+                }
             }
             catch (\Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
