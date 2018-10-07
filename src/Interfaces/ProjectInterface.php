@@ -24,6 +24,8 @@ interface ProjectInterface
     const PATCH           = 'PATCH';
     const ENCODING        = "utf-8";
     const MAX_REDIRECT    = 10;
+    const RETURN_TRANSFER = 1;
+    const FOLLOW_LOCATION = TRUE;
 
     /**
      * Function getVersion

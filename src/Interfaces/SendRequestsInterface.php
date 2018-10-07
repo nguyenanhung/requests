@@ -121,6 +121,18 @@ interface SendRequestsInterface
     public function setRequestIsJson($isJson = FALSE);
 
     /**
+     * Function setRequestIsSSL
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 20:03
+     *
+     * @param bool $isSSL
+     *
+     * @return mixed
+     */
+    public function setRequestIsSSL($isSSL = FALSE);
+
+    /**
      * Function setBasicAuthentication
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
