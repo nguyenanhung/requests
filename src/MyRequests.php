@@ -22,7 +22,7 @@ use Requests;
 use GuzzleHttp\Client;
 use Curl\Curl;
 
-class SendRequests implements ProjectInterface, SendRequestsInterface
+class MyRequests implements ProjectInterface, SendRequestsInterface
 {
     private $headers         = [];
     private $cookies         = [];
@@ -41,7 +41,7 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
     public  $debugLoggerFilename;
 
     /**
-     * SendRequests constructor.
+     * MyRequests constructor.
      */
     public function __construct()
     {
@@ -528,5 +528,239 @@ class SendRequests implements ProjectInterface, SendRequestsInterface
         }
 
         return $response;
+    }
+
+    /******************************** Send Request ********************************/
+    /**
+     * Function sendRequest
+     * Make Sending Request
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:07
+     *
+     * @param string $url
+     * @param array  $data
+     * @param string $method
+     *
+     * @return array|null|\Requests_Response|string
+     */
+    public function sendRequest($url = '', $data = [], $method = 'GET')
+    {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $inputParams = [
+            'url'    => $url,
+            'data'   => $data,
+            'method' => $method,
+        ];
+        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $method   = strtoupper($method);
+        $endpoint = trim($url);
+        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        if (!extension_loaded('curl')) {
+            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            // Create Request use File Get Content
+            $content                  = new GetContents();
+            $content->debugStatus     = $this->debugStatus;
+            $content->debugLoggerPath = $this->debugLoggerPath;
+            $content->__construct();
+            $content->setURL($url);
+            $content->setMethod($method);
+            $content->setData($data);
+            $content->sendRequest();
+            // Create Request
+            $result     = $content->response();
+            $getContent = $content->getContent();
+            $getError   = $content->getError();
+            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+        } else {
+            try {
+                if ($method == self::GET) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                } elseif ($method == self::HEAD) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $request    = $this->pyRequest($url, $data, $method);
+                    $bodyResult = isset($request->body) ? $request->body : $request;
+                } elseif ($method == self::DELETE) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                } elseif ($method == self::TRACE) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
+                    $request    = $this->pyRequest($url, $data, $method);
+                    $bodyResult = isset($request->body) ? $request->body : $request;
+                } elseif ($method == self::POST) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                } elseif ($method == self::PUT) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                } elseif ($method == self::OPTIONS) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $request    = $this->pyRequest($url, $data, $method);
+                    $bodyResult = isset($request->body) ? $request->body : $request;
+                } elseif ($method == self::PATCH) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                } else {
+                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $request = $this->curlRequest($url, $data, $method);
+                }
+                $result = isset($bodyResult) ? $bodyResult : $request;
+            }
+            catch (\Exception $e) {
+                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
+            }
+        }
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+
+        return $result;
+    }
+
+    /**
+     * Function xmlRequest
+     * Send XML Request to Server
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:11
+     *
+     * @param string $url
+     * @param array  $data
+     * @param int    $timeout
+     *
+     * @return array|null|string
+     */
+    public function xmlRequest($url = '', $data = [], $timeout = 60)
+    {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $inputParams = [
+            'url'     => $url,
+            'data'    => $data,
+            'timeout' => $timeout,
+        ];
+        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $endpoint = trim($url);
+        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        if (!extension_loaded('curl')) {
+            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            // Create Request use File Get Content
+            $content                  = new GetContents();
+            $content->debugStatus     = $this->debugStatus;
+            $content->debugLoggerPath = $this->debugLoggerPath;
+            $content->__construct();
+            $content->setURL($url);
+            $content->setMethod('POST');
+            $content->setXML(TRUE);
+            $content->setData($data);
+            $content->sendRequest();
+            // Create Request
+            $result     = $content->response();
+            $getContent = $content->getContent();
+            $getError   = $content->getError();
+            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+        } else {
+            $this->setRequestIsXml(TRUE);
+            $this->setTimeout($timeout);
+            $result = $this->curlRequest($url, $data, 'POST');
+        }
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+
+        return $result;
+    }
+
+    /**
+     * Function jsonRequest
+     * Send JSON Request to Server
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:13
+     *
+     * @param string $url
+     * @param array  $data
+     * @param int    $timeout
+     *
+     * @return array|null|string
+     */
+    public function jsonRequest($url = '', $data = [], $timeout = 60)
+    {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $inputParams = [
+            'url'     => $url,
+            'data'    => $data,
+            'timeout' => $timeout,
+        ];
+        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $endpoint = trim($url);
+        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        if (!extension_loaded('curl')) {
+            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            // Create Request use File Get Content
+            $content                  = new GetContents();
+            $content->debugStatus     = $this->debugStatus;
+            $content->debugLoggerPath = $this->debugLoggerPath;
+            $content->__construct();
+            $content->setURL($url);
+            $content->setMethod('POST');
+            $content->setJson(TRUE);
+            $content->setData($data);
+            $content->sendRequest();
+            // Create Request
+            $result     = $content->response();
+            $getContent = $content->getContent();
+            $getError   = $content->getError();
+            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+        } else {
+            $this->setRequestIsJson(TRUE);
+            $this->setTimeout($timeout);
+            $result = $this->curlRequest($url, $data, 'POST');
+        }
+        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+
+        return $result;
+    }
+    /******************************** Utils ********************************/
+    /**
+     * Function xmlGetValue
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
+     * @param string $xml
+     * @param string $openTag
+     * @param string $closeTag
+     *
+     * @return bool|string
+     */
+    public function xmlGetValue($xml = '', $openTag = '', $closeTag = '')
+    {
+        if (empty($xml) || empty($openTag) || empty($closeTag)) {
+            return '';
+        }
+        $f = strpos($xml, $openTag) + strlen($openTag);
+        $l = strpos($xml, $closeTag);
+
+        return ($f <= $l) ? substr($xml, $f, $l - $f) : "";
+    }
+
+    /**
+     * Function parseXmlDataRequest
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
+     * @param string $resultXml
+     *
+     * @return false|string
+     */
+    public function parseXmlDataRequest($resultXml = '')
+    {
+        $array = [
+            'ec'  => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
+            'msg' => $this->xmlGetValue($resultXml, "<msg>", "</msg>")
+        ];
+
+        return json_encode($array);
     }
 }
