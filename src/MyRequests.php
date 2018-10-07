@@ -514,13 +514,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 // Close Request
                 $curl->close();
                 // Log Response
-                $this->debug->info('Final Result from Request: ', $response);
-                $this->debug->debug('Error Code: ', $curl->error_code);
-                $this->debug->debug('HTTP Status Code: ', $curl->http_status_code);
-                $this->debug->debug('HTTP Error: ', $curl->http_error);
-                $this->debug->debug('HTTP Error Message: ', $curl->http_error_message);
-                $this->debug->debug('Request Header: ', $curl->request_headers);
-                $this->debug->debug('Response Header: ', $curl->response_headers);
+                $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $response);
+                $this->debug->debug(__FUNCTION__, 'Error Code: ', $curl->error_code);
+                $this->debug->debug(__FUNCTION__, 'HTTP Status Code: ', $curl->http_status_code);
+                $this->debug->debug(__FUNCTION__, 'HTTP Error: ', $curl->http_error);
+                $this->debug->debug(__FUNCTION__, 'HTTP Error Message: ', $curl->http_error_message);
+                $this->debug->debug(__FUNCTION__, 'Request Header: ', $curl->request_headers);
+                $this->debug->debug(__FUNCTION__, 'Response Header: ', $curl->response_headers);
             }
             catch (\Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
