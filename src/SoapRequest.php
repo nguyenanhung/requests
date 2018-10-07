@@ -15,10 +15,10 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\SoapRequestInterface')
     include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'SoapRequestInterface.php';
 }
 
+use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyNuSOAP\nusoap_client;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\SoapRequestInterface;
-use nguyenanhung\MyNuSOAP\nusoap_client;
-use nguyenanhung\MyRequests\Helpers\Debug;
 
 class SoapRequest implements ProjectInterface, SoapRequestInterface
 {

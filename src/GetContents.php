@@ -16,9 +16,9 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\GetContentsInterface')
 }
 
 use \Exception;
+use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
-use nguyenanhung\MyRequests\Helpers\Debug;
 
 class GetContents implements ProjectInterface, GetContentsInterface
 {
