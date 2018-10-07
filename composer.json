@@ -25,12 +25,11 @@
         "ext-iconv": "*",
         "ext-openssl": "*",
         "ext-mbstring": "*",
-        "monolog/monolog": "^1.23",
-        "cocur/slugify": "^3.1",
         "curl/curl": "^1.9",
         "rmccue/requests": "^1.7",
         "guzzlehttp/guzzle": "^5.3",
-        "nguyenanhung/nusoap": "^0.9.5"
+        "nguyenanhung/nusoap": "^0.9.5",
+        "nguyenanhung/my-debug": "^0.1"
     },
     "autoload": {
         "psr-4": {

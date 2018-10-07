@@ -15,9 +15,9 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\SendRequestsInterface'
     include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'SendRequestsInterface.php';
 }
 
+use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\SendRequestsInterface;
-use nguyenanhung\MyRequests\Helpers\Debug;
 use Requests;
 use GuzzleHttp\Client;
 use Curl\Curl;
