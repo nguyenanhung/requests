@@ -133,6 +133,30 @@ interface SendRequestsInterface
     public function setRequestIsSSL($isSSL = FALSE);
 
     /**
+     * Function setErrorResponseIsData
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:04
+     *
+     * @param bool $errorResponseIsData
+     *
+     * @return mixed
+     */
+    public function setErrorResponseIsData($errorResponseIsData = FALSE);
+
+    /**
+     * Function setErrorResponseIsNull
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:04
+     *
+     * @param bool $errorResponseIsNull
+     *
+     * @return mixed
+     */
+    public function setErrorResponseIsNull($errorResponseIsNull = FALSE);
+
+    /**
      * Function setBasicAuthentication
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -157,6 +181,56 @@ interface SendRequestsInterface
      * @return mixed
      */
     public function setDigestAuthentication($username = '', $password = '');
+
+    /**
+     * Function getHttpCode
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:15
+     *
+     * @return mixed
+     */
+    public function getHttpCode();
+
+    /**
+     * Function getHttpMessage
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:15
+     *
+     * @return mixed
+     */
+    public function getHttpMessage();
+
+    /**
+     * Function getErrorCode
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:15
+     *
+     * @return mixed
+     */
+    public function getErrorCode();
+
+    /**
+     * Function getRequestsHeader
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:15
+     *
+     * @return mixed
+     */
+    public function getRequestsHeader();
+
+    /**
+     * Function getResponseHeader
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:15
+     *
+     * @return mixed
+     */
+    public function getResponseHeader();
 
     /**
      * Function pyRequest
