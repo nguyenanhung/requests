@@ -226,7 +226,9 @@ class Debug implements ProjectInterface, DebugInterface
                 $stream->setFormatter($formatter);
                 $logger = new \Monolog\Logger(trim($name));
                 $logger->pushHandler($stream);
-
+                if (empty($msg)) {
+                    $msg = 'My Log Message is Empty';
+                }
                 if (is_array($context)) {
                     return $logger->$useLevel($msg, $context);
                 } else {
