@@ -106,7 +106,9 @@ class Debug implements ProjectInterface, DebugInterface
      */
     public function setLoggerPath($logger_path = '')
     {
-        $this->loggerPath = trim($logger_path);
+        if (!empty($logger_path)) {
+            $this->loggerPath = trim($logger_path);
+        }
     }
 
     /**
@@ -121,7 +123,9 @@ class Debug implements ProjectInterface, DebugInterface
      */
     public function setLoggerSubPath($sub_path = '')
     {
-        $this->loggerSubPath = trim($sub_path) . DIRECTORY_SEPARATOR;
+        if (!empty($sub_path)) {
+            $this->loggerSubPath = trim($sub_path) . DIRECTORY_SEPARATOR;
+        }
     }
 
     /**
@@ -147,7 +151,9 @@ class Debug implements ProjectInterface, DebugInterface
      */
     public function setLoggerFilename($logger_filename = '')
     {
-        $this->loggerFilename = trim($logger_filename);
+        if (!empty($logger_filename)) {
+            $this->loggerFilename = trim($logger_filename);
+        }
     }
 
     /**
@@ -164,7 +170,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function log($level = '', $name = 'log', $msg = '', $context = [])
+    public function log($level = '', $name = 'log', $msg = 'My Message', $context = [])
     {
         $level = strtolower(trim($level));
         if ($this->DEBUG == TRUE) {
@@ -220,11 +226,13 @@ class Debug implements ProjectInterface, DebugInterface
                 $stream->setFormatter($formatter);
                 $logger = new \Monolog\Logger(trim($name));
                 $logger->pushHandler($stream);
-
+                if (empty($msg)) {
+                    $msg = 'My Log Message is Empty';
+                }
                 if (is_array($context)) {
-                    return $logger->$useLevel(trim($msg), $context);
+                    return $logger->$useLevel($msg, $context);
                 } else {
-                    return $logger->$useLevel(trim($msg) . json_encode($context));
+                    return $logger->$useLevel($msg . json_encode($context));
                 }
             }
             catch (\Exception $e) {
@@ -248,7 +256,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function debug($name = 'log', $msg = '', $context = [])
+    public function debug($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('debug', $name, $msg, $context);
     }
@@ -267,7 +275,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function info($name = 'log', $msg = '', $context = [])
+    public function info($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('info', $name, $msg, $context);
     }
@@ -285,7 +293,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function notice($name = 'log', $msg = '', $context = [])
+    public function notice($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('notice', $name, $msg, $context);
     }
@@ -304,7 +312,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function warning($name = 'log', $msg = '', $context = [])
+    public function warning($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('warning', $name, $msg, $context);
     }
@@ -322,7 +330,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function error($name = 'log', $msg = '', $context = [])
+    public function error($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('error', $name, $msg, $context);
     }
@@ -341,7 +349,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function critical($name = 'log', $msg = '', $context = [])
+    public function critical($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('critical', $name, $msg, $context);
     }
@@ -360,7 +368,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function alert($name = 'log', $msg = '', $context = [])
+    public function alert($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('alert', $name, $msg, $context);
     }
@@ -378,7 +386,7 @@ class Debug implements ProjectInterface, DebugInterface
      *
      * @return bool|mixed|null
      */
-    public function emergency($name = 'log', $msg = '', $context = [])
+    public function emergency($name = 'log', $msg = 'My Message', $context = [])
     {
         return $this->log('emergency', $name, $msg, $context);
     }
