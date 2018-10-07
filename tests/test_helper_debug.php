@@ -11,10 +11,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'funct
  * Time: 17:30
  */
 
-use nguyenanhung\MyRequests\Helpers\Debug;
+use nguyenanhung\MyDebug\Debug;
 
 // Test Content
-$logPath     = __DIR__ . DIRECTORY_SEPARATOR . '../logs/';
+$logPath     = testLogPath();
 $logSubPath  = 'tests-debug';
 $logFilename = 'Log-' . date('Y-m-d') . '.log';
 $name        = 'Test';
@@ -38,12 +38,12 @@ echo "\n setLoggerSubPath: " . $debug->getLoggerSubPath() . "\n";
 echo "\n setLoggerFilename: " . $debug->getLoggerFilename() . "\n";
 echo "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-var_dump($debug->debug($name, $msg . ' - DEBUG', $context));
-var_dump($debug->info($name, $msg . ' - INFO', $context));
-var_dump($debug->notice($name, $msg . ' - NOTICE', $context));
-var_dump($debug->warning($name, $msg . ' - WARNING', $context));
-var_dump($debug->error($name, $msg . ' - ERROR', $context));
-var_dump($debug->critical($name, $msg . ' - CRITICAL', $context));
-var_dump($debug->alert($name, $msg . ' - ALERT', $context));
-var_dump($debug->emergency($name, $msg . ' - EMERGENCY', $context));
+d($debug->debug($name, $msg . ' - DEBUG', $context));
+d($debug->info($name, $msg . ' - INFO', $context));
+d($debug->notice($name, $msg . ' - NOTICE', $context));
+d($debug->warning($name, $msg . ' - WARNING', $context));
+d($debug->error($name, $msg . ' - ERROR', $context));
+d($debug->critical($name, $msg . ' - CRITICAL', $context));
+d($debug->alert($name, $msg . ' - ALERT', $context));
+d($debug->emergency($name, $msg . ' - EMERGENCY', $context));
 

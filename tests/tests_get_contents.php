@@ -32,7 +32,7 @@ $response   = $content->response();
 $getContent = $content->getContent();
 $getError   = $content->getError();
 
-var_dump($response);
-var_dump($getContent);
-var_dump($getError);
+d($response);
+d($getContent);
+d($getError);
 
