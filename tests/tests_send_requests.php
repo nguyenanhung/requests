@@ -33,6 +33,8 @@ $request->__construct();
 $request->setHeader($headers);
 $request->setOptions($options);
 
-$result = $request->pyRequest($url, $data, $method);
+//$pyRequest = $request->pyRequest($url, $data, $method);
+//var_dump($pyRequest);
 
-var_dump($result);
+$curlRequest = $request->curlRequest($url, $data, $method);
+var_dump($curlRequest);

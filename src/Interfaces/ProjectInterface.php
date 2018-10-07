@@ -12,7 +12,18 @@ namespace nguyenanhung\MyRequests\Interfaces;
 
 interface ProjectInterface
 {
-    const VERSION = '0.1.0';
+    const VERSION         = '0.1.0';
+    const MIN_PHP_VERSION = '5.3';
+    const GET             = 'GET';
+    const HEAD            = 'HEAD';
+    const DELETE          = 'DELETE';
+    const TRACE           = 'TRACE';
+    const POST            = 'POST';
+    const PUT             = 'PUT';
+    const OPTIONS         = 'OPTIONS';
+    const PATCH           = 'PATCH';
+    const ENCODING        = "utf-8";
+    const MAX_REDIRECT    = 10;
 
     /**
      * Function getVersion
