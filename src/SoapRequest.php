@@ -26,6 +26,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     private $data;
     private $callFunction;
     private $fieldResult;
+    private $responseIsJson;
     private $debug;
     public  $debugStatus     = FALSE;
     public  $debugLoggerPath = NULL;
@@ -107,6 +108,8 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
 
     /**
      * Function setFieldResult
+     * Nếu input giá trì vào đây, result sẽ map trực tiếp đến mã này
+     * nếu không có sẽ trả error luôn
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:37
@@ -117,6 +120,23 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     {
         $this->fieldResult = $fieldResult;
         $this->debug->info(__FUNCTION__, 'setFieldResult: ', $this->fieldResult);
+    }
+
+    /**
+     * Function setResponseIsJson
+     * Return Response is Json if value = true
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/8/18 19:00
+     *
+     * @param string $responseIsJson
+     *
+     * @return mixed|void
+     */
+    public function setResponseIsJson($responseIsJson = '')
+    {
+        $this->responseIsJson = $responseIsJson;
+        $this->debug->info(__FUNCTION__, 'setResponseIsJson: ', $this->responseIsJson);
     }
 
     /**
@@ -135,32 +155,60 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
 
             return NULL;
         }
-        $client                   = new nusoap_client($this->endpoint, TRUE);
-        $client->soap_defencoding = self::SOAP_ENCODING;
-        $client->xml_encoding     = self::XML_ENCODING;
-        $client->decode_utf8      = self::DECODE_UTF8;
-        $error                    = $client->getError();
-        if ($error) {
-            $message = "Request SOAP Charge Error: " . json_encode($error);
-            $this->debug->error(__FUNCTION__, $message);
-        } else {
-            $result = $client->call($this->callFunction, $this->data);
-            $this->debug->info(__FUNCTION__, 'Result from Endpoint: ', $result);
-            if (isset($result[$this->fieldResult])) {
-                $this->debug->info(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
-                $message = [
-                    'status' => 0,
-                    'code'   => $result[$this->fieldResult],
-                    'data'   => $result
-                ];
+        try {
+            $client                   = new nusoap_client($this->endpoint, TRUE);
+            $client->soap_defencoding = self::SOAP_ENCODING;
+            $client->xml_encoding     = self::XML_ENCODING;
+            $client->decode_utf8      = self::DECODE_UTF8;
+            $error                    = $client->getError();
+            if ($error) {
+                $message = "Request SOAP Charge Error: " . json_encode($error);
+                $this->debug->error(__FUNCTION__, $message);
             } else {
-                $this->debug->info(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
-                $message = [
-                    'status' => 1,
-                    'code'   => 'Missing Result from ' . $this->fieldResult,
-                    'data'   => $result
-                ];
+                $result = $client->call($this->callFunction, $this->data);
+                $this->debug->info(__FUNCTION__, 'Result from Endpoint: ', $result);
+                if ($this->fieldResult) {
+                    if (isset($result[$this->fieldResult])) {
+                        $this->debug->info(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
+                        $message = [
+                            'status' => 0,
+                            'code'   => $result[$this->fieldResult],
+                            'data'   => $result
+                        ];
+                    } else {
+                        $this->debug->info(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
+                        $message = [
+                            'status' => 1,
+                            'code'   => 'Missing Result from ' . $this->fieldResult,
+                            'data'   => $result
+                        ];
+                    }
+                } else {
+                    $message = [
+                        'status' => 0,
+                        'code'   => 'Return full Response',
+                        'data'   => $result
+                    ];
+                }
             }
+        }
+        catch (\Exception $e) {
+            $message       = [
+                'status' => 2,
+                'code'   => 'Exception Error',
+                'data'   => [
+                    'File'    => $e->getFile(),
+                    'Line'    => $e->getLine(),
+                    'Code'    => $e->getCode(),
+                    'Message' => $e->getMessage(),
+                ]
+            ];
+            $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $error_message);
+        }
+        if ($this->responseIsJson) {
+            $this->debug->debug(__FUNCTION__, 'Response is Json');
+            $message = json_encode($message);
         }
         $this->debug->info(__FUNCTION__, 'Final Result: ', $message);
 

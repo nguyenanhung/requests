@@ -65,6 +65,18 @@ interface SoapRequestInterface
     public function setFieldResult($fieldResult = '');
 
     /**
+     * Function setResponseIsJson
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/8/18 19:00
+     *
+     * @param string $responseIsJson
+     *
+     * @return mixed
+     */
+    public function setResponseIsJson($responseIsJson = '');
+
+    /**
      * Function clientRequestWsdl
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
