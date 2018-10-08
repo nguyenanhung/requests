@@ -162,7 +162,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 ];
             }
         }
-        $this->debug->info(__FUNCTION__, 'Final Result: ' . $message);
+        $this->debug->info(__FUNCTION__, 'Final Result: ', $message);
 
         return $message;
     }
