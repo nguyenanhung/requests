@@ -28,6 +28,8 @@
         "curl/curl": "^1.9",
         "rmccue/requests": "^1.7",
         "guzzlehttp/guzzle": "^5.3",
+        "nategood/httpful": "^0.2.20",
+        "kriswallsmith/buzz": "^0.15",
         "nguyenanhung/nusoap": "^0.9.5",
         "nguyenanhung/my-debug": "^0.1"
     },

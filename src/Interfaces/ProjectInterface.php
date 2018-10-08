@@ -12,7 +12,7 @@ namespace nguyenanhung\MyRequests\Interfaces;
 
 interface ProjectInterface
 {
-    const VERSION         = '0.1.0';
+    const VERSION         = '0.1.0.2';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';

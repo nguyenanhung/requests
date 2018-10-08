@@ -130,7 +130,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function clientRequestWsdl()
     {
         $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        if (!class_exists('nusoap_client')) {
+        if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
             $this->debug->critical(__FUNCTION__, 'nusoap_client is unavailable, class is not exists');
 
             return NULL;

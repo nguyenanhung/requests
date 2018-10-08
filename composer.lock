@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a6863f00d912f7b8e08ed12f1fa5d84",
+    "content-hash": "e703e93dd080651629a99ae5a9367431",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -351,6 +351,54 @@
             "time": "2018-09-30T08:05:18+00:00"
         },
         {
+            "name": "kriswallsmith/buzz",
+            "version": "v0.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "d0b82d8a6169276f91f445c26792ff4a2b11e831"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d0b82d8a6169276f91f445c26792ff4a2b11e831",
+                "reference": "d0b82d8a6169276f91f445c26792ff4a2b11e831",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.3"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Buzz\\": "lib/Buzz"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2017-11-24T19:18:50+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -429,6 +477,56 @@
             "time": "2017-06-19T01:22:40+00:00"
         },
         {
+            "name": "nategood/httpful",
+            "version": "0.2.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nategood/httpful.git",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nategood/httpful/zipball/c1cd4d46a4b281229032cf39d4dd852f9887c0f6",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Httpful": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nate Good",
+                    "email": "me@nategood.com",
+                    "homepage": "http://nategood.com"
+                }
+            ],
+            "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+            "homepage": "http://github.com/nategood/httpful",
+            "keywords": [
+                "api",
+                "curl",
+                "http",
+                "requests",
+                "rest",
+                "restful"
+            ],
+            "time": "2015-10-26T16:11:30+00:00"
+        },
+        {
             "name": "nguyenanhung/my-debug",
             "version": "v0.1.0",
             "source": {
@@ -482,16 +580,16 @@
         },
         {
             "name": "nguyenanhung/nusoap",
-            "version": "v0.9.5.1",
+            "version": "v0.9.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nguyenanhung/nusoap.git",
-                "reference": "bd59a7fbe8809bd7676541d9c245a2c0c5b44802"
+                "reference": "6b3ac6e7b83d283cff086ff4aad2b21286ac0f74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/bd59a7fbe8809bd7676541d9c245a2c0c5b44802",
-                "reference": "bd59a7fbe8809bd7676541d9c245a2c0c5b44802",
+                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/6b3ac6e7b83d283cff086ff4aad2b21286ac0f74",
+                "reference": "6b3ac6e7b83d283cff086ff4aad2b21286ac0f74",
                 "shasum": ""
             },
             "require": {
@@ -500,7 +598,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "nguyenanhung\\MyNuSOAP\\": "src/"
+                    "nguyenanhung\\MyNuSOAP\\": "src/",
+                    "nguyenanhung\\MyFixNuSOAP\\": "src-fix/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -531,7 +630,7 @@
                 "http",
                 "request"
             ],
-            "time": "2018-10-06T20:34:16+00:00"
+            "time": "2018-10-07T03:23:02+00:00"
         },
         {
             "name": "psr/log",
