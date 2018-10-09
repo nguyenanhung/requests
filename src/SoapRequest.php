@@ -20,6 +20,13 @@ use nguyenanhung\MyNuSOAP\nusoap_client;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\SoapRequestInterface;
 
+/**
+ * Class SoapRequest
+ *
+ * @package    nguyenanhung\MyRequests
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 class SoapRequest implements ProjectInterface, SoapRequestInterface
 {
     private $endpoint;
