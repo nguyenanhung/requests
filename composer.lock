@@ -528,16 +528,16 @@
         },
         {
             "name": "nguyenanhung/my-debug",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nguyenanhung/my-debug.git",
-                "reference": "41ef3aec28a5afe886d2ddfe45c13a36d193b62e"
+                "reference": "ee54151fa6b81120f794bc86537b6eec3c83b1fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nguyenanhung/my-debug/zipball/41ef3aec28a5afe886d2ddfe45c13a36d193b62e",
-                "reference": "41ef3aec28a5afe886d2ddfe45c13a36d193b62e",
+                "url": "https://api.github.com/repos/nguyenanhung/my-debug/zipball/ee54151fa6b81120f794bc86537b6eec3c83b1fc",
+                "reference": "ee54151fa6b81120f794bc86537b6eec3c83b1fc",
                 "shasum": ""
             },
             "require": {
@@ -576,20 +576,20 @@
                 "log",
                 "logger"
             ],
-            "time": "2018-10-08T17:52:17+00:00"
+            "time": "2018-10-09T03:10:32+00:00"
         },
         {
             "name": "nguyenanhung/nusoap",
-            "version": "v0.9.5.2",
+            "version": "v0.9.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nguyenanhung/nusoap.git",
-                "reference": "6b3ac6e7b83d283cff086ff4aad2b21286ac0f74"
+                "reference": "6267f6088768d23b4bf2c7db1702fb595f559350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/6b3ac6e7b83d283cff086ff4aad2b21286ac0f74",
-                "reference": "6b3ac6e7b83d283cff086ff4aad2b21286ac0f74",
+                "url": "https://api.github.com/repos/nguyenanhung/nusoap/zipball/6267f6088768d23b4bf2c7db1702fb595f559350",
+                "reference": "6267f6088768d23b4bf2c7db1702fb595f559350",
                 "shasum": ""
             },
             "require": {
@@ -622,7 +622,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "My nuSOAP Library",
+            "description": "My nuSOAP Library, fix code for Php >= 5.4",
             "homepage": "https://github.com/nguyenanhung/nusoap",
             "keywords": [
                 "curl",
@@ -630,7 +630,7 @@
                 "http",
                 "request"
             ],
-            "time": "2018-10-07T03:23:02+00:00"
+            "time": "2018-10-09T04:11:06+00:00"
         },
         {
             "name": "psr/log",
