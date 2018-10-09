@@ -22,31 +22,173 @@ use Requests;
 use GuzzleHttp\Client;
 use Curl\Curl;
 
+/**
+ * Class MyRequests
+ *
+ * @package    nguyenanhung\MyRequests
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 class MyRequests implements ProjectInterface, SendRequestsInterface
 {
-    private $headers             = [];
-    private $cookies             = [];
-    private $options             = [];
-    private $timeout             = 60;
+    /**
+     * An array of headers to be added to the request
+     *
+     * @var array
+     */
+    private $headers = [];
+
+    /**
+     * An array of cookies (which are added to the headers)
+     *
+     * @var array
+     */
+    private $cookies = [];
+
+    /**
+     * An array of options to be added to the request
+     *
+     * @var array
+     */
+    private $options = [];
+
+    /**
+     * How long to wait for a server to respond to a  request.
+     *
+     * @var integer
+     */
+    private $timeout = 60;
+
+    /**
+     * An array of userAgent to be added to the request
+     *
+     * @var array|string
+     */
     private $userAgent;
+
+    /**
+     * An URL String referrer to be added to the request
+     *
+     * @var string
+     */
     private $referrer;
+
+    /**
+     * An array of basicAuthentication: username, password to be added to the request
+     *
+     * @var array
+     */
     private $basicAuthentication;
+
+    /**
+     * An array of digestAuthentication: username, password to be added to the request
+     *
+     * @var array
+     */
     private $digestAuthentication;
+
+    /**
+     * Set data request is Body
+     *
+     * @var bool
+     */
     private $isBody;
+
+    /**
+     * Set data request is Json
+     *
+     * @var bool
+     */
     private $isJson;
+
+    /**
+     * Set data request is XML
+     *
+     * @var bool
+     */
     private $isXml;
-    private $isSSL               = FALSE;
+
+    /**
+     * Set data request is SSL
+     *
+     * @var bool
+     */
+    private $isSSL = FALSE;
+
+    /**
+     * Set Response Error is Array Data
+     *
+     * @var bool
+     */
     private $errorResponseIsData = FALSE;
+
+    /**
+     * Set Response Error is Null
+     *
+     * @var bool
+     */
     private $errorResponseIsNull = FALSE;
+
+    /**
+     * Error Code from Request
+     *
+     * @var integer
+     */
     private $error_code;
+
+    /**
+     * Request Header array if exists, Null if not
+     *
+     * @var array|null
+     */
     private $requests_header;
+
+    /**
+     * Response Header array if exists, Null if not
+     *
+     * @var array|null
+     */
     private $response_header;
+
+    /**
+     * Http Code from Request
+     *
+     * @var integer
+     */
     private $http_code;
+
+    /**
+     * Http Message from Request
+     *
+     * @var string|null
+     */
     private $http_message;
+
+    /**
+     * @var  \nguyenanhung\MyDebug\Debug Call to class
+     */
     private $debug;
-    public  $debugStatus         = FALSE;
-    public  $debugLoggerPath     = NULL;
-    public  $debugLoggerFilename;
+
+    /**
+     * Set Debug Status
+     *
+     * @var bool
+     */
+    public $debugStatus = FALSE;
+
+    /**
+     * Set Logger Path to Save
+     *
+     * @var null|string
+     */
+    public $debugLoggerPath = NULL;
+
+    /**
+     * Set Logger Filename to Save
+     *
+     * @var string
+     */
+    public $debugLoggerFilename;
 
     /**
      * MyRequests constructor.
@@ -71,9 +213,9 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function getVersion
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 03:47
+     * @time  : 10/7/18 01:46
      *
-     * @return mixed|string
+     * @return mixed|string Current Project version
      */
     public function getVersion()
     {
@@ -239,7 +381,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:02
      *
-     * @param bool $errorResponseIsData
+     * @param bool $errorResponseIsData Array Data if Response is Null if Error
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE)
     {
@@ -254,7 +396,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:04
      *
-     * @param bool $errorResponseIsNull
+     * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
      * @return mixed|void
      */
@@ -270,8 +412,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 05:24
      *
-     * @param string $username
-     * @param string $password
+     * @param string $username Username to be Authentication
+     * @param string $password Password to be Authentication
      */
     public function setBasicAuthentication($username = '', $password = '')
     {
@@ -288,8 +430,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:28
      *
-     * @param string $username
-     * @param string $password
+     * @param string $username Username to be Authentication
+     * @param string $password Password to be Authentication
      */
     public function setDigestAuthentication($username = '', $password = '')
     {
@@ -370,11 +512,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 05:07
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
      *
      * @return null|\Requests_Response|string
+     * @see   http://requests.ryanmccue.info/
      */
     public function pyRequest($url = '', $data = [], $method = 'GET')
     {
@@ -490,16 +633,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
 
     /**
      * Function guzzlePhpRequest
-     * Send Request use guzzlehttp - https://packagist.org/packages/guzzlehttp/guzzle
+     * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:45
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
      *
      * @return \GuzzleHttp\Stream\StreamInterface|null|string
+     * @see   https://packagist.org/packages/guzzlehttp/guzzle
      */
     public function guzzlePhpRequest($url = '', $data = [], $method = 'GET')
     {
@@ -645,11 +789,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 05:54
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
      *
-     * @return null|string
+     * @return array|null|string Response content from server,
+     *                           null of Exception Message if Error
+     * @see   https://packagist.org/packages/curl/curl
      */
     public function curlRequest($url = '', $data = [], $method = 'GET')
     {
@@ -778,19 +924,21 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         return $response;
     }
 
-    /******************************** Send Request ********************************/
+    /******************************** Handle Send Request ********************************/
     /**
      * Function sendRequest
-     * Make Sending Request
+     * Handle send Request use Multi Method
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 07:07
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
      *
-     * @return array|null|\Requests_Response|string
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
+     *
+     * @return array|null|\Requests_Response|string Response content from server
+     *                                              null of Exception Message if Error
      */
     public function sendRequest($url = '', $data = [], $method = 'GET')
     {
@@ -824,36 +972,46 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         } else {
             try {
                 if ($method == self::GET) {
+                    // Handle GET Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::HEAD) {
+                    // Handle HEAD Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->pyRequest($url, $data, $method);
                 } elseif ($method == self::DELETE) {
+                    // Handle DELETE Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::TRACE) {
+                    // Handle TRACE Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->pyRequest($url, $data, $method);
                 } elseif ($method == self::POST) {
+                    // Handle POST Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::PUT) {
+                    // Handle PUT Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::OPTIONS) {
+                    // Handle OPTIONS Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->pyRequest($url, $data, $method);
                 } elseif ($method == self::PATCH) {
+                    // Handle PATCH Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } else {
+                    // Handle DEFAULT Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 }
             }
             catch (\Exception $e) {
-                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Message: ' . $e->getMessage();
+                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+                $this->debug->error(__FUNCTION__, $result);
             }
         }
         $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
@@ -868,13 +1026,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 07:11
      *
-     * @param string $url
-     * @param array  $data
-     * @param int    $timeout
+     * @param string $url     URL Endpoint to be Request
+     * @param string $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
-     * @return array|null|string
+     * @return array|null|string Response from Server
      */
-    public function xmlRequest($url = '', $data = [], $timeout = 60)
+    public function xmlRequest($url = '', $data = '', $timeout = 60)
     {
         $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
@@ -920,11 +1078,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 07:13
      *
-     * @param string $url
-     * @param array  $data
-     * @param int    $timeout
+     * @param string $url     URL Endpoint to be Request
+     * @param array  $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
-     * @return array|null|string
+     * @return array|null|string Response from Server
      */
     public function jsonRequest($url = '', $data = [], $timeout = 60)
     {
@@ -964,18 +1122,18 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
 
         return $result;
     }
-    /******************************** Utils ********************************/
+    /******************************** Utils Function ********************************/
     /**
      * Function xmlGetValue
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:57
      *
-     * @param string $xml
-     * @param string $openTag
-     * @param string $closeTag
+     * @param string $xml      XML String
+     * @param string $openTag  OpenTag to find
+     * @param string $closeTag CloseTag to find
      *
-     * @return bool|string
+     * @return bool|string  Result from Tag, Empty string if not
      */
     public function xmlGetValue($xml = '', $openTag = '', $closeTag = '')
     {
@@ -994,7 +1152,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:57
      *
-     * @param string $resultXml
+     * @param string $resultXml XML String to Parse
      *
      * @return false|string
      */

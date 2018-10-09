@@ -17,7 +17,7 @@ $debug                    = [
     'debugStatus'     => TRUE,
     'debugLoggerPath' => testLogPath()
 ];
-$url                      = 'http://vcms.gviet.vn/api/v1/shared-content/vietlott.html';
+$url                      = 'https://httpbin.org/';
 $data                     = [
     'date'    => date('Y-m-d'),
     'service' => 'ME',
@@ -33,8 +33,14 @@ $request->__construct();
 $request->setHeader($headers);
 $request->setOptions($options);
 
-//$pyRequest = $request->pyRequest($url, $data, $method);
-//var_dump($pyRequest);
+$pyRequest = $request->pyRequest($url, $data, $method);
+d($pyRequest);
+
+$guzzlePhpRequest = $request->guzzlePhpRequest($url, $data, $method);
+d($guzzlePhpRequest);
 
 $curlRequest = $request->curlRequest($url, $data, $method);
 d($curlRequest);
+
+$sendRequest = $request->sendRequest($url, $data, $method);
+d($sendRequest);

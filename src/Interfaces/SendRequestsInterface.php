@@ -8,8 +8,13 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
-
-
+/**
+ * Interface SendRequestsInterface
+ *
+ * @package    nguyenanhung\MyRequests\Interfaces
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 interface SendRequestsInterface
 {
     /**
@@ -138,7 +143,7 @@ interface SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:04
      *
-     * @param bool $errorResponseIsData
+     * @param bool $errorResponseIsData Array Data if Response is Null if Error
      *
      * @return mixed
      */
@@ -150,7 +155,7 @@ interface SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:04
      *
-     * @param bool $errorResponseIsNull
+     * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
      * @return mixed
      */
@@ -162,10 +167,8 @@ interface SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:53
      *
-     * @param string $username
-     * @param string $password
-     *
-     * @return mixed
+     * @param string $username Username to be Authentication
+     * @param string $password Password to be Authentication
      */
     public function setBasicAuthentication($username = '', $password = '');
 
@@ -175,10 +178,8 @@ interface SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 06:53
      *
-     * @param string $username
-     * @param string $password
-     *
-     * @return mixed
+     * @param string $username Username to be Authentication
+     * @param string $password Password to be Authentication
      */
     public function setDigestAuthentication($username = '', $password = '');
 
@@ -262,71 +263,79 @@ interface SendRequestsInterface
 
     /**
      * Function curlRequest
+     * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:54
+     * @time  : 10/7/18 05:54
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
      *
-     * @return mixed
+     * @return array|null|string Response content from server,
+     *                           null of Exception Message if Error
+     * @see   https://packagist.org/packages/curl/curl
      */
     public function curlRequest($url = '', $data = [], $method = 'GET');
-
+    /******************************** Handle Send Request ********************************/
     /**
      * Function sendRequest
+     * Handle send Request use Multi Method
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:14
+     * @time  : 10/7/18 07:07
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
      *
-     * @return mixed
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
+     *
+     * @return array|null|\Requests_Response|string Response content from server
+     *                                              null of Exception Message if Error
      */
     public function sendRequest($url = '', $data = [], $method = 'GET');
 
     /**
      * Function xmlRequest
+     * Send XML Request to Server
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:14
+     * @time  : 10/7/18 07:11
      *
-     * @param string $url
-     * @param array  $data
-     * @param int    $timeout
+     * @param string $url     URL Endpoint to be Request
+     * @param string $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
-     * @return mixed
+     * @return array|null|string Response from Server
      */
-    public function xmlRequest($url = '', $data = [], $timeout = 60);
+    public function xmlRequest($url = '', $data = '', $timeout = 60);
 
     /**
      * Function jsonRequest
+     * Send JSON Request to Server
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 07:13
      *
-     * @param string $url
-     * @param array  $data
-     * @param int    $timeout
+     * @param string $url     URL Endpoint to be Request
+     * @param array  $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
-     * @return mixed
+     * @return array|null|string Response from Server
      */
     public function jsonRequest($url = '', $data = [], $timeout = 60);
-
+    /******************************** Utils Function ********************************/
     /**
      * Function xmlGetValue
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:58
+     * @time  : 10/7/18 06:57
      *
-     * @param string $xml
-     * @param string $openTag
-     * @param string $closeTag
+     * @param string $xml      XML String
+     * @param string $openTag  OpenTag to find
+     * @param string $closeTag CloseTag to find
      *
-     * @return mixed
+     * @return bool|string  Result from Tag, Empty string if not
      */
     public function xmlGetValue($xml = '', $openTag = '', $closeTag = '');
 
@@ -334,11 +343,11 @@ interface SendRequestsInterface
      * Function parseXmlDataRequest
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:58
+     * @time  : 10/7/18 06:57
      *
-     * @param string $resultXml
+     * @param string $resultXml XML String to Parse
      *
-     * @return mixed
+     * @return false|string
      */
     public function parseXmlDataRequest($resultXml = '');
 }

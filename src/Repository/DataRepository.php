@@ -14,6 +14,13 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
 
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
+/**
+ * Class DataRepository
+ *
+ * @package    nguyenanhung\MyRequests\Repository
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 class DataRepository implements ProjectInterface
 {
     const CONFIG_PATH = 'config';
@@ -38,9 +45,9 @@ class DataRepository implements ProjectInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:07
      *
-     * @param $configName
+     * @param $configName config file from folder config
      *
-     * @return array|mixed
+     * @return array|mixed Data content from config file
      */
     public static function getData($configName)
     {
