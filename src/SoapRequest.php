@@ -54,10 +54,11 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function getVersion
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:24
+     * @author  : 713uk13m <dev@nguyenanhung.com>
+     * @time    : 10/7/18 02:24
      *
-     * @return mixed|string
+     * @return mixed|string Current Project Version
+     * @example string 0.1.3
      */
     public function getVersion()
     {
@@ -70,7 +71,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:26
      *
-     * @param string $endpoint
+     * @param string $endpoint Link to Url Endpoint
      */
     public function setEndpoint($endpoint = '')
     {
@@ -84,7 +85,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:26
      *
-     * @param array $data
+     * @param array $data Data to SOAP Request, call
      */
     public function setData($data = [])
     {
@@ -98,7 +99,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:36
      *
-     * @param string $callFunction
+     * @param string $callFunction Require Set Function to call SOAP endpoint
      */
     public function setCallFunction($callFunction = '')
     {
@@ -114,7 +115,8 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:37
      *
-     * @param string $fieldResult
+     * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
+     *                            from Response SOAP Service
      */
     public function setFieldResult($fieldResult = '')
     {
@@ -131,7 +133,8 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @param string $responseIsJson
      *
-     * @return mixed|void
+     * @return mixed|void if set value = TRUE, response is Json string
+     * @see   clientRequestWsdl() method
      */
     public function setResponseIsJson($responseIsJson = '')
     {
@@ -145,13 +148,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:41
      *
-     * @return array|null|string
+     * @return array|null|string Call to SOAP request and received Response from Server
+     *                           Return is Json String if set setResponseIsJson(true)
+     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists
      */
     public function clientRequestWsdl()
     {
         $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
-            $this->debug->critical(__FUNCTION__, 'nusoap_client is unavailable, class is not exists');
+            $this->debug->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
             return NULL;
         }

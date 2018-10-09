@@ -1,6 +1,6 @@
 <?php
 /**
- * Project td-vas-report.
+ * Project requests
  * Created by PhpStorm.
  * User: 713uk13m <dev@nguyenanhung.com>
  * Date: 10/4/18
@@ -8,11 +8,16 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
-
-
+/**
+ * Interface ProjectInterface
+ *
+ * @package    nguyenanhung\MyRequests\Interfaces
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 interface ProjectInterface
 {
-    const VERSION         = '0.1.3.3';
+    const VERSION         = '0.1.3.4';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
@@ -33,7 +38,7 @@ interface ProjectInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:05
      *
-     * @return mixed
+     * @return mixed Current Project Version
      */
     public function getVersion();
 }
