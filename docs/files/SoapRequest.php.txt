@@ -50,7 +50,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     private $responseIsJson;
     /**
-     * @var  \nguyenanhung\MyDebug\Debug Call to class
+     * @var  object\nguyenanhung\MyDebug\Debug Call to class
      */
     private $debug;
     /**
@@ -60,6 +60,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public $debugStatus = FALSE;
 
+    /**
+     * @var null Set level Debug: DEBUG, INFO, ERROR ....
+     */
+    public $debugLevel = NULL;
     /**
      * Set Logger Path to Save
      *
@@ -84,13 +88,22 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $this->debugStatus = FALSE;
         }
         $this->debug->setDebugStatus($this->debugStatus);
+        $this->debug->setGlobalLoggerLevel($this->debugLevel);
         $this->debug->setLoggerPath($this->debugLoggerPath);
         $this->debug->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        $this->debug->debug(__FUNCTION__, '/------------------------------------> SOAP Requests <------------------------------------\\');
+        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - SOAP Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
+    }
+
+    /**
+     * SoapRequest destructor.
+     */
+    public function __destruct()
+    {
+        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - SOAP Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**

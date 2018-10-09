@@ -30,7 +30,7 @@ use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
 class GetContents implements ProjectInterface, GetContentsInterface
 {
     /**
-     * @var  \nguyenanhung\MyDebug\Debug Call to class
+     * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
     private $debug;
 
@@ -40,6 +40,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @var bool
      */
     public $debugStatus = FALSE;
+
+    /**
+     * @var null Set level Debug: DEBUG, INFO, ERROR ....
+     */
+    public $debugLevel = NULL;
 
     /**
      * Set Logger Path to Save
@@ -185,13 +190,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->debugStatus = FALSE;
         }
         $this->debug->setDebugStatus($this->debugStatus);
+        $this->debug->setGlobalLoggerLevel($this->debugLevel);
         $this->debug->setLoggerPath($this->debugLoggerPath);
         $this->debug->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        $this->debug->debug(__FUNCTION__, '/------------------------------------> File Get Contents Requests <------------------------------------\\');
+        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - File Get Contents Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
         if ($url) {
             /**
              * If $url is not Empty, call method setURL
@@ -201,6 +207,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
         $this->setMethod($method);
         $this->setData($data);
         $this->setHeaders($headers);
+    }
+
+    /**
+     * GetContents destructor.
+     */
+    public function __destruct()
+    {
+        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - File Get Contents Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**

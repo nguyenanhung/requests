@@ -165,7 +165,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     private $http_message;
 
     /**
-     * @var  \nguyenanhung\MyDebug\Debug Call to class
+     * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
     private $debug;
 
@@ -175,6 +175,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @var bool
      */
     public $debugStatus = FALSE;
+
+    /**
+     * @var null Set level Debug: DEBUG, INFO, ERROR ....
+     */
+    public $debugLevel = NULL;
 
     /**
      * Set Logger Path to Save
@@ -200,13 +205,22 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->debugStatus = FALSE;
         }
         $this->debug->setDebugStatus($this->debugStatus);
+        $this->debug->setGlobalLoggerLevel($this->debugLevel);
         $this->debug->setLoggerPath($this->debugLoggerPath);
         $this->debug->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        $this->debug->debug(__FUNCTION__, '/------------------------------------> Send Requests <------------------------------------\\');
+        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - My Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
+    }
+
+    /**
+     * MyRequests destructor.
+     */
+    public function __destruct()
+    {
+        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - My Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**
