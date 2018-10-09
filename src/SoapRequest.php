@@ -124,6 +124,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
      *                            from Response SOAP Service
+     *                            Return Error Code if not find $fieldResult from Response
      */
     public function setFieldResult($fieldResult = '')
     {
