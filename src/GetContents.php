@@ -20,20 +20,44 @@ use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
 
+/**
+ * Class GetContents
+ *
+ * @package    nguyenanhung\MyRequests
+ * @author     713uk13m <dev@nguyenanhung.com>
+ * @copyright  713uk13m <dev@nguyenanhung.com>
+ */
 class GetContents implements ProjectInterface, GetContentsInterface
 {
+    /**
+     * @var  \nguyenanhung\MyDebug\Debug Call to class
+     */
     private $debug;
-    public  $debugStatus     = FALSE;
-    public  $debugLoggerPath = NULL;
-    public  $debugLoggerFilename;
+
+    /**
+     * @var bool
+     */
+    public $debugStatus = FALSE;
+
+    /**
+     * @var null|string
+     */
+    public $debugLoggerPath = NULL;
+
+    /**
+     * @var string
+     */
+    public $debugLoggerFilename;
+
     /**
      * Response from Request
      *
      * @var array
      */
     private $response;
+
     /**
-     * The base URL to be the target of the Web request
+     * The base URL to be the target of the Request
      *
      * @var string
      */
@@ -126,7 +150,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @var integer
      */
-    private $webTimeout = 60;
+    private $timeout = 60;
 
     /**
      * Internal flag to track if the request is in SSL or not.
@@ -138,13 +162,18 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * GetContents constructor.
      *
-     * @param string $url
-     * @param string $method
-     * @param array  $data
-     * @param array  $headers
+     * @param string $url     Url Endpoint
+     * @param string $method  The method to use - GET, POST, PUT, DELETE
+     * @param array  $data    An array of data to be added to the request.'
+     *                        Where the method is POST these are sent as a form body,
+     *                        otherwise - they are added as a query string
+     * @param array  $headers An array of headers to be added to the request
      */
     public function __construct($url = '', $method = 'GET', $data = [], $headers = [])
     {
+        /**
+         * Call to class Debug
+         */
         $this->debug = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
@@ -158,6 +187,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
         $this->debug->debug(__FUNCTION__, '/------------------------------------> File Get Contents Requests <------------------------------------\\');
         if ($url) {
+            /**
+             * If $url is not Empty, call method setURL
+             */
             $this->setURL($url);
         }
         $this->setMethod($method);
@@ -171,7 +203,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:46
      *
-     * @return mixed|string
+     * @return mixed|string Current Project version
      */
     public function getVersion()
     {
@@ -179,12 +211,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Function getContent
+     * Function getContent - Get Body Content from Request
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:08
      *
-     * @return array|mixed|string
+     * @return array|mixed|string Return Response content if exists
+     *                            Full Response content if $this->response['content'] not exists
+     *                            Exception Error Message if Exception Error
+     *                            Null if Not
      */
     public function getContent()
     {
@@ -198,7 +233,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
         }
         catch (Exception $e) {
-            return "Error: " . __CLASS__ . ": Missing Response - " . $e->getLine() . ': ' . $e->getMessage();
+            $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $message);
+
+            return $message;
         }
 
         return NULL;
@@ -208,16 +246,29 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * Function getError - Get Error Code and Message
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:54
+     * @time  : 10/9/18 09:33
      *
-     * @return mixed|null
+     * @return array|mixed|string Return Response error if exists
+     *                            Full Response if $this->response['error'] not exists
+     *                            Exception Error Message if Exception Error
+     *                            Null if Not
      */
     public function getError()
     {
-        if ($this->response) {
-            if (isset($this->response['error'])) {
-                return $this->response['error'];
+        try {
+            if ($this->response) {
+                if (isset($this->response['error'])) {
+                    return $this->response['error'];
+                } else {
+                    return $this->response;
+                }
             }
+        }
+        catch (Exception $e) {
+            $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $message);
+
+            return $message;
         }
 
         return NULL;
@@ -229,7 +280,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:50
      *
-     * @return array|null
+     * @return array|null Array if Exists, Null if Not Response
      */
     public function response()
     {
@@ -246,7 +297,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:12
      *
-     * @return array|null|string
+     * @return array|null|string Response from Request if Exists
+     *                           Exception Error Message if Exception Error
+     *                           Null if Not
      */
     public function sendRequest()
     {
@@ -259,9 +312,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
         }
         catch (Exception $e) {
-            $msg = "Error: " . __CLASS__ . ": Please make sure to set a URL to fetch - Line: " . $e->getLine() . ' - Msg: ' . $e->getMessage();
+            $message = "Error: " . __CLASS__ . ": Please make sure to set a URL to fetch - Line: " . $e->getLine() . ' - Msg: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $message);
 
-            return $msg;
+            return $message;
         }
 
         return NULL;
@@ -269,7 +323,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
 
     /**
      * Function useFileGetContents
-     * Use file_get_contents to perform the web request
+     * Use file_get_contents to perform the request
      *
      * @return array The server response array
      *
@@ -282,7 +336,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         $options = [
             'http' => [
                 'method'  => $this->method,
-                'timeout' => $this->webTimeout
+                'timeout' => $this->timeout
             ]
         ];
 
@@ -309,7 +363,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         $context      = stream_context_create($options);
         $query_string = $this->getQueryString();
-
+        $this->debug->debug(__FUNCTION__, 'Options into Request: ', $options);
+        $this->debug->debug(__FUNCTION__, 'Data Query String into Request: ', $query_string);
+        $this->debug->debug(__FUNCTION__, 'Endpoint URL into Request: ', $this->url);
         try {
             $response          = file_get_contents($this->url . $query_string, FALSE, $context);
             $responseHeaders   = $http_response_header;
@@ -321,6 +377,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     $responseJson = json_decode(trim($return['content']));
                     if (json_last_error() == JSON_ERROR_NONE) {
                         $return['content'] = $responseJson;
+                        $this->debug->debug(__FUNCTION__, 'Set Response is Json: ', $return['content']);
                     }
                 }
             }
@@ -332,6 +389,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 'message'  => 'Could not file_get_contents.',
                 'extended' => $e
             ];
+            $this->debug->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
         }
 
         if (isset($return['headers']['reponse_code'])) {
@@ -341,6 +399,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     'code'    => $return['headers']['reponse_code'],
                     'message' => 'Server returned an error.'
                 ];
+                $this->debug->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
             }
         }
 
@@ -357,6 +416,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->cookies = $cookies;
         }
         $return['cookies'] = $cookies;
+        $this->debug->info(__FUNCTION__, 'Final Result from Server: ', $return);
 
         return $return;
     }
@@ -374,14 +434,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
     public function getHeaderArray()
     {
         $headerArray = (count($this->headers) > 0 ? $this->headers : []);
-
         if ($this->isJson) {
             $headerArray[] = 'Accept: application/json';
         }
         if ($this->isXML) {
             $headerArray[] = 'Accept: text/xml';
         }
-
         if ($this->method == 'POST' && count($this->data) > 0 && $this->isJson) {
             $headerArray[] = 'Content-type: application/json';
         } elseif ($this->method == 'POST' && count($this->data) > 0 && $this->isXML) {
@@ -409,7 +467,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:19
      *
-     * @return array|false|string
+     * @return array|false|string Data to be sent Request
      */
     public function getPostBody()
     {
@@ -472,17 +530,22 @@ class GetContents implements ProjectInterface, GetContentsInterface
             if (mb_strlen($url) > 0) {
                 if (substr($url, 0, 8) == 'https://') {
                     $this->isSSL = TRUE;
+                    $this->debug->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 } elseif (substr($url, 0, 7) == 'http://') {
                     $this->isSSL = TRUE;
+                    $this->debug->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
             }
             $this->url = $url;
         }
         catch (Exception $e) {
             $this->url = NULL;
+            $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $message);
 
-            return "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https://";
+            return $message;
         }
+        $this->debug->debug(__FUNCTION__, 'Endpoint URL to Request: ', $this->url);
 
         return $this;
     }
@@ -494,13 +557,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:15
      *
-     * @param string $method
+     * @param string $method Method to Request GET, HEAD, PUT, POST are valid
      *
-     * @return $this|string
+     * @return $this|string Method
      */
     public function setMethod($method = '')
     {
         if (mb_strlen($method) == 0) {
+            $this->debug->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
             $method = 'GET';
         } else {
             $method       = strtoupper($method);
@@ -512,7 +576,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 'DELETE'
             ];
             if (!in_array($method, $validMethods)) {
-                return "Error: " . __CLASS__ . ": The requested method (${method}) is not valid here";
+                $message = "Error: " . __CLASS__ . ": The requested method (${method}) is not valid here";
+                $this->debug->error(__FUNCTION__, $message);
+
+                return $message;
             }
         }
         $this->method = $method;
@@ -524,21 +591,22 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * Set Data contents
      * Must be supplied as an array
      *
-     * @param array $post The contents to be sent to the target URL
+     * @param array $data The contents to be sent to the target URL
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:18
      */
-    public function setData($post = [])
+    public function setData($data = [])
     {
-        if (!is_array($post) && is_string($post)) {
-            $post = parse_str($post);
+        if (!is_array($data) && is_string($data)) {
+            $data = parse_str($data);
         }
-        if (count($post) == 0) {
+        if (count($data) == 0) {
             $this->data = [];
         } else {
-            $this->data = $post;
+            $this->data = $data;
         }
+        $this->debug->debug(__FUNCTION__, 'Data into Request: ', $this->data);
     }
 
     /**
@@ -686,16 +754,18 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Function setWebTimeout
+     * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
+     * @author  : 713uk13m <dev@nguyenanhung.com>
+     * @time    : 10/7/18 02:17
      *
-     * @param int $webTimeout
+     * @param int $timeout
+     *
+     * @example 60
      */
-    public function setWebTimeout($webTimeout = 20)
+    public function setTimeout($timeout = 20)
     {
-        $this->webTimeout = $webTimeout;
+        $this->timeout = $timeout;
     }
 
     /**
@@ -704,9 +774,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:17
      *
-     * @param $headers
+     * @param array $headers
      *
-     * @return array
+     * @return array Header Response
      */
     public function parseReturnHeaders($headers)
     {
@@ -722,6 +792,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 }
             }
         }
+        $this->debug->debug(__FUNCTION__, 'Response Header: ', $head);
 
         return $head;
     }
