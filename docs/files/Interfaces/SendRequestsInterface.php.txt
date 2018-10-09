@@ -351,3 +351,4 @@ interface SendRequestsInterface
      */
     public function parseXmlDataRequest($resultXml = '');
 }
+
