@@ -35,16 +35,22 @@ class GetContents implements ProjectInterface, GetContentsInterface
     private $debug;
 
     /**
+     * Set Debug Status
+     *
      * @var bool
      */
     public $debugStatus = FALSE;
 
     /**
+     * Set Logger Path to Save
+     *
      * @var null|string
      */
     public $debugLoggerPath = NULL;
 
     /**
+     * Set Logger Filename to Save
+     *
      * @var string
      */
     public $debugLoggerFilename;
@@ -146,7 +152,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     private $verifyPeer = TRUE;
 
     /**
-     * How long to wait for a server to respond to a web request.
+     * How long to wait for a server to respond to a  request.
      *
      * @var integer
      */
