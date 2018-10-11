@@ -836,12 +836,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 }
                 if (is_array($this->headers) && count($this->headers) > 0) {
                     foreach ($this->headers as $key => $value) {
-                        $curl->setCookie($key, $value);
+                        $curl->setHeader($key, $value);
                     }
                 }
                 if (is_array($this->cookies) && count($this->cookies) > 0) {
                     foreach ($this->cookies as $key => $value) {
-                        $curl->setHeader($key, $value);
+                        $curl->setCookie($key, $value);
                     }
                 }
                 if ($this->basicAuthentication) {
