@@ -33,6 +33,9 @@
         "nguyenanhung/nusoap": "^0.9.5",
         "nguyenanhung/my-debug": "^0.1"
     },
+    "require-dev": {
+        "kint-php/kint": "^3.0"
+    },
     "autoload": {
         "psr-4": {
             "nguyenanhung\\MyRequests\\": "src/"
