@@ -17,8 +17,8 @@ namespace nguyenanhung\MyRequests\Interfaces;
  */
 interface ProjectInterface
 {
-    const VERSION         = '0.1.3.6';
-    const LAST_MODIFIED   = '2018-10-11';
+    const VERSION         = '0.1.3.7';
+    const LAST_MODIFIED   = '2018-10-13';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
