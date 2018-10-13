@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
+
 /**
  * Interface ProjectInterface
  *
@@ -17,7 +18,7 @@ namespace nguyenanhung\MyRequests\Interfaces;
  */
 interface ProjectInterface
 {
-    const VERSION         = '0.1.3.7';
+    const VERSION         = '0.1.3.8';
     const LAST_MODIFIED   = '2018-10-13';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
@@ -32,6 +33,7 @@ interface ProjectInterface
     const MAX_REDIRECT    = 10;
     const RETURN_TRANSFER = 1;
     const FOLLOW_LOCATION = TRUE;
+    const USE_BENCHMARK   = TRUE;
 
     /**
      * Function getVersion

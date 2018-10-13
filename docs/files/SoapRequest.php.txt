@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests;
+
 if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
     include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
 }
@@ -16,6 +17,7 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\SoapRequestInterface')
 }
 
 use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\SoapRequestInterface;
@@ -50,7 +52,11 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     private $responseIsJson;
     /**
-     * @var  object\nguyenanhung\MyDebug\Debug Call to class
+     * @var object \nguyenanhung\MyDebug\Benchmark
+     */
+    private $benchmark;
+    /**
+     * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
     private $debug;
     /**
@@ -83,6 +89,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function __construct()
     {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark = new Benchmark();
+            $this->benchmark->mark('code_start');
+        }
         $this->debug = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
@@ -103,6 +113,11 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function __destruct()
     {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark->mark('code_end');
+            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+        }
         $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - SOAP Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
@@ -206,7 +221,8 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @return array|null|string Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
-     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists
+     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
+     *                           exists
      */
     public function clientRequestWsdl()
     {

@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests;
+
 if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
     include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
 }
@@ -17,6 +18,7 @@ if (!interface_exists('nguyenanhung\MyRequests\Interfaces\GetContentsInterface')
 
 use \Exception;
 use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
 
@@ -29,6 +31,10 @@ use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
  */
 class GetContents implements ProjectInterface, GetContentsInterface
 {
+    /**
+     * @var object \nguyenanhung\MyDebug\Benchmark
+     */
+    private $benchmark;
     /**
      * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
@@ -182,6 +188,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
      */
     public function __construct($url = '', $method = 'GET', $data = [], $headers = [])
     {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark = new Benchmark();
+            $this->benchmark->mark('code_start');
+        }
         /**
          * Call to class Debug
          */
@@ -214,6 +224,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
      */
     public function __destruct()
     {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark->mark('code_end');
+            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+        }
         $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - File Get Contents Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 

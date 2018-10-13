@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1878431093"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-142600713"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1878431093" class="accordion-body collapse in">
+            <div id="namespace-142600713" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-128279053"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1260587385"></a>
                                 <a href="../namespaces/nguyenanhung.html" style="margin-left: 30px; padding-left: 0">nguyenanhung</a>
             </div>
-            <div id="namespace-128279053" class="accordion-body collapse ">
+            <div id="namespace-1260587385" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-498686859"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-496448616"></a>
                                 <a href="../namespaces/nguyenanhung.MyRequests.html" style="margin-left: 30px; padding-left: 0">MyRequests</a>
             </div>
-            <div id="namespace-498686859" class="accordion-body collapse ">
+            <div id="namespace-496448616" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-661254314"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-828555580"></a>
                                 <a href="../namespaces/nguyenanhung.MyRequests.Interfaces.html" style="margin-left: 30px; padding-left: 0">Interfaces</a>
             </div>
-            <div id="namespace-661254314" class="accordion-body collapse ">
+            <div id="namespace-828555580" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -192,10 +192,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1247922512"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1222366114"></a>
                                 <a href="../namespaces/nguyenanhung.MyRequests.Repository.html" style="margin-left: 30px; padding-left: 0">Repository</a>
             </div>
-            <div id="namespace-1247922512" class="accordion-body collapse ">
+            <div id="namespace-1222366114" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -306,6 +306,7 @@
                                                                     <a href="../classes/nguyenanhung.MyRequests.SoapRequest.html#property_callFunction" class="">$callFunction</a><br />
                                                                     <a href="../classes/nguyenanhung.MyRequests.SoapRequest.html#property_fieldResult" class="">$fieldResult</a><br />
                                                                     <a href="../classes/nguyenanhung.MyRequests.SoapRequest.html#property_responseIsJson" class="">$responseIsJson</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.SoapRequest.html#property_benchmark" class="">$benchmark</a><br />
                                                                     <a href="../classes/nguyenanhung.MyRequests.SoapRequest.html#property_debug" class="">$debug</a><br />
                                                             </section>
                             <section class="span4">
@@ -584,16 +585,40 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="property_debug" name="property_debug" class="anchor"></a>
+            <a id="property_benchmark" name="property_benchmark" class="anchor"></a>
             <article class="property">
-                <h3 class="private ">$debug</h3>
-                <pre class="signature">$debug : \nguyenanhung\MyRequests\object\nguyenanhung\MyDebug\Debug</pre>
+                <h3 class="private ">$benchmark</h3>
+                <pre class="signature">$benchmark : object</pre>
                 <p><em></em></p>
                 
 
                                 <h4>Type</h4>
-                \nguyenanhung\MyRequests\object\nguyenanhung\MyDebug\Debug
-                &mdash; Call to class                            </article>
+                object
+                &mdash; \nguyenanhung\MyDebug\Benchmark                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debug" name="property_debug" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$debug</h3>
+                <pre class="signature">$debug : object</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                object
+                &mdash; \nguyenanhung\MyDebug\Debug Call to class                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -983,7 +1008,8 @@ Return Response is Json if value = true</em></p>
                     array|null|string
                                             &mdash; <p>Call to SOAP request and received Response from Server
 Return is Json String if set setResponseIsJson(true)
-Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists</p>
+Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
+exists</p>
                                     				
                             </article>
         </div>
@@ -1063,7 +1089,7 @@ Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class i
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 12th, 2018 at 19:00.
+                    on October 13th, 2018 at 05:02.
                 </section>
             </section>
         </section>
