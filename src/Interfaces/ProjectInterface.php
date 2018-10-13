@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
+
 /**
  * Interface ProjectInterface
  *
@@ -32,6 +33,7 @@ interface ProjectInterface
     const MAX_REDIRECT    = 10;
     const RETURN_TRANSFER = 1;
     const FOLLOW_LOCATION = TRUE;
+    const USE_BENCHMARK   = TRUE;
 
     /**
      * Function getVersion
