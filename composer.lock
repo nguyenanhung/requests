@@ -458,16 +458,16 @@
         },
         {
             "name": "nguyenanhung/my-debug",
-            "version": "v0.1.2.3",
+            "version": "v0.1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nguyenanhung/my-debug.git",
-                "reference": "9e04b8a42fc8c9e68ac95d7b2b0c1230919b85d9"
+                "reference": "1a08a846dc8a036b16a5105621fb4481e03b815e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nguyenanhung/my-debug/zipball/9e04b8a42fc8c9e68ac95d7b2b0c1230919b85d9",
-                "reference": "9e04b8a42fc8c9e68ac95d7b2b0c1230919b85d9",
+                "url": "https://api.github.com/repos/nguyenanhung/my-debug/zipball/1a08a846dc8a036b16a5105621fb4481e03b815e",
+                "reference": "1a08a846dc8a036b16a5105621fb4481e03b815e",
                 "shasum": ""
             },
             "require": {
@@ -508,7 +508,7 @@
                 "log",
                 "logger"
             ],
-            "time": "2018-10-12T18:40:46+00:00"
+            "time": "2018-10-13T04:35:28+00:00"
         },
         {
             "name": "nguyenanhung/nusoap",
