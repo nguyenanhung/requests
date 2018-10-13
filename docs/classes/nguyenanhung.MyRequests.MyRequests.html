@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/nguyenanhung.html">\nguyenanhung</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1904912026"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1904912026" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-169443461"></a>
+                                <a href="../namespaces/nguyenanhung.html" style="margin-left: 30px; padding-left: 0">nguyenanhung</a>
+            </div>
+            <div id="namespace-169443461" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1766329062"></a>
+                                <a href="../namespaces/nguyenanhung.MyRequests.html" style="margin-left: 30px; padding-left: 0">MyRequests</a>
+            </div>
+            <div id="namespace-1766329062" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-227338837"></a>
+                                <a href="../namespaces/nguyenanhung.MyRequests.Interfaces.html" style="margin-left: 30px; padding-left: 0">Interfaces</a>
+            </div>
+            <div id="namespace-227338837" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/nguyenanhung.MyRequests.Interfaces.GetContentsInterface.html">GetContentsInterface</a></li>
+                                                    <li class="interface"><a href="../classes/nguyenanhung.MyRequests.Interfaces.ProjectInterface.html">ProjectInterface</a></li>
+                                                    <li class="interface"><a href="../classes/nguyenanhung.MyRequests.Interfaces.SendRequestsInterface.html">SendRequestsInterface</a></li>
+                                                    <li class="interface"><a href="../classes/nguyenanhung.MyRequests.Interfaces.SoapRequestInterface.html">SoapRequestInterface</a></li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1897799780"></a>
+                                <a href="../namespaces/nguyenanhung.MyRequests.Repository.html" style="margin-left: 30px; padding-left: 0">Repository</a>
+            </div>
+            <div id="namespace-1897799780" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/nguyenanhung.MyRequests.Repository.DataRepository.html">DataRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/nguyenanhung.MyRequests.GetContents.html">GetContents</a></li>
+                                                    <li class="class"><a href="../classes/nguyenanhung.MyRequests.MyRequests.html">MyRequests</a></li>
+                                                    <li class="class"><a href="../classes/nguyenanhung.MyRequests.SoapRequest.html">SoapRequest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/nguyenanhung.MyRequests.html">\nguyenanhung\MyRequests</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\nguyenanhung\MyRequests</small>MyRequests</h1>
+                    <p><em>Class MyRequests</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getVersion" class="">getVersion()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setHeader" class="">setHeader()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setCookie" class="">setCookie()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setOptions" class="">setOptions()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setTimeout" class="">setTimeout()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setUserAgent" class="">setUserAgent()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setReferrer" class="">setReferrer()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setUserBody" class="">setUserBody()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setRequestIsXml" class="">setRequestIsXml()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setRequestIsJson" class="">setRequestIsJson()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setRequestIsSSL" class="">setRequestIsSSL()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setErrorResponseIsData" class="">setErrorResponseIsData()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setErrorResponseIsNull" class="">setErrorResponseIsNull()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setBasicAuthentication" class="">setBasicAuthentication()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_setDigestAuthentication" class="">setDigestAuthentication()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getHttpCode" class="">getHttpCode()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getHttpMessage" class="">getHttpMessage()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getErrorCode" class="">getErrorCode()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getRequestsHeader" class="">getRequestsHeader()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_getResponseHeader" class="">getResponseHeader()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_pyRequest" class="">pyRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_guzzlePhpRequest" class="">guzzlePhpRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_curlRequest" class="">curlRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_sendRequest" class="">sendRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_xmlRequest" class="">xmlRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_jsonRequest" class="">jsonRequest()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_xmlGetValue" class="">xmlGetValue()</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#method_parseXmlDataRequest" class="">parseXmlDataRequest()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_debugStatus" class="">$debugStatus</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_debugLevel" class="">$debugLevel</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_debugLoggerPath" class="">$debugLoggerPath</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_debugLoggerFilename" class="">$debugLoggerFilename</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_headers" class="">$headers</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_cookies" class="">$cookies</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_options" class="">$options</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_timeout" class="">$timeout</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_userAgent" class="">$userAgent</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_referrer" class="">$referrer</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_basicAuthentication" class="">$basicAuthentication</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_digestAuthentication" class="">$digestAuthentication</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_isBody" class="">$isBody</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_isJson" class="">$isJson</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_isXml" class="">$isXml</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_isSSL" class="">$isSSL</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_errorResponseIsData" class="">$errorResponseIsData</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_errorResponseIsNull" class="">$errorResponseIsNull</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_error_code" class="">$error_code</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_requests_header" class="">$requests_header</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_response_header" class="">$response_header</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_http_code" class="">$http_code</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_http_message" class="">$http_message</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_benchmark" class="">$benchmark</a><br />
+                                                                    <a href="../classes/nguyenanhung.MyRequests.MyRequests.html#property_debug" class="">$debug</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/MyRequests.html"><div class="path-wrapper">MyRequests.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">nguyenanhung\MyRequests</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\nguyenanhung\MyRequests\MyRequests</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href="../classes/nguyenanhung.MyRequests.Interfaces.ProjectInterface.html"><div class="namespace-wrapper">\nguyenanhung\MyRequests\Interfaces\ProjectInterface</div></a></dd>
+                                                                                <dd><a href="../classes/nguyenanhung.MyRequests.Interfaces.SendRequestsInterface.html"><div class="namespace-wrapper">\nguyenanhung\MyRequests\Interfaces\SendRequestsInterface</div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debugStatus" name="property_debugStatus" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$debugStatus</h3>
+                <pre class="signature">$debugStatus : boolean</pre>
+                <p><em>Set Debug Status</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debugLevel" name="property_debugLevel" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$debugLevel</h3>
+                <pre class="signature">$debugLevel : null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                null
+                &mdash; Set level Debug: DEBUG, INFO, ERROR ....                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debugLoggerPath" name="property_debugLoggerPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$debugLoggerPath</h3>
+                <pre class="signature">$debugLoggerPath : null|string</pre>
+                <p><em>Set Logger Path to Save</em></p>
+                
+
+                                <h4>Type</h4>
+                null|string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debugLoggerFilename" name="property_debugLoggerFilename" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$debugLoggerFilename</h3>
+                <pre class="signature">$debugLoggerFilename : string</pre>
+                <p><em>Set Logger Filename to Save</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_headers" name="property_headers" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$headers</h3>
+                <pre class="signature">$headers : array</pre>
+                <p><em>An array of headers to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cookies" name="property_cookies" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cookies</h3>
+                <pre class="signature">$cookies : array</pre>
+                <p><em>An array of cookies (which are added to the headers)</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_options" name="property_options" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$options</h3>
+                <pre class="signature">$options : array</pre>
+                <p><em>An array of options to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_timeout" name="property_timeout" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$timeout</h3>
+                <pre class="signature">$timeout : integer</pre>
+                <p><em>How long to wait for a server to respond to a  request.</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_userAgent" name="property_userAgent" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$userAgent</h3>
+                <pre class="signature">$userAgent : array|string</pre>
+                <p><em>An array of userAgent to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                array|string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_referrer" name="property_referrer" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$referrer</h3>
+                <pre class="signature">$referrer : string</pre>
+                <p><em>An URL String referrer to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_basicAuthentication" name="property_basicAuthentication" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$basicAuthentication</h3>
+                <pre class="signature">$basicAuthentication : array</pre>
+                <p><em>An array of basicAuthentication: username, password to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_digestAuthentication" name="property_digestAuthentication" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$digestAuthentication</h3>
+                <pre class="signature">$digestAuthentication : array</pre>
+                <p><em>An array of digestAuthentication: username, password to be added to the request</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_isBody" name="property_isBody" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$isBody</h3>
+                <pre class="signature">$isBody : boolean</pre>
+                <p><em>Set data request is Body</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_isJson" name="property_isJson" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$isJson</h3>
+                <pre class="signature">$isJson : boolean</pre>
+                <p><em>Set data request is Json</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_isXml" name="property_isXml" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$isXml</h3>
+                <pre class="signature">$isXml : boolean</pre>
+                <p><em>Set data request is XML</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_isSSL" name="property_isSSL" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$isSSL</h3>
+                <pre class="signature">$isSSL : boolean</pre>
+                <p><em>Set data request is SSL</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_errorResponseIsData" name="property_errorResponseIsData" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$errorResponseIsData</h3>
+                <pre class="signature">$errorResponseIsData : boolean</pre>
+                <p><em>Set Response Error is Array Data</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_errorResponseIsNull" name="property_errorResponseIsNull" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$errorResponseIsNull</h3>
+                <pre class="signature">$errorResponseIsNull : boolean</pre>
+                <p><em>Set Response Error is Null</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_error_code" name="property_error_code" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$error_code</h3>
+                <pre class="signature">$error_code : integer</pre>
+                <p><em>Error Code from Request</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_requests_header" name="property_requests_header" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$requests_header</h3>
+                <pre class="signature">$requests_header : array|null</pre>
+                <p><em>Request Header array if exists, Null if not</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_response_header" name="property_response_header" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$response_header</h3>
+                <pre class="signature">$response_header : array|null</pre>
+                <p><em>Response Header array if exists, Null if not</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_http_code" name="property_http_code" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$http_code</h3>
+                <pre class="signature">$http_code : integer</pre>
+                <p><em>Http Code from Request</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_http_message" name="property_http_message" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$http_message</h3>
+                <pre class="signature">$http_message : string|null</pre>
+                <p><em>Http Message from Request</em></p>
+                
+
+                                <h4>Type</h4>
+                string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_benchmark" name="property_benchmark" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$benchmark</h3>
+                <pre class="signature">$benchmark : object</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                object
+                &mdash; \nguyenanhung\MyDebug\Benchmark                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debug" name="property_debug" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$debug</h3>
+                <pre class="signature">$debug : object</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                object
+                &mdash; \nguyenanhung\MyDebug\Debug Call to class                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>MyRequests constructor.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct() </pre>
+                <p><em>MyRequests destructor.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getVersion" name="method_getVersion" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getVersion()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getVersion() : mixed|string</pre>
+                <p><em>Function getVersion</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string
+                                            &mdash; <p>Current Project version</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 01:46</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHeader" name="method_setHeader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHeader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHeader(array  <span class="argument">$headers = array()</span>) : mixed</pre>
+                <p><em>Function setHeaders</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$headers </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 04:04</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCookie" name="method_setCookie" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCookie()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCookie(array  <span class="argument">$cookies = array()</span>) : mixed</pre>
+                <p><em>Function setCookie</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$cookies </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:28</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setOptions" name="method_setOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setOptions(array  <span class="argument">$options = array()</span>) : mixed</pre>
+                <p><em>Function setOptions</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 04:04</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTimeout" name="method_setTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTimeout(integer  <span class="argument">$timeout = 60</span>) : mixed</pre>
+                <p><em>Function setTimeout</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$timeout </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 04:05</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserAgent" name="method_setUserAgent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserAgent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserAgent(string  <span class="argument">$userAgent = &#039;&#039;</span>) : mixed</pre>
+                <p><em>Function setUserAgent</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$userAgent </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:19</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setReferrer" name="method_setReferrer" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setReferrer()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setReferrer(string  <span class="argument">$referrer = &#039;&#039;</span>) : mixed</pre>
+                <p><em>Function setReferrer</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$referrer </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:26</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUserBody" name="method_setUserBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUserBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUserBody(boolean  <span class="argument">$isBody = FALSE</span>) : mixed</pre>
+                <p><em>Function setUserBody</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isBody </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 06:25</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestIsXml" name="method_setRequestIsXml" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestIsXml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestIsXml(boolean  <span class="argument">$isXml = FALSE</span>) : mixed</pre>
+                <p><em>Function setRequestIsXml</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isXml </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:17</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestIsJson" name="method_setRequestIsJson" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestIsJson()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestIsJson(boolean  <span class="argument">$isJson = FALSE</span>) : mixed</pre>
+                <p><em>Function setRequestIsJson</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isJson </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:17</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestIsSSL" name="method_setRequestIsSSL" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestIsSSL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestIsSSL(boolean  <span class="argument">$isSSL = FALSE</span>) : mixed|void</pre>
+                <p><em>Function setRequestIsSSL</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isSSL </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|void
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 20:03</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setErrorResponseIsData" name="method_setErrorResponseIsData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setErrorResponseIsData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setErrorResponseIsData(boolean  <span class="argument">$errorResponseIsData = FALSE</span>) : mixed</pre>
+                <p><em>Function setErrorResponseIsData
+= true -&gt; sẽ trả về 1 response đầy đủ error code, error message</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$errorResponseIsData </td>
+                                <td><p>Array Data if Response is Null if Error</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:02</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setErrorResponseIsNull" name="method_setErrorResponseIsNull" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setErrorResponseIsNull()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setErrorResponseIsNull(boolean  <span class="argument">$errorResponseIsNull = FALSE</span>) : mixed|void</pre>
+                <p><em>Function setErrorResponseIsNull
+Trả về null nếu có lỗi request</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$errorResponseIsNull </td>
+                                <td><p>TRUE if Response is Null if Error</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|void
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:04</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setBasicAuthentication" name="method_setBasicAuthentication" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setBasicAuthentication()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setBasicAuthentication(string  <span class="argument">$username = &#039;&#039;</span>, string  <span class="argument">$password = &#039;&#039;</span>) </pre>
+                <p><em>Function setBasicAuthentication</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$username </td>
+                                <td><p>Username to be Authentication</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$password </td>
+                                <td><p>Password to be Authentication</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:24</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setDigestAuthentication" name="method_setDigestAuthentication" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setDigestAuthentication()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setDigestAuthentication(string  <span class="argument">$username = &#039;&#039;</span>, string  <span class="argument">$password = &#039;&#039;</span>) </pre>
+                <p><em>Function setDigestAuthentication</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$username </td>
+                                <td><p>Username to be Authentication</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$password </td>
+                                <td><p>Password to be Authentication</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 06:28</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHttpCode" name="method_getHttpCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHttpCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHttpCode() : mixed</pre>
+                <p><em>Function getHttpCode</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:16</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHttpMessage" name="method_getHttpMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHttpMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHttpMessage() : mixed</pre>
+                <p><em>Function getHttpMessage</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:16</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getErrorCode" name="method_getErrorCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getErrorCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getErrorCode() : mixed</pre>
+                <p><em>Function getErrorCode</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:16</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestsHeader" name="method_getRequestsHeader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestsHeader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestsHeader() : mixed</pre>
+                <p><em>Function getRequestsHeader</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:16</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResponseHeader" name="method_getResponseHeader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResponseHeader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResponseHeader() : mixed</pre>
+                <p><em>Function getResponseHeader</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 23:16</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_pyRequest" name="method_pyRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">pyRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">pyRequest(string  <span class="argument">$url = &#039;&#039;</span>, array  <span class="argument">$data = array()</span>, string  <span class="argument">$method = &#039;GET&#039;</span>) : null|\Requests_Response|string</pre>
+                <p><em>Function pyRequest
+Send Request use Requests - https://packagist.org/packages/rmccue/requests</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>Set Method to be Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null|\Requests_Response|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="http://requests.ryanmccue.info/"><span class="namespace-wrapper">http://requests.ryanmccue.info/</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:07</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_guzzlePhpRequest" name="method_guzzlePhpRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">guzzlePhpRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">guzzlePhpRequest(string  <span class="argument">$url = &#039;&#039;</span>, array  <span class="argument">$data = array()</span>, string  <span class="argument">$method = &#039;GET&#039;</span>) : \GuzzleHttp\Stream\StreamInterface|null|string</pre>
+                <p><em>Function guzzlePhpRequest
+Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>Set Method to be Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \GuzzleHttp\Stream\StreamInterface|null|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">https://packagist.org/packages/guzzlehttp/guzzle</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 06:45</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_curlRequest" name="method_curlRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">curlRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">curlRequest(string  <span class="argument">$url = &#039;&#039;</span>, array  <span class="argument">$data = array()</span>, string  <span class="argument">$method = &#039;GET&#039;</span>) : array|null|string</pre>
+                <p><em>Function curlRequest
+Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>Set Method to be Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null|string
+                                            &mdash; <p>Response content from server,
+null of Exception Message if Error</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">https://packagist.org/packages/curl/curl</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 05:54</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sendRequest" name="method_sendRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sendRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sendRequest(string  <span class="argument">$url = &#039;&#039;</span>, array  <span class="argument">$data = array()</span>, string  <span class="argument">$method = &#039;GET&#039;</span>) : array|null|\Requests_Response|string</pre>
+                <p><em>Function sendRequest
+Handle send Request use Multi Method</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>Set Method to be Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null|\Requests_Response|string
+                                            &mdash; <p>Response content from server
+null of Exception Message if Error</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 07:07</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_xmlRequest" name="method_xmlRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">xmlRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">xmlRequest(string  <span class="argument">$url = &#039;&#039;</span>, string  <span class="argument">$data = &#039;&#039;</span>, integer  <span class="argument">$timeout = 60</span>) : array|null|string</pre>
+                <p><em>Function xmlRequest
+Send XML Request to Server</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$timeout </td>
+                                <td><p>Timeout Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null|string
+                                            &mdash; <p>Response from Server</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 07:11</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonRequest" name="method_jsonRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonRequest(string  <span class="argument">$url = &#039;&#039;</span>, array  <span class="argument">$data = array()</span>, integer  <span class="argument">$timeout = 60</span>) : array|null|string</pre>
+                <p><em>Function jsonRequest
+Send JSON Request to Server</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>URL Endpoint to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Data Content to be Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$timeout </td>
+                                <td><p>Timeout Request</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null|string
+                                            &mdash; <p>Response from Server</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 07:13</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_xmlGetValue" name="method_xmlGetValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">xmlGetValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">xmlGetValue(string  <span class="argument">$xml = &#039;&#039;</span>, string  <span class="argument">$openTag = &#039;&#039;</span>, string  <span class="argument">$closeTag = &#039;&#039;</span>) : boolean|string</pre>
+                <p><em>Function xmlGetValue</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$xml </td>
+                                <td><p>XML String</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$openTag </td>
+                                <td><p>OpenTag to find</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$closeTag </td>
+                                <td><p>CloseTag to find</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>Result from Tag, Empty string if not</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 06:57</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseXmlDataRequest" name="method_parseXmlDataRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">parseXmlDataRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseXmlDataRequest(string  <span class="argument">$resultXml = &#039;&#039;</span>) : false|string</pre>
+                <p><em>Function parseXmlDataRequest</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$resultXml </td>
+                                <td><p>XML String to Parse</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>: 713uk13m <a href="mailto:dev@nguyenanhung.com">dev@nguyenanhung.com</a></p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            time
+                        </th>
+                        <td>
+                                                                                            <p>: 10/7/18 06:57</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">MyRequests.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/MyRequests.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/nguyenanhung.html">\nguyenanhung</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on October 13th, 2018 at 05:02.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
