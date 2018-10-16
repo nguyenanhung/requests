@@ -23,38 +23,17 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
 {
-    /**
-     * @var object \nguyenanhung\MyDebug\Benchmark
-     */
+    /** @var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
-    /**
-     * @var  object \nguyenanhung\MyDebug\Debug Call to class
-     */
+    /** @var object \nguyenanhung\MyDebug\Debug Call to class */
     private $debug;
-    /**
-     * Set Debug Status
-     *
-     * @var bool
-     */
+    /** @var bool Set Debug Status */
     public $debugStatus = FALSE;
-
-    /**
-     * @var null Set level Debug: DEBUG, INFO, ERROR ....
-     */
+    /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
     public $debugLevel = NULL;
-
-    /**
-     * Set Logger Path to Save
-     *
-     * @var null|string
-     */
+    /** @var null|string Set Logger Path to Save */
     public $debugLoggerPath = NULL;
-
-    /**
-     * Set Logger Filename to Save
-     *
-     * @var string
-     */
+    /** @var null|string Set Logger Filename to Save */
     public $debugLoggerFilename;
 
     /**
