@@ -9,6 +9,8 @@
 
 namespace nguyenanhung\MyRequests;
 
+use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\BackgroundRequestInterface;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
@@ -21,11 +23,54 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
 {
+    /** @var object \nguyenanhung\MyDebug\Benchmark */
+    private $benchmark;
+    /** @var object \nguyenanhung\MyDebug\Debug Call to class */
+    private $debug;
+    /** @var bool Set Debug Status */
+    public $debugStatus = FALSE;
+    /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
+    public $debugLevel = NULL;
+    /** @var null|string Set Logger Path to Save */
+    public $debugLoggerPath = NULL;
+    /** @var null|string Set Logger Filename to Save */
+    public $debugLoggerFilename;
+
     /**
      * BackgroundRequest constructor.
      */
     public function __construct()
     {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark = new Benchmark();
+            $this->benchmark->mark('code_start');
+        }
+        $this->debug = new Debug();
+        if (empty($this->debugLoggerPath)) {
+            $this->debugStatus = FALSE;
+        }
+        $this->debug->setDebugStatus($this->debugStatus);
+        $this->debug->setGlobalLoggerLevel($this->debugLevel);
+        $this->debug->setLoggerPath($this->debugLoggerPath);
+        $this->debug->setLoggerSubPath(__CLASS__);
+        if (empty($this->debugLoggerFilename)) {
+            $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
+        }
+        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - My Background Request - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
+    }
+
+    /**
+     * BackgroundRequest destructor.
+     */
+    public function __destruct()
+    {
+        if (self::USE_BENCHMARK === TRUE) {
+            $this->benchmark->mark('code_end');
+            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+        }
+        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - My Background Request - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**
