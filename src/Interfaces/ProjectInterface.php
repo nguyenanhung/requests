@@ -36,12 +36,12 @@ interface ProjectInterface
     const USE_BENCHMARK   = TRUE;
 
     /**
-     * Function getVersion
+     * Hàm lấy phiên bản hiện tại của Package
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:05
      *
-     * @return mixed Current Project Version
+     * @return mixed Phiên bản hiện tại của Package, VD: 0.1.1
      */
     public function getVersion();
 }
