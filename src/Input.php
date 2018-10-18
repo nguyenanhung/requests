@@ -25,8 +25,10 @@ use nguyenanhung\MyRequests\Interfaces\InputInterface;
  */
 class Input implements InputInterface
 {
-    /** @var object khởi tạo đến class \Symfony\Component\HttpFoundation\Request */
+    /** @var object khởi tạo đối tượng đến class \Symfony\Component\HttpFoundation\Request */
     protected $input;
+    /** @var object khởi tạo đối tượng đến class \nguyenanhung\MyRequests\Ip */
+    protected $ip;
 
     /**
      * Input constructor.
@@ -34,6 +36,7 @@ class Input implements InputInterface
     public function __construct()
     {
         $this->input = Request::createFromGlobals();
+        $this->ip    = new Ip();
     }
 
     /**
@@ -207,5 +210,18 @@ class Input implements InputInterface
         }
 
         return NULL;
+    }
+
+    /**
+     * Hàm lấy địa chỉ IP của người dùng
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 11:41
+     *
+     * @return bool|int|mixed|string
+     */
+    public function ip_address()
+    {
+        return $this->ip->getIpAddress();
     }
 }

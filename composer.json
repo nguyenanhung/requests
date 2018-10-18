@@ -35,8 +35,8 @@
         "guzzlehttp/streams": "^3.0",
         "guzzlehttp/ringphp": "^1.1.1",
         "guzzlehttp/guzzle": "^5.3",
-        "nategood/httpful": "^0.2.20",
-        "kriswallsmith/buzz": "^0.15.2",
+        "markrogoyski/ipv4-subnet-calculator": "^2.1",
+        "mlocati/ip-lib": "^1.6",
         "nguyenanhung/nusoap": "^0.9.5",
         "nguyenanhung/my-debug": "^0.1"
     },

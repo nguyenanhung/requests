@@ -113,4 +113,14 @@ interface InputInterface
      *                                    NULL if not
      */
     public function header($key = '', $xss_clean = FALSE);
+
+    /**
+     * Hàm lấy địa chỉ IP của người dùng
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 11:41
+     *
+     * @return bool|int|mixed|string
+     */
+    public function ip_address();
 }
