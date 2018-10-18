@@ -45,7 +45,7 @@ class DataRepository implements ProjectInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:07
      *
-     * @param $configName config file from folder config
+     * @param string $configName config file from folder config
      *
      * @return array|mixed Data content from config file
      */
