@@ -24,26 +24,26 @@ $context     = [
     'email' => 'dev@nguyenanhung.com'
 ];
 // Call
-$debug = new Debug();
-$debug->setDebugStatus(TRUE);
-$debug->setLoggerPath($logPath);
-$debug->setLoggerSubPath($logSubPath);
-$debug->setLoggerFilename($logFilename);
+$Debug = new Debug();
+$Debug->setDebugStatus(TRUE);
+$Debug->setLoggerPath($logPath);
+$Debug->setLoggerSubPath($logSubPath);
+$Debug->setLoggerFilename($logFilename);
 
 echo "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-echo "\n getVersion: " . $debug->getVersion() . "\n";
-echo "\n setDebugStatus: " . $debug->getDebugStatus() . "\n";
-echo "\n setLoggerPath: " . $debug->getLoggerPath() . "\n";
-echo "\n setLoggerSubPath: " . $debug->getLoggerSubPath() . "\n";
-echo "\n setLoggerFilename: " . $debug->getLoggerFilename() . "\n";
+echo "\n getVersion: " . $Debug->getVersion() . "\n";
+echo "\n setDebugStatus: " . $Debug->getDebugStatus() . "\n";
+echo "\n setLoggerPath: " . $Debug->getLoggerPath() . "\n";
+echo "\n setLoggerSubPath: " . $Debug->getLoggerSubPath() . "\n";
+echo "\n setLoggerFilename: " . $Debug->getLoggerFilename() . "\n";
 echo "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-d($debug->debug($name, $msg . ' - DEBUG', $context));
-d($debug->info($name, $msg . ' - INFO', $context));
-d($debug->notice($name, $msg . ' - NOTICE', $context));
-d($debug->warning($name, $msg . ' - WARNING', $context));
-d($debug->error($name, $msg . ' - ERROR', $context));
-d($debug->critical($name, $msg . ' - CRITICAL', $context));
-d($debug->alert($name, $msg . ' - ALERT', $context));
-d($debug->emergency($name, $msg . ' - EMERGENCY', $context));
+d($Debug->debug($name, $msg . ' - DEBUG', $context));
+d($Debug->info($name, $msg . ' - INFO', $context));
+d($Debug->notice($name, $msg . ' - NOTICE', $context));
+d($Debug->warning($name, $msg . ' - WARNING', $context));
+d($Debug->error($name, $msg . ' - ERROR', $context));
+d($Debug->critical($name, $msg . ' - CRITICAL', $context));
+d($Debug->alert($name, $msg . ' - ALERT', $context));
+d($Debug->emergency($name, $msg . ' - EMERGENCY', $context));
 

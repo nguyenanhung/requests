@@ -22,15 +22,15 @@ $data   = [
 ];
 $method = 'GET';
 // Let's Go
-$content = new GetContents();
-$content->setURL($url);
-$content->setMethod($method);
-$content->setData($data);
-$content->sendRequest();
+$GetContents = new GetContents();
+$GetContents->setURL($url);
+$GetContents->setMethod($method);
+$GetContents->setData($data);
+$GetContents->sendRequest();
 
-$response   = $content->response();
-$getContent = $content->getContent();
-$getError   = $content->getError();
+$response   = $GetContents->response();
+$getContent = $GetContents->getContent();
+$getError   = $GetContents->getError();
 
 d($response);
 d($getContent);
