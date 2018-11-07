@@ -26,21 +26,21 @@ $data                     = [
 $method                   = 'GET';
 $headers                  = [];
 $options                  = [];
-$request                  = new MyRequests();
-$request->debugStatus     = TRUE;
-$request->debugLoggerPath = testLogPath();
-$request->__construct();
-$request->setHeader($headers);
-$request->setOptions($options);
+$MyRequests                  = new MyRequests();
+$MyRequests->debugStatus     = TRUE;
+$MyRequests->debugLoggerPath = testLogPath();
+$MyRequests->__construct();
+$MyRequests->setHeader($headers);
+$MyRequests->setOptions($options);
 
-$pyRequest = $request->pyRequest($url, $data, $method);
+$pyRequest = $MyRequests->pyRequest($url, $data, $method);
 d($pyRequest);
 
-$guzzlePhpRequest = $request->guzzlePhpRequest($url, $data, $method);
+$guzzlePhpRequest = $MyRequests->guzzlePhpRequest($url, $data, $method);
 d($guzzlePhpRequest);
 
-$curlRequest = $request->curlRequest($url, $data, $method);
+$curlRequest = $MyRequests->curlRequest($url, $data, $method);
 d($curlRequest);
 
-$sendRequest = $request->sendRequest($url, $data, $method);
+$sendRequest = $MyRequests->sendRequest($url, $data, $method);
 d($sendRequest);
