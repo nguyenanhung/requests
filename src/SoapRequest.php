@@ -31,57 +31,27 @@ use nguyenanhung\MyRequests\Interfaces\SoapRequestInterface;
  */
 class SoapRequest implements ProjectInterface, SoapRequestInterface
 {
-    /**
-     * @var string Url Endpoint to Request
-     */
+    /**@var string Url Endpoint to Request */
     private $endpoint;
-    /**
-     * @var array Data to Request
-     */
+    /**@var array Data to Request */
     private $data;
-    /**
-     * @var string Function to Request SOAP Service
-     */
+    /**@var string Function to Request SOAP Service */
     private $callFunction;
-    /**
-     * @var string Field Result to mapping Response request
-     */
+    /**@var string Field Result to mapping Response request */
     private $fieldResult;
-    /**
-     * @var bool Set Json Encode Response to Output
-     */
+    /**@var bool Set Json Encode Response to Output */
     private $responseIsJson;
-    /**
-     * @var object \nguyenanhung\MyDebug\Benchmark
-     */
+    /**@var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
-    /**
-     * @var  object \nguyenanhung\MyDebug\Debug Call to class
-     */
+    /**@var object \nguyenanhung\MyDebug\Debug Call to class */
     private $debug;
-    /**
-     * Set Debug Status
-     *
-     * @var bool
-     */
+    /** @var bool Debug Status */
     public $debugStatus = FALSE;
-
-    /**
-     * @var null Set level Debug: DEBUG, INFO, ERROR ....
-     */
+    /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
     public $debugLevel = NULL;
-    /**
-     * Set Logger Path to Save
-     *
-     * @var null|string
-     */
+    /** @var null|string Set Logger Path to Save */
     public $debugLoggerPath = NULL;
-
-    /**
-     * Set Logger Filename to Save
-     *
-     * @var string
-     */
+    /** @var string|null Set Logger Filename to Save */
     public $debugLoggerFilename;
 
     /**
@@ -257,7 +227,86 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $client->decode_utf8      = self::DECODE_UTF8;
             $error                    = $client->getError();
             if ($error) {
-                $message = "Request SOAP Charge Error: " . json_encode($error);
+                $message = "Client Request WSDL Error: " . json_encode($error);
+                $this->debug->error(__FUNCTION__, $message);
+            } else {
+                $result = $client->call($this->callFunction, $this->data);
+                $this->debug->info(__FUNCTION__, 'Result from Endpoint: ', $result);
+                if ($this->fieldResult) {
+                    if (isset($result[$this->fieldResult])) {
+                        $this->debug->info(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
+                        $message = [
+                            'status' => 0,
+                            'code'   => $result[$this->fieldResult],
+                            'data'   => $result
+                        ];
+                    } else {
+                        $this->debug->info(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
+                        $message = [
+                            'status' => 1,
+                            'code'   => 'Missing Result from ' . $this->fieldResult,
+                            'data'   => $result
+                        ];
+                    }
+                } else {
+                    $message = [
+                        'status' => 0,
+                        'code'   => 'Return full Response',
+                        'data'   => $result
+                    ];
+                }
+            }
+        }
+        catch (\Exception $e) {
+            $message       = [
+                'status' => 2,
+                'code'   => 'Exception Error',
+                'data'   => [
+                    'File'    => $e->getFile(),
+                    'Line'    => $e->getLine(),
+                    'Code'    => $e->getCode(),
+                    'Message' => $e->getMessage(),
+                ]
+            ];
+            $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->debug->error(__FUNCTION__, $error_message);
+        }
+        if ($this->responseIsJson) {
+            $this->debug->debug(__FUNCTION__, 'Response is Json');
+            $message = json_encode($message);
+        }
+        $this->debug->info(__FUNCTION__, 'Final Result: ', $message);
+
+        return $message;
+    }
+
+    /**
+     * Function clientRequestSOAP
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/10/18 11:15
+     *
+     * @return array|null|string Call to SOAP request and received Response from Server
+     *                           Return is Json String if set setResponseIsJson(true)
+     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
+     *                           exists
+     */
+    public function clientRequestSOAP()
+    {
+        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
+            $this->debug->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
+
+            return NULL;
+        }
+        try {
+            $client                   = new nusoap_client($this->endpoint, TRUE);
+            $client->soap_defencoding = self::SOAP_ENCODING;
+            $client->xml_encoding     = self::XML_ENCODING;
+            $client->decode_utf8      = self::DECODE_UTF8;
+            $error                    = $client->getError();
+            if ($error) {
+                $message = "Client Request SOAP Error: " . json_encode($error);
                 $this->debug->error(__FUNCTION__, $message);
             } else {
                 $result = $client->call($this->callFunction, $this->data);

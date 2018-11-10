@@ -109,4 +109,17 @@ interface SoapRequestInterface
      *                           exists
      */
     public function clientRequestWsdl();
+
+    /**
+     * Function clientRequestSOAP
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/10/18 11:15
+     *
+     * @return array|null|string Call to SOAP request and received Response from Server
+     *                           Return is Json String if set setResponseIsJson(true)
+     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
+     *                           exists
+     */
+    public function clientRequestSOAP();
 }
