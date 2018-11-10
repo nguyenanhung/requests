@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
+
 /**
  * Interface SendRequestsInterface
  *
@@ -25,7 +26,7 @@ interface SendRequestsInterface
      *
      * @param array $headers
      *
-     * @return mixed
+     * @return $this
      */
     public function setHeader($headers = []);
 
@@ -37,7 +38,7 @@ interface SendRequestsInterface
      *
      * @param array $cookies
      *
-     * @return mixed
+     * @return $this
      */
     public function setCookie($cookies = []);
 
@@ -49,7 +50,7 @@ interface SendRequestsInterface
      *
      * @param array $options
      *
-     * @return mixed
+     * @return $this
      */
     public function setOptions($options = []);
 
@@ -61,7 +62,7 @@ interface SendRequestsInterface
      *
      * @param int $timeout
      *
-     * @return mixed
+     * @return $this
      */
     public function setTimeout($timeout = 60);
 
@@ -73,7 +74,7 @@ interface SendRequestsInterface
      *
      * @param string $userAgent
      *
-     * @return mixed
+     * @return $this
      */
     public function setUserAgent($userAgent = '');
 
@@ -85,7 +86,7 @@ interface SendRequestsInterface
      *
      * @param string $referrer
      *
-     * @return mixed
+     * @return $this
      */
     public function setReferrer($referrer = '');
 
@@ -97,7 +98,7 @@ interface SendRequestsInterface
      *
      * @param bool $isBody
      *
-     * @return mixed
+     * @return $this
      */
     public function setUserBody($isBody = FALSE);
 
@@ -109,7 +110,7 @@ interface SendRequestsInterface
      *
      * @param bool $isXml
      *
-     * @return mixed
+     * @return $this
      */
     public function setRequestIsXml($isXml = FALSE);
 
@@ -121,7 +122,7 @@ interface SendRequestsInterface
      *
      * @param bool $isJson
      *
-     * @return mixed
+     * @return $this
      */
     public function setRequestIsJson($isJson = FALSE);
 
@@ -133,7 +134,7 @@ interface SendRequestsInterface
      *
      * @param bool $isSSL
      *
-     * @return mixed
+     * @return $this
      */
     public function setRequestIsSSL($isSSL = FALSE);
 
@@ -145,7 +146,7 @@ interface SendRequestsInterface
      *
      * @param bool $errorResponseIsData Array Data if Response is Null if Error
      *
-     * @return mixed
+     * @return $this
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE);
 
@@ -157,7 +158,7 @@ interface SendRequestsInterface
      *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
-     * @return mixed
+     * @return $this
      */
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE);
 
@@ -169,6 +170,8 @@ interface SendRequestsInterface
      *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
+     *
+     * @return $this
      */
     public function setBasicAuthentication($username = '', $password = '');
 
@@ -180,6 +183,8 @@ interface SendRequestsInterface
      *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
+     *
+     * @return $this
      */
     public function setDigestAuthentication($username = '', $password = '');
 
