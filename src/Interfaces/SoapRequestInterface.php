@@ -8,6 +8,7 @@
  */
 
 namespace nguyenanhung\MyRequests\Interfaces;
+
 /**
  * Interface SoapRequestInterface
  *
@@ -37,6 +38,8 @@ interface SoapRequestInterface
      * @time  : 10/7/18 02:26
      *
      * @param string $endpoint Link to Url Endpoint
+     *
+     * @return  $this
      */
     public function setEndpoint($endpoint = '');
 
@@ -47,6 +50,8 @@ interface SoapRequestInterface
      * @time  : 10/7/18 02:26
      *
      * @param array $data Data to SOAP Request, call
+     *
+     * @return  $this
      */
     public function setData($data = []);
 
@@ -57,6 +62,8 @@ interface SoapRequestInterface
      * @time  : 10/7/18 02:36
      *
      * @param string $callFunction Require Set Function to call SOAP endpoint
+     *
+     * @return  $this
      */
     public function setCallFunction($callFunction = '');
 
@@ -71,6 +78,8 @@ interface SoapRequestInterface
      * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
      *                            from Response SOAP Service
      *                            Return Error Code if not find $fieldResult from Response
+     *
+     * @return  $this
      */
     public function setFieldResult($fieldResult = '');
 
@@ -83,7 +92,7 @@ interface SoapRequestInterface
      *
      * @param string $responseIsJson
      *
-     * @return mixed|void if set value = TRUE, response is Json string
+     * @return mixed|$this if set value = TRUE, response is Json string
      * @see   clientRequestWsdl() method
      */
     public function setResponseIsJson($responseIsJson = '');
@@ -96,7 +105,8 @@ interface SoapRequestInterface
      *
      * @return array|null|string Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
-     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists
+     *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
+     *                           exists
      */
     public function clientRequestWsdl();
 }

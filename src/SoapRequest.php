@@ -142,11 +142,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @time  : 10/7/18 02:26
      *
      * @param string $endpoint Link to Url Endpoint
+     *
+     * @return $this
      */
     public function setEndpoint($endpoint = '')
     {
         $this->endpoint = $endpoint;
         $this->debug->info(__FUNCTION__, 'setEndpoint: ', $this->endpoint);
+
+        return $this;
     }
 
     /**
@@ -156,11 +160,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @time  : 10/7/18 02:26
      *
      * @param array $data Data to SOAP Request, call
+     *
+     * @return $this
      */
     public function setData($data = [])
     {
         $this->data = $data;
         $this->debug->info(__FUNCTION__, 'setData: ', $this->data);
+
+        return $this;
     }
 
     /**
@@ -170,11 +178,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @time  : 10/7/18 02:36
      *
      * @param string $callFunction Require Set Function to call SOAP endpoint
+     *
+     * @return $this
      */
     public function setCallFunction($callFunction = '')
     {
         $this->callFunction = $callFunction;
         $this->debug->info(__FUNCTION__, 'setCallFunction: ', $this->callFunction);
+
+        return $this;
     }
 
     /**
@@ -188,11 +200,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
      *                            from Response SOAP Service
      *                            Return Error Code if not find $fieldResult from Response
+     *
+     * @return $this
      */
     public function setFieldResult($fieldResult = '')
     {
         $this->fieldResult = $fieldResult;
         $this->debug->info(__FUNCTION__, 'setFieldResult: ', $this->fieldResult);
+
+        return $this;
     }
 
     /**
@@ -204,13 +220,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @param string $responseIsJson
      *
-     * @return mixed|void if set value = TRUE, response is Json string
+     * @return $this|mixed if set value = TRUE, response is Json string
      * @see   clientRequestWsdl() method
      */
     public function setResponseIsJson($responseIsJson = '')
     {
         $this->responseIsJson = $responseIsJson;
         $this->debug->info(__FUNCTION__, 'setResponseIsJson: ', $this->responseIsJson);
+
+        return $this;
     }
 
     /**
