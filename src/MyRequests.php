@@ -257,11 +257,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 04:04
      *
      * @param array $headers
+     *
+     * @return  $this
      */
     public function setHeader($headers = [])
     {
         $this->headers = $headers;
         $this->debug->info(__FUNCTION__, 'setHeaders: ', $this->headers);
+
+        return $this;
     }
 
     /**
@@ -271,11 +275,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 05:28
      *
      * @param array $cookies
+     *
+     * @return  $this
      */
     public function setCookie($cookies = [])
     {
         $this->cookies = $cookies;
         $this->debug->info(__FUNCTION__, 'setCookie: ', $this->cookies);
+
+        return $this;
     }
 
     /**
@@ -285,11 +293,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 04:04
      *
      * @param array $options
+     *
+     * @return  $this
      */
     public function setOptions($options = [])
     {
         $this->options = $options;
         $this->debug->info(__FUNCTION__, 'setOptions: ', $this->options);
+
+        return $this;
     }
 
     /**
@@ -299,11 +311,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 04:05
      *
      * @param int $timeout
+     *
+     * @return  $this
      */
     public function setTimeout($timeout = 60)
     {
         $this->timeout = $timeout;
         $this->debug->info(__FUNCTION__, 'setTimeout: ', $this->timeout);
+
+        return $this;
     }
 
     /**
@@ -313,11 +329,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 05:19
      *
      * @param string $userAgent
+     *
+     * @return  $this
      */
     public function setUserAgent($userAgent = '')
     {
         $this->userAgent = $userAgent;
         $this->debug->info(__FUNCTION__, 'setUserAgent: ', $this->userAgent);
+
+        return $this;
     }
 
     /**
@@ -327,11 +347,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 05:26
      *
      * @param string $referrer
+     *
+     * @return  $this
      */
     public function setReferrer($referrer = '')
     {
         $this->referrer = $referrer;
         $this->debug->info(__FUNCTION__, 'setReferrer: ', $this->referrer);
+
+        return $this;
     }
 
     /**
@@ -341,11 +365,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 06:25
      *
      * @param bool $isBody
+     *
+     * @return  $this
      */
     public function setUserBody($isBody = FALSE)
     {
         $this->isBody = $isBody;
         $this->debug->info(__FUNCTION__, 'setUserBody: ', $this->referrer);
+
+        return $this;
     }
 
     /**
@@ -355,6 +383,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 05:17
      *
      * @param bool $isXml
+     *
+     * @return  $this
      */
     public function setRequestIsXml($isXml = FALSE)
     {
@@ -365,6 +395,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->headers          = $header;
         }
         $this->debug->info(__FUNCTION__, 'setRequestIsXml: ', $this->isXml);
+
+        return $this;
     }
 
     /**
@@ -374,6 +406,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 05:17
      *
      * @param bool $isJson
+     *
+     * @return  $this
      */
     public function setRequestIsJson($isJson = FALSE)
     {
@@ -384,6 +418,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->headers          = $header;
         }
         $this->debug->info(__FUNCTION__, 'setRequestIsJson: ', $this->isJson);
+
+        return $this;
     }
 
     /**
@@ -394,12 +430,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param bool $isSSL
      *
-     * @return mixed|void
+     * @return mixed|$this
      */
     public function setRequestIsSSL($isSSL = FALSE)
     {
         $this->isSSL = $isSSL;
         $this->debug->info(__FUNCTION__, 'setRequestIsSSL: ', $this->isSSL);
+
+        return $this;
     }
 
     /**
@@ -410,11 +448,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 23:02
      *
      * @param bool $errorResponseIsData Array Data if Response is Null if Error
+     *
+     * @return  $this;
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE)
     {
         $this->errorResponseIsData = $errorResponseIsData;
         $this->debug->info(__FUNCTION__, 'setErrorResponseIsData: ', $this->errorResponseIsData);
+
+        return $this;
     }
 
     /**
@@ -426,12 +468,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
-     * @return mixed|void
+     * @return mixed|$this
      */
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE)
     {
         $this->errorResponseIsNull = $errorResponseIsNull;
         $this->debug->info(__FUNCTION__, 'setErrorResponseIsNull: ', $this->errorResponseIsNull);
+
+        return $this;
     }
 
     /**
@@ -442,6 +486,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
+     *
+     * @return  $this
      */
     public function setBasicAuthentication($username = '', $password = '')
     {
@@ -450,6 +496,8 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             'password' => $password
         ];
         $this->debug->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
+
+        return $this;
     }
 
     /**
@@ -460,11 +508,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
+     *
+     * @return  $this
      */
     public function setDigestAuthentication($username = '', $password = '')
     {
         $this->digestAuthentication = [$username, $password, 'digest'];
         $this->debug->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
+
+        return $this;
     }
 
     /**
