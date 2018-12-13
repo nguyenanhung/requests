@@ -9,18 +9,10 @@
 
 namespace nguyenanhung\MyRequests;
 
-if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
-}
-if (!interface_exists('nguyenanhung\MyRequests\Interfaces\SendRequestsInterface')) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'SendRequestsInterface.php';
-}
-
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use nguyenanhung\MyRequests\Interfaces\SendRequestsInterface;
-use Requests;
 use GuzzleHttp\Client;
 use Curl\Curl;
 
@@ -585,131 +577,6 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     }
 
     /******************************** Các hàm Request ********************************/
-    /**
-     * Function pyRequest
-     * Send Request use Requests - https://packagist.org/packages/rmccue/requests
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:07
-     *
-     * @param string $url    URL Endpoint to be Request
-     * @param array  $data   Data Content to be Request
-     * @param string $method Set Method to be Request
-     *
-     * @return null|\Requests_Response|string
-     * @see   http://requests.ryanmccue.info/
-     */
-    public function pyRequest($url = '', $data = [], $method = 'GET')
-    {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        $inputParams = [
-            'url'    => $url,
-            'data'   => $data,
-            'method' => $method,
-        ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
-        $method = strtoupper($method);
-        if (version_compare(PHP_VERSION, '5.4', '<')) {
-            return $this->curlRequest($url, $data, $method);
-        }
-        if ((($method == self::GET || $method == self::HEAD || $method == self::TRACE || $method == self::DELETE) && !empty($data))) {
-            $endpoint = trim($url) . '?' . http_build_query($data);
-        } else {
-            $endpoint = trim($url);
-        }
-        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
-        if (!class_exists('Requests')) {
-            $this->debug->critical(__FUNCTION__, 'class Requests is not exits');
-            $result = NULL;
-        } else {
-            try {
-                if ($method == self::GET) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::get($endpoint, $this->headers, $this->options);
-                } elseif ($method == self::HEAD) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::head($endpoint, $this->headers, $this->options);
-                } elseif ($method == self::DELETE) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::delete($endpoint, $this->headers, $this->options);
-                } elseif ($method == self::TRACE) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::trace($endpoint, $this->headers, $this->options);
-                } elseif ($method == self::POST) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::post($endpoint, $this->headers, $data, $this->options);
-                } elseif ($method == self::PUT) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::put($endpoint, $this->headers, $data, $this->options);
-                } elseif ($method == self::OPTIONS) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::options($endpoint, $this->headers, $data, $this->options);
-                } elseif ($method == self::PATCH) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::patch($endpoint, $this->headers, $data, $this->options);
-                } else {
-                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
-                    $request = Requests::get($endpoint, $this->headers, $this->options);
-                }
-                $this->debug->debug(__FUNCTION__, 'Response from Request: ', $request);
-                $this->requests_header = $this->headers;
-                $this->response_header = $request->headers;
-                $this->http_code       = $request->status_code;
-                $http_error            = in_array(floor($this->http_code / 100), [4, 5]);
-                $error_code            = [
-                    'status'     => $request->status_code,
-                    'error'      => $request->status_code,
-                    'error_code' => $request->status_code,
-                    'http_error' => [
-                        'http_error'       => $http_error,
-                        'http_status_code' => $request->status_code
-                    ],
-                    'headers'    => [
-                        'request_headers'  => $this->headers,
-                        'response_headers' => $request->headers,
-                    ],
-                    'data'       => [
-                        'status'           => $request->status_code,
-                        'status_code'      => $request->status_code,
-                        'protocol_version' => $request->protocol_version,
-                        'headers'          => $request->headers,
-                        'history'          => $request->history,
-                        'cookies'          => $request->cookies,
-                        'url'              => $request->url,
-                        'number_redirect'  => $request->redirects,
-                        'raw_data'         => $request->raw,
-                        'response_body'    => $request->body,
-                    ]
-                ];
-                $this->error_code      = $error_code;
-                $this->debug->debug(__FUNCTION__, 'Http Code - ' . $this->http_code);
-                $this->debug->debug(__FUNCTION__, 'Requests Header - ' . json_encode($this->error_code));
-                $this->debug->debug(__FUNCTION__, 'Requests Header - ' . json_encode($this->requests_header));
-                $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message - ' . json_encode($this->response_header));
-                if ($request->success) {
-                    $result = isset($request->body) ? $request->body : $request;
-                } else {
-                    if ($this->errorResponseIsData === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Array Data');
-                        $result = $error_code;
-                    } elseif ($this->errorResponseIsNull === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Null');
-                        $result = NULL;
-                    } else {
-                        $result = $request;
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . json_encode($result));
-                    }
-                }
-            }
-            catch (\Exception $e) {
-                $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-                $this->debug->error(__FUNCTION__, 'Exception Error - ' . $result);
-            }
-        }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
-
-        return $result;
-    }
 
     /**
      * Function guzzlePhpRequest
@@ -1058,7 +925,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } elseif ($method == self::HEAD) {
                     // Handle HEAD Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->pyRequest($url, $data, $method);
+                    $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::DELETE) {
                     // Handle DELETE Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
@@ -1066,7 +933,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } elseif ($method == self::TRACE) {
                     // Handle TRACE Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->pyRequest($url, $data, $method);
+                    $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::POST) {
                     // Handle POST Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
@@ -1078,7 +945,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } elseif ($method == self::OPTIONS) {
                     // Handle OPTIONS Request with pyRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->pyRequest($url, $data, $method);
+                    $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::PATCH) {
                     // Handle PATCH Request with curlRequest
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
@@ -1202,6 +1069,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
 
         return $result;
     }
+
     /******************************** Utils Function ********************************/
     /**
      * Function xmlGetValue

@@ -239,20 +239,6 @@ interface SendRequestsInterface
     public function getResponseHeader();
 
     /**
-     * Function pyRequest
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:54
-     *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
-     *
-     * @return mixed
-     */
-    public function pyRequest($url = '', $data = [], $method = 'GET');
-
-    /**
      * Function guzzlePhpRequest
      *
      * @author: 713uk13m <dev@nguyenanhung.com>

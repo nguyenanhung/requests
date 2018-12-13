@@ -9,13 +9,6 @@
 
 namespace nguyenanhung\MyRequests;
 
-if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
-}
-if (!interface_exists('nguyenanhung\MyRequests\Interfaces\SoapRequestInterface')) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'SoapRequestInterface.php';
-}
-
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;

@@ -19,7 +19,6 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-iconv": "*",
@@ -30,7 +29,6 @@
         "ircmaxell/password-compat": "^1.0.4",
         "symfony/http-foundation": "3.4.17",
         "curl/curl": "^1.9",
-        "rmccue/requests": "^1.7",
         "react/promise": "^2.7.0",
         "guzzlehttp/streams": "^3.0",
         "guzzlehttp/ringphp": "^1.1.1",
