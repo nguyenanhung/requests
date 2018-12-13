@@ -8,9 +8,6 @@
  */
 
 namespace nguyenanhung\MyRequests\Repository;
-if (!interface_exists('nguyenanhung\MyRequests\Interfaces\ProjectInterface')) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
-}
 
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
