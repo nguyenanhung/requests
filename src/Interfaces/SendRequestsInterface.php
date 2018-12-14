@@ -268,6 +268,7 @@ interface SendRequestsInterface
      * @see   https://packagist.org/packages/curl/curl
      */
     public function curlRequest($url = '', $data = [], $method = 'GET');
+
     /******************************** Handle Send Request ********************************/
     /**
      * Function sendRequest
@@ -281,7 +282,7 @@ interface SendRequestsInterface
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
-     * @return array|null|\Requests_Response|string Response content from server
+     * @return array|\GuzzleHttp\Stream\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
      */
     public function sendRequest($url = '', $data = [], $method = 'GET');
