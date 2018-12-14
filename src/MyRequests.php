@@ -884,7 +884,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
-     * @return array|null|\Requests_Response|string Response content from server
+     * @return array|\GuzzleHttp\Stream\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
      */
     public function sendRequest($url = '', $data = [], $method = 'GET')
