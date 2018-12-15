@@ -754,7 +754,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         ];
         $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
         $method = strtoupper($method);
-        if (!class_exists('Requests')) {
+        if (!class_exists('Curl\Curl')) {
             $this->debug->critical(__FUNCTION__, 'class \Curl\Curl() is not exits');
             $response = NULL;
         } else {
