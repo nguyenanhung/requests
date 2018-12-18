@@ -301,7 +301,7 @@ class Ip implements ProjectInterface
         try {
             $curl = new \Curl\Curl();
             $curl->get('http://ip-api.com/json/' . $ip);
-            $response = $curl->error ? "cURL Error: " . $curl->error_message : $curl->response;
+            $response = $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
 
             return $response;
         }

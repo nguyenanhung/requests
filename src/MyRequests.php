@@ -804,6 +804,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } elseif (self::DELETE == $method) {
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
                     $curl->delete($url, $data);
+                } elseif (self::OPTIONS == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->options($url, $data);
+                } elseif (self::HEAD == $method) {
+                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $curl->head($url, $data);
                 } elseif (self::GET == $method) {
                     $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $curl->get($url, $data);
@@ -814,31 +820,31 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 // Response
                 if (($curl->error)) {
                     $error_code = [
-                        'status'        => $curl->error_code,
+                        'status'        => $curl->errorCode,
                         'error'         => $curl->error,
-                        'error_code'    => $curl->error_code,
-                        'error_message' => $curl->error_message,
+                        'error_code'    => $curl->errorCode,
+                        'error_message' => $curl->errorMessage,
                         'curl_error'    => [
-                            'curl_error'         => $curl->curl_error,
-                            'curl_error_code'    => $curl->curl_error_code,
-                            'curl_error_message' => $curl->curl_error_message
+                            'curl_error'         => $curl->curlError,
+                            'curl_error_code'    => $curl->curlErrorCode,
+                            'curl_error_message' => $curl->curlErrorMessage
                         ],
                         'http_error'    => [
-                            'http_error'         => $curl->http_error,
-                            'http_status_code'   => $curl->http_status_code,
-                            'http_error_message' => $curl->http_error_message
+                            'http_error'         => $curl->httpError,
+                            'http_status_code'   => $curl->httpStatusCode,
+                            'http_error_message' => $curl->httpErrorMessage
                         ],
                         'headers'       => [
-                            'request_headers'  => $curl->request_headers,
-                            'response_headers' => $curl->response_headers,
+                            'request_headers'  => $curl->requestHeaders,
+                            'response_headers' => $curl->responseHeaders,
                         ]
                     ];
                     // Set Vars
                     $this->error_code      = $error_code;
-                    $this->http_code       = $curl->http_status_code;
-                    $this->http_message    = $curl->http_error_message;
-                    $this->requests_header = $curl->request_headers;
-                    $this->response_header = $curl->response_headers;
+                    $this->http_code       = $curl->httpStatusCode;
+                    $this->http_message    = $curl->httpErrorMessage;
+                    $this->requests_header = $curl->requestHeaders;
+                    $this->response_header = $curl->responseHeaders;
                     // Debug
                     $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
@@ -848,7 +854,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                         $this->debug->debug(__FUNCTION__, 'Return Error Response is Null');
                         $response = NULL;
                     } else {
-                        $response = "cURL Error: " . $curl->error_message;
+                        $response = "cURL Error: " . $curl->errorMessage;
                         $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
                     }
                 } else {
