@@ -844,7 +844,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $this->http_code       = $curl->httpStatusCode;
                     $this->http_message    = $curl->httpErrorMessage;
                     $this->requests_header = $curl->requestHeaders;
-                    $this->response_header = $curl->responseHeaders;
+                    $this->response_header = $curl->rawResponseHeaders;
                     // Debug
                     $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
@@ -858,7 +858,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                         $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
                     }
                 } else {
-                    $response = $curl->response;
+                    $response = $curl->rawResponse;
                     $this->debug->debug(__FUNCTION__, 'Response from Request, no Error: ' . $response);
                 }
                 // Close Request
