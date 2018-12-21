@@ -783,7 +783,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
                 }
-                $curl->setOpt(CURLOPT_RETURNTRANSFER, self::RETURN_TRANSFER);
+                // $curl->setOpt('CURLOPT_RETURNTRANSFER', 1);
                 $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
                 $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
                 $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);

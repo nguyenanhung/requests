@@ -14,10 +14,10 @@ require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'functions.
 use nguyenanhung\MyRequests\MyRequests;
 
 $debug                    = [
-    'debugStatus'     => TRUE,
+    'debugStatus'     => FALSE,
     'debugLoggerPath' => testLogPath()
 ];
-$url                      = 'https://httpbin.org/';
+$url                      = 'https://httpbin.org/get';
 $data                     = [
     'date'    => date('Y-m-d'),
     'service' => 'ME',
@@ -27,20 +27,15 @@ $method                   = 'GET';
 $headers                  = [];
 $options                  = [];
 $MyRequests                  = new MyRequests();
-$MyRequests->debugStatus     = TRUE;
+$MyRequests->debugStatus     = FALSE;
 $MyRequests->debugLoggerPath = testLogPath();
 $MyRequests->__construct();
 $MyRequests->setHeader($headers);
 $MyRequests->setOptions($options);
 
-$pyRequest = $MyRequests->pyRequest($url, $data, $method);
-d($pyRequest);
-
-$guzzlePhpRequest = $MyRequests->guzzlePhpRequest($url, $data, $method);
-d($guzzlePhpRequest);
-
 $curlRequest = $MyRequests->curlRequest($url, $data, $method);
-d($curlRequest);
 
-$sendRequest = $MyRequests->sendRequest($url, $data, $method);
-d($sendRequest);
+echo "<pre>";
+print_r($curlRequest);
+echo "</pre>";
+
