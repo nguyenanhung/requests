@@ -11,7 +11,6 @@ namespace nguyenanhung\MyRequests;
 
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
-use nguyenanhung\MyRequests\Interfaces\BackgroundRequestInterface;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**

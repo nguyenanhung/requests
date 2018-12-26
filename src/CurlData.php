@@ -9,8 +9,6 @@
 
 namespace nguyenanhung\MyRequests;
 
-use nguyenanhung\MyRequests\Interfaces\CurlDataInterface;
-
 /**
  * Class CurlData
  *

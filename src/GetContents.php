@@ -13,7 +13,6 @@ use \Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
-use nguyenanhung\MyRequests\Interfaces\GetContentsInterface;
 
 /**
  * Class GetContents
