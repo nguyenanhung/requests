@@ -29,7 +29,6 @@ class Ip implements ProjectInterface
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -91,9 +90,7 @@ class Ip implements ProjectInterface
      */
     public function getIpByHaProxy($convertToInteger = FALSE)
     {
-        $ip_keys = [
-            'HTTP_X_FORWARDED_FOR'
-        ];
+        $ip_keys = ['HTTP_X_FORWARDED_FOR'];
         foreach ($ip_keys as $key) {
             if (array_key_exists($key, $_SERVER) === TRUE) {
                 foreach (explode(',', $_SERVER[$key]) as $ip) {
