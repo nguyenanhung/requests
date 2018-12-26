@@ -21,9 +21,6 @@
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-iconv": "*",
-        "ext-openssl": "*",
-        "ext-mbstring": "*",
         "paragonie/random_compat": "^2.0.17",
         "paragonie/sodium_compat": "^1.6.6",
         "ircmaxell/password-compat": "^1.0.4",
@@ -40,6 +37,13 @@
     },
     "require-dev": {
         "kint-php/kint": "^3.0"
+    },
+    "suggest": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-iconv": "Needed to support iconv",
+        "ext-openssl": "Needed to support SSL",
+        "ext-mbstring": "Needed to support mb_string"
     },
     "autoload": {
         "psr-4": {
