@@ -39,8 +39,6 @@
         "kint-php/kint": "^3.0"
     },
     "suggest": {
-        "ext-curl": "*",
-        "ext-json": "*",
         "ext-iconv": "Needed to support iconv",
         "ext-openssl": "Needed to support SSL",
         "ext-mbstring": "Needed to support mb_string"
