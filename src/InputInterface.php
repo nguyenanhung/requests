@@ -19,6 +19,39 @@ namespace nguyenanhung\MyRequests;
 interface InputInterface
 {
     /**
+     * Function rawInputStream
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-26 14:25
+     *
+     * @return $this
+     */
+    public function rawInputStream();
+
+    /**
+     * Function getRawInputStream
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-26 14:25
+     *
+     * @return mixed
+     */
+    public function getRawInputStream();
+
+    /**
+     * Function inputStream
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-26 14:32
+     *
+     * @param null $index
+     * @param null $xss_clean
+     *
+     * @return mixed
+     */
+    public function inputStream($index = NULL, $xss_clean = NULL);
+
+    /**
      * Hàm lấy thông tin Request Method
      *
      * Return the request method
@@ -123,4 +156,62 @@ interface InputInterface
      * @return bool|int|mixed|string
      */
     public function ip_address();
+
+    // -------------------------------------------------------------------- //
+
+    /**
+     * Request Headers
+     *
+     * @param    bool $xss_clean Whether to apply XSS filtering
+     *
+     * @return    array
+     */
+    public function requestHeaders($xss_clean = FALSE);
+
+    /**
+     * Get Request Header
+     *
+     * Returns the value of a single member of the headers class member
+     *
+     * @param    string $index     Header name
+     * @param    bool   $xss_clean Whether to apply XSS filtering
+     *
+     * @return    string|null    The requested header on success or NULL on failure
+     */
+    public function getRequestHeader($index, $xss_clean = FALSE);
+
+    /**
+     * Is AJAX request?
+     *
+     * Test to see if a request contains the HTTP_X_REQUESTED_WITH header.
+     *
+     * @return    bool
+     */
+    public function isAjax();
+
+    /**
+     * Is CLI request?
+     *
+     * Test to see if a request was made from the command line.
+     *
+     * @return    bool
+     */
+    public function isCLI();
+
+    // -------------------------------------------------------------------- //
+
+    /**
+     * Fetch from Array
+     *
+     * Internal method used to retrieve values from global arrays.
+     *
+     * @copyright CodeIgniter
+     *
+     * @param    array    &$array     $_GET, $_POST, $_COOKIE, $_SERVER, etc.
+     * @param    mixed     $index     Index for item to be fetched from $array
+     * @param    bool      $xss_clean Whether to apply XSS filtering
+     *
+     * @return    mixed
+     */
+    public function fetchFromArray(&$array, $index = NULL, $xss_clean = NULL);
 }
