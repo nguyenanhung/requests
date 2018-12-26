@@ -1,3 +1,9 @@
+[![Latest Stable Version](https://poser.pugx.org/nguyenanhung/requests/v/stable)](https://packagist.org/packages/nguyenanhung/requests)
+[![Total Downloads](https://poser.pugx.org/nguyenanhung/requests/downloads)](https://packagist.org/packages/nguyenanhung/requests)
+[![Latest Unstable Version](https://poser.pugx.org/nguyenanhung/requests/v/unstable)](https://packagist.org/packages/nguyenanhung/requests)
+[![composer.lock](https://poser.pugx.org/nguyenanhung/requests/composerlock)](https://packagist.org/packages/nguyenanhung/requests)
+[![License](https://poser.pugx.org/nguyenanhung/requests/license)](https://packagist.org/packages/nguyenanhung/requests)
+
 # My Requests
 
 Library Interface Requests use cURL, File Get Contents, SOAP Requests
