@@ -260,6 +260,7 @@ class Utils
                 return FALSE;
             }
         }
+        return FALSE;
     }
 
     /**

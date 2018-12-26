@@ -7,12 +7,12 @@
  * Time: 11:12
  */
 
-namespace nguyenanhung\MyRequests\Interfaces;
+namespace nguyenanhung\MyRequests;
 
 /**
  * Interface InputInterface
  *
- * @package    nguyenanhung\MyRequests\Interfaces
+ * @package    nguyenanhung\MyRequests
  * @author     713uk13m <dev@nguyenanhung.com>
  * @copyright  713uk13m <dev@nguyenanhung.com>
  */

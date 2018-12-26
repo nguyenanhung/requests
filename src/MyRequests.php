@@ -12,7 +12,6 @@ namespace nguyenanhung\MyRequests;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
-use nguyenanhung\MyRequests\Interfaces\SendRequestsInterface;
 use GuzzleHttp\Client;
 use Curl\Curl;
 

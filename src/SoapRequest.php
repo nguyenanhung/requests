@@ -13,7 +13,6 @@ use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
-use nguyenanhung\MyRequests\Interfaces\SoapRequestInterface;
 
 /**
  * Class SoapRequest

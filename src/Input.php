@@ -10,7 +10,6 @@
 namespace nguyenanhung\MyRequests;
 
 use Symfony\Component\HttpFoundation\Request;
-use nguyenanhung\MyRequests\Interfaces\InputInterface;
 
 /**
  * Class Input
