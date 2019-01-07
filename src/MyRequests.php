@@ -819,31 +819,31 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 // Response
                 if (($curl->error)) {
                     $error_code = [
-                        'status'        => $curl->errorCode,
+                        'status'        => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
                         'error'         => $curl->error,
-                        'error_code'    => $curl->errorCode,
-                        'error_message' => $curl->errorMessage,
+                        'error_code'    => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
+                        'error_message' => isset($curl->errorMessage) ? $curl->errorMessage : (isset($curl->error_message)) ? $curl->error_message : NULL,
                         'curl_error'    => [
-                            'curl_error'         => $curl->curlError,
-                            'curl_error_code'    => $curl->curlErrorCode,
-                            'curl_error_message' => $curl->curlErrorMessage
+                            'curl_error'         => isset($curl->curlError) ? $curl->curlError : (isset($curl->curl_error)) ? $curl->curl_error : NULL,
+                            'curl_error_code'    => isset($curl->curlErrorCode) ? $curl->curlErrorCode : (isset($curl->curl_error_code)) ? $curl->curl_error_code : NULL,
+                            'curl_error_message' => isset($curl->curlErrorMessage) ? $curl->curlErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
                         ],
                         'http_error'    => [
-                            'http_error'         => $curl->httpError,
-                            'http_status_code'   => $curl->httpStatusCode,
-                            'http_error_message' => $curl->httpErrorMessage
+                            'http_error'         => isset($curl->httpError) ? $curl->httpError : (isset($curl->http_error)) ? $curl->http_error : NULL,
+                            'http_status_code'   => isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL,
+                            'http_error_message' => isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
                         ],
                         'headers'       => [
-                            'request_headers'  => $curl->requestHeaders,
-                            'response_headers' => $curl->responseHeaders,
+                            'request_headers'  => isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL,
+                            'response_headers' => isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL
                         ]
                     ];
                     // Set Vars
                     $this->error_code      = $error_code;
-                    $this->http_code       = $curl->httpStatusCode;
-                    $this->http_message    = $curl->httpErrorMessage;
-                    $this->requests_header = $curl->requestHeaders;
-                    $this->response_header = $curl->rawResponseHeaders;
+                    $this->http_code       = isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL;
+                    $this->http_message    = isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL;
+                    $this->requests_header = isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL;
+                    $this->response_header = isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL;
                     // Debug
                     $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
@@ -853,11 +853,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                         $this->debug->debug(__FUNCTION__, 'Return Error Response is Null');
                         $response = NULL;
                     } else {
-                        $response = "cURL Error: " . $curl->errorMessage;
+                        $errMsg   = isset($curl->errorMessage) ? $curl->errorMessage : (isset($curl->error_message) ? $curl->error_message : NULL);
+                        $response = "cURL Error: " . $errMsg;
                         $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
                     }
                 } else {
-                    $response = $curl->rawResponse;
+                    $response = isset($curl->rawResponse) ? $curl->rawResponse : (isset($curl->response) ? $curl->response : NULL);
                     $this->debug->debug(__FUNCTION__, 'Response from Request, no Error: ' . $response);
                 }
                 // Close Request
