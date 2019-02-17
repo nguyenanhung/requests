@@ -30,7 +30,7 @@ class Utils
      */
     public static function httpStatus($num)
     {
-        $http = [
+        $http = array(
             100 => 'HTTP/1.1 100 Continue',
             101 => 'HTTP/1.1 101 Switching Protocols',
             200 => 'HTTP/1.1 200 OK',
@@ -70,8 +70,8 @@ class Utils
             502 => 'HTTP/1.1 502 Bad Gateway',
             503 => 'HTTP/1.1 503 Service Unavailable',
             504 => 'HTTP/1.1 504 Gateway Time-out',
-            505 => 'HTTP/1.1 505 HTTP Version Not Supported',
-        ];
+            505 => 'HTTP/1.1 505 HTTP Version Not Supported'
+        );
         header($http[$num]);
 
         return [
@@ -260,6 +260,7 @@ class Utils
                 return FALSE;
             }
         }
+
         return FALSE;
     }
 
