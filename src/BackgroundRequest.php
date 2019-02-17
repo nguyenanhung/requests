@@ -105,6 +105,10 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errstr, 30);
         }
         if (!$fp) {
+            if (function_exists('log_message')) {
+                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errstr));
+            }
+
             return FALSE;
         } else {
             $out = "GET " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
@@ -138,6 +142,10 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errstr, 30);
         }
         if (!$fp) {
+            if (function_exists('log_message')) {
+                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errstr));
+            }
+
             return FALSE;
         } else {
             $out = "POST " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
