@@ -199,7 +199,6 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - File Get Contents Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
         if ($url) {
             /**
              * If $url is not Empty, call method setURL
@@ -221,7 +220,6 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
-        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - File Get Contents Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**
