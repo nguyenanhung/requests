@@ -212,7 +212,6 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
         $this->debug->setLoggerFilename($this->debugLoggerFilename);
-        $this->debug->debug(__FUNCTION__, '/-------------------------> Begin Logger - My Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**
@@ -225,7 +224,6 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
-        $this->debug->debug(__FUNCTION__, '/-------------------------> End Logger - My Requests - Version: ' . self::VERSION . ' - Last Modified: ' . self::LAST_MODIFIED . ' <-------------------------\\');
     }
 
     /**

@@ -18,8 +18,8 @@ namespace nguyenanhung\MyRequests\Interfaces;
  */
 interface ProjectInterface
 {
-    const VERSION         = '1.0.6';
-    const LAST_MODIFIED   = '2019-02-17';
+    const VERSION         = '1.0.7';
+    const LAST_MODIFIED   = '2019-02-28';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
@@ -33,7 +33,7 @@ interface ProjectInterface
     const MAX_REDIRECT    = 10;
     const RETURN_TRANSFER = TRUE;
     const FOLLOW_LOCATION = TRUE;
-    const USE_BENCHMARK   = TRUE;
+    const USE_BENCHMARK   = FALSE;
 
     /**
      * Hàm lấy phiên bản hiện tại của Package
