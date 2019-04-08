@@ -33,7 +33,7 @@
         "markrogoyski/ipv4-subnet-calculator": "^2.1",
         "mlocati/ip-lib": "^1.6",
         "nguyenanhung/nusoap": "^0.9.5",
-        "nguyenanhung/my-debug": "^0.1"
+        "nguyenanhung/my-debug": "^1.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.0"
