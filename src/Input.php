@@ -73,10 +73,10 @@ class Input implements InputInterface
     /**
      * Function rawInputStream
      *
+     * @return $this
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-26 14:25
      *
-     * @return $this
      */
     public function rawInputStream()
     {
@@ -89,10 +89,10 @@ class Input implements InputInterface
     /**
      * Function getRawInputStream
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-26 14:25
      *
-     * @return mixed
      */
     public function getRawInputStream()
     {
@@ -102,13 +102,13 @@ class Input implements InputInterface
     /**
      * Function inputStream
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-26 14:32
-     *
      * @param null $index
      * @param null $xss_clean
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-26 14:32
+     *
      */
     public function inputStream($index = NULL, $xss_clean = NULL)
     {
@@ -128,7 +128,7 @@ class Input implements InputInterface
      *
      * Return the request method
      *
-     * @param    bool $upper Whether to return in upper or lower case
+     * @param bool $upper    Whether to return in upper or lower case
      *                       (default: FALSE)
      *
      * @return    string
@@ -143,14 +143,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_POST
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       POST parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_POST if no parameters supplied, otherwise the POST value if found or NULL
      *                                    if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function post($key = '', $xss_clean = FALSE)
     {
@@ -169,14 +169,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_GET
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       GET parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_GET if no parameters supplied, otherwise the GET value if found or NULL
      *                                    if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function get($key = '', $xss_clean = FALSE)
     {
@@ -195,14 +195,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_SERVER
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       SERVER parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_SERVER f no parameters supplied, otherwise the SERVER value if found or NULL
      *                                    if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function server($key = '', $xss_clean = FALSE)
     {
@@ -221,14 +221,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_COOKIE
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       COOKIE parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL
      *                                    if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function cookie($key = '', $xss_clean = FALSE)
     {
@@ -247,14 +247,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_FILES
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       FILES parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_FILES f no parameters supplied, otherwise the FILES value if found or NULL
      *                                    if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function file($key = '', $xss_clean = FALSE)
     {
@@ -273,14 +273,14 @@ class Input implements InputInterface
     /**
      * Hàm lấy dữ liệu từ $_SERVER Header
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 10:58
-     *
      * @param string $key       _SERVER parameter name
      * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return mixed|null|string|string[] $_SERVER f no parameters supplied, otherwise the _SERVER value if found or
      *                                    NULL if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 10:58
+     *
      */
     public function header($key = '', $xss_clean = FALSE)
     {
@@ -299,10 +299,10 @@ class Input implements InputInterface
     /**
      * Hàm lấy địa chỉ IP của người dùng
      *
+     * @return bool|int|mixed|string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 11:41
      *
-     * @return bool|int|mixed|string
      */
     public function ip_address()
     {
@@ -314,7 +314,7 @@ class Input implements InputInterface
     /**
      * Request Headers
      *
-     * @param    bool $xss_clean Whether to apply XSS filtering
+     * @param bool $xss_clean Whether to apply XSS filtering
      *
      * @return    array
      */
@@ -347,8 +347,8 @@ class Input implements InputInterface
      *
      * Returns the value of a single member of the headers class member
      *
-     * @param    string $index     Header name
-     * @param    bool   $xss_clean Whether to apply XSS filtering
+     * @param string $index     Header name
+     * @param bool   $xss_clean Whether to apply XSS filtering
      *
      * @return    string|null    The requested header on success or NULL on failure
      */
@@ -402,13 +402,13 @@ class Input implements InputInterface
      *
      * Internal method used to retrieve values from global arrays.
      *
-     * @copyright CodeIgniter
-     *
-     * @param    array    &$array     $_GET, $_POST, $_COOKIE, $_SERVER, etc.
-     * @param    mixed     $index     Index for item to be fetched from $array
-     * @param    bool      $xss_clean Whether to apply XSS filtering
+     * @param array    &$array     $_GET, $_POST, $_COOKIE, $_SERVER, etc.
+     * @param mixed     $index     Index for item to be fetched from $array
+     * @param bool      $xss_clean Whether to apply XSS filtering
      *
      * @return    mixed
+     * @copyright CodeIgniter
+     *
      */
     public function fetchFromArray(&$array, $index = NULL, $xss_clean = NULL)
     {

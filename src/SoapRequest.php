@@ -9,6 +9,7 @@
 
 namespace nguyenanhung\MyRequests;
 
+use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;
@@ -84,10 +85,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function getVersion
      *
+     * @return mixed|string Current Project Version
      * @author  : 713uk13m <dev@nguyenanhung.com>
      * @time    : 10/7/18 02:24
      *
-     * @return mixed|string Current Project Version
      * @example string 0.1.3
      */
     public function getVersion()
@@ -98,12 +99,12 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function setEndpoint
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:26
-     *
      * @param string $endpoint Link to Url Endpoint
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:26
+     *
      */
     public function setEndpoint($endpoint = '')
     {
@@ -116,12 +117,12 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function setData
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:26
-     *
      * @param array $data Data to SOAP Request, call
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:26
+     *
      */
     public function setData($data = [])
     {
@@ -134,12 +135,12 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function setCallFunction
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:36
-     *
      * @param string $callFunction Require Set Function to call SOAP endpoint
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:36
+     *
      */
     public function setCallFunction($callFunction = '')
     {
@@ -154,14 +155,14 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * Nếu input giá trì vào đây, result sẽ map trực tiếp đến mã này
      * nếu không có sẽ trả error luôn
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:37
-     *
      * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
      *                            from Response SOAP Service
      *                            Return Error Code if not find $fieldResult from Response
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:37
+     *
      */
     public function setFieldResult($fieldResult = '')
     {
@@ -175,12 +176,12 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * Function setResponseIsJson
      * Return Response is Json if value = true
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/8/18 19:00
-     *
      * @param string $responseIsJson
      *
      * @return $this|mixed if set value = TRUE, response is Json string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/8/18 19:00
+     *
      * @see   clientRequestWsdl() method
      */
     public function setResponseIsJson($responseIsJson = '')
@@ -194,13 +195,13 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function clientRequestWsdl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:41
-     *
      * @return array|null|string Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
      *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
      *                           exists
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:41
+     *
      */
     public function clientRequestWsdl()
     {
@@ -247,7 +248,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 }
             }
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $message       = [
                 'status' => 2,
                 'code'   => 'Exception Error',
@@ -259,6 +260,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 ]
             ];
             $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            if (function_exists('log_message')) {
+                log_message('error', $error_message);
+            }
             $this->debug->error(__FUNCTION__, $error_message);
         }
         if ($this->responseIsJson) {
@@ -273,13 +277,13 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function clientRequestSOAP
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/10/18 11:15
-     *
      * @return array|null|string Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
      *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
      *                           exists
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/10/18 11:15
+     *
      */
     public function clientRequestSOAP()
     {
@@ -326,7 +330,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 }
             }
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $message       = [
                 'status' => 2,
                 'code'   => 'Exception Error',
@@ -338,6 +342,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 ]
             ];
             $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            if (function_exists('log_message')) {
+                log_message('error', $error_message);
+            }
             $this->debug->error(__FUNCTION__, $error_message);
         }
         if ($this->responseIsJson) {

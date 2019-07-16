@@ -9,7 +9,10 @@
 
 namespace nguyenanhung\MyRequests;
 
+use Exception;
 use IPv4\SubnetCalculator;
+use IPLib\Factory;
+use Curl\Curl;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**
@@ -34,10 +37,10 @@ class Ip implements ProjectInterface
     /**
      * Function getVersion
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 9/19/18 14:02
      *
-     * @return string
      */
     public function getVersion()
     {
@@ -47,12 +50,12 @@ class Ip implements ProjectInterface
     /**
      * Function getIpAddress
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:16
-     *
      * @param bool $convertToInteger
      *
      * @return bool|int|mixed|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/13/18 14:16
+     *
      */
     public function getIpAddress($convertToInteger = FALSE)
     {
@@ -68,10 +71,11 @@ class Ip implements ProjectInterface
     /**
      * Function setHaProxy
      *
+     * @param bool $haProxyStatus
+     *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 11:19
      *
-     * @param bool $haProxyStatus
      */
     public function setHaProxy($haProxyStatus = FALSE)
     {
@@ -81,12 +85,12 @@ class Ip implements ProjectInterface
     /**
      * Function getIpByHaProxy
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:20
-     *
      * @param bool $convertToInteger
      *
      * @return bool|int|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 11:20
+     *
      */
     public function getIpByHaProxy($convertToInteger = FALSE)
     {
@@ -114,12 +118,12 @@ class Ip implements ProjectInterface
     /**
      * Function getRawIpAddress
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:12
-     *
      * @param bool $convertToInteger
      *
      * @return bool|int|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/12/18 01:12
+     *
      */
     public function getRawIpAddress($convertToInteger = FALSE)
     {
@@ -147,13 +151,13 @@ class Ip implements ProjectInterface
     /**
      * Function ipInRange
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:22
-     *
      * @param string $ip_address
      * @param string $network_range
      *
      * @return bool|null|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 11:22
+     *
      */
     public function ipInRange($ip_address = '', $network_range = '')
     {
@@ -163,27 +167,32 @@ class Ip implements ProjectInterface
             return NULL;
         }
         try {
-            $address = \IPLib\Factory::addressFromString($ip_address);
-            $range   = \IPLib\Factory::rangeFromString($network_range);
+            $address = Factory::addressFromString($ip_address);
+            $range   = Factory::rangeFromString($network_range);
             $result  = $address->matches($range);
 
             return $result;
         }
-        catch (\Exception $e) {
-            return 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+        catch (Exception $e) {
+            $result = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            if (function_exists('log_message')) {
+                log_message('error', $result);
+            }
+
+            return $result;
         }
     }
 
     /**
      * Function ipCalculator
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:18
-     *
      * @param $ip
      * @param $network_size
      *
      * @return array|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/12/18 01:18
+     *
      */
     public function ipCalculator($ip, $network_size)
     {
@@ -192,8 +201,11 @@ class Ip implements ProjectInterface
 
             return $result->getSubnetArrayReport();
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            if (function_exists('log_message')) {
+                log_message('error', $message);
+            }
 
             return $message;
         }
@@ -202,12 +214,12 @@ class Ip implements ProjectInterface
     /**
      * Function ipValidate
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:12
-     *
      * @param $ip
      *
      * @return bool
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/12/18 01:12
+     *
      */
     public function ipValidate($ip)
     {
@@ -221,12 +233,12 @@ class Ip implements ProjectInterface
     /**
      * Function ipValidateV4
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:17
-     *
      * @param $ip
      *
      * @return bool
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/13/18 14:17
+     *
      */
     public function ipValidateV4($ip)
     {
@@ -240,12 +252,12 @@ class Ip implements ProjectInterface
     /**
      * Function ipValidateV6
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:17
-     *
      * @param $ip
      *
      * @return bool
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/13/18 14:17
+     *
      */
     public function ipValidateV6($ip)
     {
@@ -259,12 +271,12 @@ class Ip implements ProjectInterface
     /**
      * Function ip2longV6
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 9/20/18 14:26
-     *
      * @param $ip
      *
      * @return string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 9/20/18 14:26
+     *
      */
     public function ip2longV6($ip)
     {
@@ -283,12 +295,12 @@ class Ip implements ProjectInterface
     /**
      * Function ipInfo
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:39
-     *
      * @param string $ip
      *
      * @return string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/18/18 11:39
+     *
      */
     public function ipInfo($ip = '')
     {
@@ -296,14 +308,17 @@ class Ip implements ProjectInterface
             $ip = $this->getIpAddress();
         }
         try {
-            $curl = new \Curl\Curl();
+            $curl = new Curl();
             $curl->get('http://ip-api.com/json/' . $ip);
             $response = $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
 
             return $response;
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            if (function_exists('log_message')) {
+                log_message('error', $message);
+            }
 
             return $message;
         }

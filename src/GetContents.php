@@ -9,7 +9,7 @@
 
 namespace nguyenanhung\MyRequests;
 
-use \Exception;
+use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
@@ -225,10 +225,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function getVersion
      *
+     * @return mixed|string Current Project version
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:46
      *
-     * @return mixed|string Current Project version
      */
     public function getVersion()
     {
@@ -238,13 +238,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function getContent - Get Body Content from Request
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:08
-     *
      * @return array|mixed|string Return Response content if exists
      *                            Full Response content if $this->response['content'] not exists
      *                            Exception Error Message if Exception Error
      *                            Null if Not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:08
+     *
      */
     public function getContent()
     {
@@ -270,13 +270,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function getError - Get Error Code and Message
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/9/18 09:33
-     *
      * @return array|mixed|string Return Response error if exists
      *                            Full Response if $this->response['error'] not exists
      *                            Exception Error Message if Exception Error
      *                            Null if Not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/9/18 09:33
+     *
      */
     public function getError()
     {
@@ -302,10 +302,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function get Response of Request
      *
+     * @return array|null Array if Exists, Null if Not Response
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:50
      *
-     * @return array|null Array if Exists, Null if Not Response
      */
     public function response()
     {
@@ -319,12 +319,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Let's go to Request
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:12
-     *
      * @return array|null|string Response from Request if Exists
      *                           Exception Error Message if Exception Error
      *                           Null if Not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:12
+     *
      */
     public function sendRequest()
     {
@@ -489,10 +489,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Get the post body - either JSON encoded or ready to be sent as a form post
      *
+     * @return array|false|string Data to be sent Request
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:19
      *
-     * @return array|false|string Data to be sent Request
      */
     public function getPostBody()
     {
@@ -542,12 +542,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * Set the target URL
      * Must include http:// or https://
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:10
-     *
      * @param string $url
      *
      * @return string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:10
+     *
      */
     public function setURL($url = '')
     {
@@ -579,12 +579,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * Set the HTTP method
      * GET, HEAD, PUT, POST are valid
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:15
-     *
      * @param string $method Method to Request GET, HEAD, PUT, POST are valid
      *
      * @return $this|string Method
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:15
+     *
      */
     public function setMethod($method = '')
     {
@@ -712,10 +712,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function setXML - Is this transaction sending / expecting XML
      *
+     * @param bool $value true if XML is being used and is expected
+     *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:38
      *
-     * @param bool $value true if XML is being used and is expected
      */
     public function setXML($value = FALSE)
     {
@@ -764,10 +765,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Should SSL peers be verified?
      *
+     * @param bool $value
+     *
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 02:17
      *
-     * @param bool $value
      */
     public function setVerifyPeer($value = FALSE)
     {
@@ -781,10 +783,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function setTimeout
      *
+     * @param int $timeout
+     *
      * @author  : 713uk13m <dev@nguyenanhung.com>
      * @time    : 10/7/18 02:17
-     *
-     * @param int $timeout
      *
      * @example 60
      */
@@ -796,12 +798,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Parse HTTP response headers
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
-     *
      * @param array $headers
      *
      * @return array Header Response
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 02:17
+     *
      */
     public function parseReturnHeaders($headers)
     {

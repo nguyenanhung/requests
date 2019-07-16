@@ -9,6 +9,7 @@
 
 namespace nguyenanhung\MyRequests;
 
+use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
@@ -161,10 +162,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @var object \nguyenanhung\MyDebug\Benchmark
      */
     private $benchmark;
+
     /**
      * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
-    private $debug;
+    private $logger;
+
     /**
      * Set Debug Status
      *
@@ -200,18 +203,18 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->debug = new Debug();
+        $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
         }
-        $this->debug->setDebugStatus($this->debugStatus);
-        $this->debug->setGlobalLoggerLevel($this->debugLevel);
-        $this->debug->setLoggerPath($this->debugLoggerPath);
-        $this->debug->setLoggerSubPath(__CLASS__);
+        $this->logger->setDebugStatus($this->debugStatus);
+        $this->logger->setGlobalLoggerLevel($this->debugLevel);
+        $this->logger->setLoggerPath($this->debugLoggerPath);
+        $this->logger->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
-        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->logger->setLoggerFilename($this->debugLoggerFilename);
     }
 
     /**
@@ -221,18 +224,18 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     {
         if (self::USE_BENCHMARK === TRUE) {
             $this->benchmark->mark('code_end');
-            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
-            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
     }
 
     /**
      * Function getVersion
      *
+     * @return mixed|string Current Project version
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:46
      *
-     * @return mixed|string Current Project version
      */
     public function getVersion()
     {
@@ -242,17 +245,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setHeaders
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
      * @param array $headers
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:04
+     *
      */
     public function setHeader($headers = [])
     {
         $this->headers = $headers;
-        $this->debug->info(__FUNCTION__, 'setHeaders: ', $this->headers);
+        $this->logger->info(__FUNCTION__, 'setHeaders: ', $this->headers);
 
         return $this;
     }
@@ -260,17 +263,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setCookie
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:28
-     *
      * @param array $cookies
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:28
+     *
      */
     public function setCookie($cookies = [])
     {
         $this->cookies = $cookies;
-        $this->debug->info(__FUNCTION__, 'setCookie: ', $this->cookies);
+        $this->logger->info(__FUNCTION__, 'setCookie: ', $this->cookies);
 
         return $this;
     }
@@ -278,17 +281,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setOptions
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
      * @param array $options
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:04
+     *
      */
     public function setOptions($options = [])
     {
         $this->options = $options;
-        $this->debug->info(__FUNCTION__, 'setOptions: ', $this->options);
+        $this->logger->info(__FUNCTION__, 'setOptions: ', $this->options);
 
         return $this;
     }
@@ -296,17 +299,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:05
-     *
      * @param int $timeout
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:05
+     *
      */
     public function setTimeout($timeout = 60)
     {
         $this->timeout = $timeout;
-        $this->debug->info(__FUNCTION__, 'setTimeout: ', $this->timeout);
+        $this->logger->info(__FUNCTION__, 'setTimeout: ', $this->timeout);
 
         return $this;
     }
@@ -314,17 +317,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:19
-     *
      * @param string $userAgent
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:19
+     *
      */
     public function setUserAgent($userAgent = '')
     {
         $this->userAgent = $userAgent;
-        $this->debug->info(__FUNCTION__, 'setUserAgent: ', $this->userAgent);
+        $this->logger->info(__FUNCTION__, 'setUserAgent: ', $this->userAgent);
 
         return $this;
     }
@@ -332,17 +335,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setReferrer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:26
-     *
      * @param string $referrer
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:26
+     *
      */
     public function setReferrer($referrer = '')
     {
         $this->referrer = $referrer;
-        $this->debug->info(__FUNCTION__, 'setReferrer: ', $this->referrer);
+        $this->logger->info(__FUNCTION__, 'setReferrer: ', $this->referrer);
 
         return $this;
     }
@@ -350,17 +353,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setUserBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:25
-     *
      * @param bool $isBody
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:25
+     *
      */
     public function setUserBody($isBody = FALSE)
     {
         $this->isBody = $isBody;
-        $this->debug->info(__FUNCTION__, 'setUserBody: ', $this->referrer);
+        $this->logger->info(__FUNCTION__, 'setUserBody: ', $this->referrer);
 
         return $this;
     }
@@ -368,12 +371,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsXml
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
      * @param bool $isXml
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:17
+     *
      */
     public function setRequestIsXml($isXml = FALSE)
     {
@@ -383,7 +386,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $header['Content-type'] = 'text/xml; charset=utf-8';
             $this->headers          = $header;
         }
-        $this->debug->info(__FUNCTION__, 'setRequestIsXml: ', $this->isXml);
+        $this->logger->info(__FUNCTION__, 'setRequestIsXml: ', $this->isXml);
 
         return $this;
     }
@@ -391,12 +394,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsJson
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
      * @param bool $isJson
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:17
+     *
      */
     public function setRequestIsJson($isJson = FALSE)
     {
@@ -406,7 +409,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $header['Content-type'] = 'application/json; charset=utf-8';
             $this->headers          = $header;
         }
-        $this->debug->info(__FUNCTION__, 'setRequestIsJson: ', $this->isJson);
+        $this->logger->info(__FUNCTION__, 'setRequestIsJson: ', $this->isJson);
 
         return $this;
     }
@@ -414,17 +417,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsSSL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 20:03
-     *
      * @param bool $isSSL
      *
      * @return mixed|$this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 20:03
+     *
      */
     public function setRequestIsSSL($isSSL = FALSE)
     {
         $this->isSSL = $isSSL;
-        $this->debug->info(__FUNCTION__, 'setRequestIsSSL: ', $this->isSSL);
+        $this->logger->info(__FUNCTION__, 'setRequestIsSSL: ', $this->isSSL);
 
         return $this;
     }
@@ -433,17 +436,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function setErrorResponseIsData
      * = true -> sẽ trả về 1 response đầy đủ error code, error message
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:02
-     *
      * @param bool $errorResponseIsData Array Data if Response is Null if Error
      *
      * @return  $this;
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:02
+     *
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE)
     {
         $this->errorResponseIsData = $errorResponseIsData;
-        $this->debug->info(__FUNCTION__, 'setErrorResponseIsData: ', $this->errorResponseIsData);
+        $this->logger->info(__FUNCTION__, 'setErrorResponseIsData: ', $this->errorResponseIsData);
 
         return $this;
     }
@@ -452,17 +455,17 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function setErrorResponseIsNull
      * Trả về null nếu có lỗi request
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:04
-     *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
      * @return mixed|$this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:04
+     *
      */
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE)
     {
         $this->errorResponseIsNull = $errorResponseIsNull;
-        $this->debug->info(__FUNCTION__, 'setErrorResponseIsNull: ', $this->errorResponseIsNull);
+        $this->logger->info(__FUNCTION__, 'setErrorResponseIsNull: ', $this->errorResponseIsNull);
 
         return $this;
     }
@@ -470,13 +473,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setBasicAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:24
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:24
+     *
      */
     public function setBasicAuthentication($username = '', $password = '')
     {
@@ -484,7 +487,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             'username' => $username,
             'password' => $password
         ];
-        $this->debug->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
+        $this->logger->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
 
         return $this;
     }
@@ -492,18 +495,18 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setDigestAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:28
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:28
+     *
      */
     public function setDigestAuthentication($username = '', $password = '')
     {
         $this->digestAuthentication = [$username, $password, 'digest'];
-        $this->debug->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
+        $this->logger->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
 
         return $this;
     }
@@ -511,10 +514,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpCode
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getHttpCode()
     {
@@ -524,10 +527,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpMessage
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getHttpMessage()
     {
@@ -537,10 +540,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getErrorCode
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getErrorCode()
     {
@@ -550,10 +553,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getRequestsHeader
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getRequestsHeader()
     {
@@ -563,10 +566,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getResponseHeader
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getResponseHeader()
     {
@@ -579,33 +582,33 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function guzzlePhpRequest
      * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:45
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return \GuzzleHttp\Stream\StreamInterface|null|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:45
+     *
      * @see   https://packagist.org/packages/guzzlehttp/guzzle
      */
     public function guzzlePhpRequest($url = '', $data = [], $method = 'GET')
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
             'method' => $method,
         ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $method   = strtoupper($method);
         $endpoint = trim($url);
-        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (version_compare(PHP_VERSION, '5.4', '<')) {
             return $this->curlRequest($url, $data, $method);
         }
         if (!class_exists('GuzzleHttp\Client')) {
-            $this->debug->critical(__FUNCTION__, 'class GuzzleHttp\Client is not exits');
+            $this->logger->critical(__FUNCTION__, 'class GuzzleHttp\Client is not exits');
             $result = NULL;
         } else {
             try {
@@ -642,28 +645,28 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 }
                 $this->setOptions($options);
                 if ($method == self::GET) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->get($endpoint, $this->options);
                 } elseif ($method == self::HEAD) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->head($endpoint, $this->options);
                 } elseif ($method == self::DELETE) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->delete($endpoint, $this->options);
                 } elseif ($method == self::POST) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->post($endpoint, $this->options);
                 } elseif ($method == self::PUT) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->put($endpoint, $this->options);
                 } elseif ($method == self::OPTIONS) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->options($endpoint, $this->options);
                 } elseif ($method == self::PATCH) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->patch($endpoint, $this->options);
                 } else {
-                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $request = $client->get($endpoint, $this->options);
                 }
                 // Debug
@@ -700,28 +703,31 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->http_code    = $status_code;
                 $this->http_message = $request->getReasonPhrase();
                 $this->error_code   = $error_code;
-                $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
+                $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                 if ($http_error) {
                     if ($this->errorResponseIsData === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Array Data');
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Array Data');
                         $result = $error_code;
                     } elseif ($this->errorResponseIsNull === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Null');
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Null');
                         $result = NULL;
                     } else {
                         $result = $request;
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . $result);
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Message: ' . $result);
                     }
                 } else {
                     $result = $request->getBody();
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-                $this->debug->error(__FUNCTION__, 'Exception Error - ' . $result);
+                if (function_exists('log_message')) {
+                    log_message('error', $result);
+                }
+                $this->logger->error(__FUNCTION__, 'Exception Error - ' . $result);
             }
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -730,36 +736,36 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function curlRequest
      * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:54
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|null|string Response content from server,
      *                           null of Exception Message if Error
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:54
+     *
      * @see   https://packagist.org/packages/curl/curl
      */
     public function curlRequest($url = '', $data = [], $method = 'GET')
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
             'method' => $method,
         ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $method = strtoupper($method);
         if (!class_exists('Curl\Curl')) {
-            $this->debug->critical(__FUNCTION__, 'class \Curl\Curl() is not exits');
+            $this->logger->critical(__FUNCTION__, 'class \Curl\Curl() is not exits');
             $response = NULL;
         } else {
             try {
                 $curl = new Curl();
                 if ($this->isJson) {
                     $data = json_encode($data);
-                    $this->debug->info(__FUNCTION__, 'isJson Data: ', $data);
+                    $this->logger->info(__FUNCTION__, 'isJson Data: ', $data);
                 }
                 if ($this->userAgent) {
                     $curl->setUserAgent($this->userAgent);
@@ -790,85 +796,88 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $curl->setOpt(CURLOPT_FOLLOWLOCATION, self::FOLLOW_LOCATION);
                 // Request
                 if (self::POST == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
                     $curl->post($url, $data);
                 } elseif (self::PUT == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
                     $curl->put($url, $data);
                 } elseif (self::PATCH == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
                     $curl->patch($url, $data);
                 } elseif (self::DELETE == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
                     $curl->delete($url, $data);
                 } elseif (self::OPTIONS == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
                     $curl->options($url, $data);
                 } elseif (self::HEAD == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
                     $curl->head($url, $data);
                 } elseif (self::GET == $method) {
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $curl->get($url, $data);
                 } else {
-                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $curl->get($url, $data);
                 }
+                $error_code = [
+                    'status'        => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
+                    'error'         => $curl->error,
+                    'error_code'    => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
+                    'error_message' => isset($curl->errorMessage) ? $curl->errorMessage : (isset($curl->error_message)) ? $curl->error_message : NULL,
+                    'curl_error'    => [
+                        'curl_error'         => isset($curl->curlError) ? $curl->curlError : (isset($curl->curl_error)) ? $curl->curl_error : NULL,
+                        'curl_error_code'    => isset($curl->curlErrorCode) ? $curl->curlErrorCode : (isset($curl->curl_error_code)) ? $curl->curl_error_code : NULL,
+                        'curl_error_message' => isset($curl->curlErrorMessage) ? $curl->curlErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
+                    ],
+                    'http_error'    => [
+                        'http_error'         => isset($curl->httpError) ? $curl->httpError : (isset($curl->http_error)) ? $curl->http_error : NULL,
+                        'http_status_code'   => isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL,
+                        'http_error_message' => isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
+                    ],
+                    'headers'       => [
+                        'request_headers'  => isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL,
+                        'response_headers' => isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL
+                    ]
+                ];
+                // Set Vars
+                $this->error_code      = $error_code;
+                $this->http_code       = isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL;
+                $this->http_message    = isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL;
+                $this->requests_header = isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL;
+                $this->response_header = isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL;
                 // Response
                 if (($curl->error)) {
-                    $error_code = [
-                        'status'        => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
-                        'error'         => $curl->error,
-                        'error_code'    => isset($curl->errorCode) ? $curl->errorCode : (isset($curl->error_code)) ? $curl->error_code : NULL,
-                        'error_message' => isset($curl->errorMessage) ? $curl->errorMessage : (isset($curl->error_message)) ? $curl->error_message : NULL,
-                        'curl_error'    => [
-                            'curl_error'         => isset($curl->curlError) ? $curl->curlError : (isset($curl->curl_error)) ? $curl->curl_error : NULL,
-                            'curl_error_code'    => isset($curl->curlErrorCode) ? $curl->curlErrorCode : (isset($curl->curl_error_code)) ? $curl->curl_error_code : NULL,
-                            'curl_error_message' => isset($curl->curlErrorMessage) ? $curl->curlErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
-                        ],
-                        'http_error'    => [
-                            'http_error'         => isset($curl->httpError) ? $curl->httpError : (isset($curl->http_error)) ? $curl->http_error : NULL,
-                            'http_status_code'   => isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL,
-                            'http_error_message' => isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL,
-                        ],
-                        'headers'       => [
-                            'request_headers'  => isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL,
-                            'response_headers' => isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL
-                        ]
-                    ];
-                    // Set Vars
-                    $this->error_code      = $error_code;
-                    $this->http_code       = isset($curl->httpStatusCode) ? $curl->httpStatusCode : (isset($curl->curl_status_code)) ? $curl->curl_status_code : NULL;
-                    $this->http_message    = isset($curl->httpErrorMessage) ? $curl->httpErrorMessage : (isset($curl->curl_error_message)) ? $curl->curl_error_message : NULL;
-                    $this->requests_header = isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL;
-                    $this->response_header = isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL;
                     // Debug
-                    $this->debug->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
+                    $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Array Data');
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Array Data');
                         $response = $error_code;
                     } elseif ($this->errorResponseIsNull === TRUE) {
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Null');
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Null');
                         $response = NULL;
                     } else {
                         $errMsg   = isset($curl->errorMessage) ? $curl->errorMessage : (isset($curl->error_message) ? $curl->error_message : NULL);
                         $response = "cURL Error: " . $errMsg;
-                        $this->debug->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
+                        $this->logger->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
                     }
                 } else {
                     $response = isset($curl->rawResponse) ? $curl->rawResponse : (isset($curl->response) ? $curl->response : NULL);
-                    $this->debug->debug(__FUNCTION__, 'Response from Request, no Error: ' . $response);
+                    $this->logger->debug(__FUNCTION__, 'Response from Request, no Error: ' . $response);
                 }
                 // Close Request
                 $curl->close();
                 // Log Response
                 if (isset($response)) {
-                    $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $response);
+                    $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $response);
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-                $this->debug->error(__FUNCTION__, 'Exception Error - ' . $response);
+                if (function_exists('log_message')) {
+                    log_message('error', $response);
+                }
+                $this->logger->error(__FUNCTION__, 'Exception Error - ' . $response);
             }
         }
 
@@ -880,31 +889,31 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function sendRequest
      * Handle send Request use Multi Method
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:07
-     *
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|\GuzzleHttp\Stream\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:07
+     *
+     *
      */
     public function sendRequest($url = '', $data = [], $method = 'GET')
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'    => $url,
             'data'   => $data,
             'method' => $method,
         ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $method   = strtoupper($method);
         $endpoint = trim($url);
-        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!extension_loaded('curl')) {
-            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
             // Create Request use File Get Content
             $content                  = new GetContents();
             $content->debugStatus     = $this->debugStatus;
@@ -918,54 +927,57 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $result     = $content->response();
             $getContent = $content->getContent();
             $getError   = $content->getError();
-            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
-            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+            $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
             try {
                 if ($method == self::GET) {
                     // Handle GET Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::HEAD) {
                     // Handle HEAD Request with pyRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::DELETE) {
                     // Handle DELETE Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::TRACE) {
                     // Handle TRACE Request with pyRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::POST) {
                     // Handle POST Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::PUT) {
                     // Handle PUT Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } elseif ($method == self::OPTIONS) {
                     // Handle OPTIONS Request with pyRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->guzzlePhpRequest($url, $data, $method);
                 } elseif ($method == self::PATCH) {
                     // Handle PATCH Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 } else {
                     // Handle DEFAULT Request with curlRequest
-                    $this->debug->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-                $this->debug->error(__FUNCTION__, $result);
+                if (function_exists('log_message')) {
+                    log_message('error', $result);
+                }
+                $this->logger->error(__FUNCTION__, $result);
             }
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -974,28 +986,28 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function xmlRequest
      * Send XML Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:11
-     *
      * @param string $url     URL Endpoint to be Request
      * @param string $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:11
+     *
      */
     public function xmlRequest($url = '', $data = '', $timeout = 60)
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'     => $url,
             'data'    => $data,
             'timeout' => $timeout,
         ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $endpoint = trim($url);
-        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!extension_loaded('curl')) {
-            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
             // Create Request use File Get Content
             $content                  = new GetContents();
             $content->debugStatus     = $this->debugStatus;
@@ -1010,14 +1022,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $result     = $content->response();
             $getContent = $content->getContent();
             $getError   = $content->getError();
-            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
-            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+            $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
             $this->setRequestIsXml(TRUE);
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -1026,28 +1038,28 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function jsonRequest
      * Send JSON Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:13
-     *
      * @param string $url     URL Endpoint to be Request
      * @param array  $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:13
+     *
      */
     public function jsonRequest($url = '', $data = [], $timeout = 60)
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = [
             'url'     => $url,
             'data'    => $data,
             'timeout' => $timeout,
         ];
-        $this->debug->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $endpoint = trim($url);
-        $this->debug->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!extension_loaded('curl')) {
-            $this->debug->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+            $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
             // Create Request use File Get Content
             $content                  = new GetContents();
             $content->debugStatus     = $this->debugStatus;
@@ -1062,14 +1074,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $result     = $content->response();
             $getContent = $content->getContent();
             $getError   = $content->getError();
-            $this->debug->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
-            $this->debug->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
+            $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
+            $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
             $this->setRequestIsJson(TRUE);
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -1078,14 +1090,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function xmlGetValue
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
-     *
      * @param string $xml      XML String
      * @param string $openTag  OpenTag to find
      * @param string $closeTag CloseTag to find
      *
      * @return bool|string  Result from Tag, Empty string if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
      */
     public function xmlGetValue($xml = '', $openTag = '', $closeTag = '')
     {
@@ -1101,12 +1113,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function parseXmlDataRequest
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
-     *
      * @param string $resultXml XML String to Parse
      *
      * @return false|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
      */
     public function parseXmlDataRequest($resultXml = '')
     {
