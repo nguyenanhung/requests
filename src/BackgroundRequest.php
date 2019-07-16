@@ -73,10 +73,10 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     /**
      * Function getVersion
      *
+     * @return mixed|string Current Project Version
      * @author  : 713uk13m <dev@nguyenanhung.com>
      * @time    : 10/7/18 02:24
      *
-     * @return mixed|string Current Project Version
      * @example string 0.1.3
      */
     public function getVersion()
@@ -87,12 +87,12 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     /**
      * Hàm gọi 1 async GET Request để không delay Main Process
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:15
-     *
      * @param string $url Url Endpoint
      *
      * @return bool TRUE nếu thành công, FALSE nếu thất bại
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/16/18 17:15
+     *
      */
     public static function backgroundHttpGet($url)
     {
@@ -123,13 +123,13 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     /**
      * Hàm gọi 1 async POST Request để không delay Main Process
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:16
-     *
      * @param string $url         Url Endpoint
      * @param string $paramString Params to Request
      *
      * @return bool TRUE nếu thành công, FALSE nếu thất bại
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/16/18 17:16
+     *
      */
     public static function backgroundHttpPost($url, $paramString = '')
     {

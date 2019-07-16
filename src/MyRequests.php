@@ -9,6 +9,7 @@
 
 namespace nguyenanhung\MyRequests;
 
+use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
@@ -229,10 +230,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getVersion
      *
+     * @return mixed|string Current Project version
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:46
      *
-     * @return mixed|string Current Project version
      */
     public function getVersion()
     {
@@ -242,12 +243,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setHeaders
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
      * @param array $headers
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:04
+     *
      */
     public function setHeader($headers = [])
     {
@@ -260,12 +261,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setCookie
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:28
-     *
      * @param array $cookies
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:28
+     *
      */
     public function setCookie($cookies = [])
     {
@@ -278,12 +279,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setOptions
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
      * @param array $options
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:04
+     *
      */
     public function setOptions($options = [])
     {
@@ -296,12 +297,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:05
-     *
      * @param int $timeout
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 04:05
+     *
      */
     public function setTimeout($timeout = 60)
     {
@@ -314,12 +315,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:19
-     *
      * @param string $userAgent
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:19
+     *
      */
     public function setUserAgent($userAgent = '')
     {
@@ -332,12 +333,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setReferrer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:26
-     *
      * @param string $referrer
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:26
+     *
      */
     public function setReferrer($referrer = '')
     {
@@ -350,12 +351,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setUserBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:25
-     *
      * @param bool $isBody
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:25
+     *
      */
     public function setUserBody($isBody = FALSE)
     {
@@ -368,12 +369,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsXml
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
      * @param bool $isXml
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:17
+     *
      */
     public function setRequestIsXml($isXml = FALSE)
     {
@@ -391,12 +392,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsJson
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
      * @param bool $isJson
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:17
+     *
      */
     public function setRequestIsJson($isJson = FALSE)
     {
@@ -414,12 +415,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsSSL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 20:03
-     *
      * @param bool $isSSL
      *
      * @return mixed|$this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 20:03
+     *
      */
     public function setRequestIsSSL($isSSL = FALSE)
     {
@@ -433,12 +434,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function setErrorResponseIsData
      * = true -> sẽ trả về 1 response đầy đủ error code, error message
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:02
-     *
      * @param bool $errorResponseIsData Array Data if Response is Null if Error
      *
      * @return  $this;
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:02
+     *
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE)
     {
@@ -452,12 +453,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function setErrorResponseIsNull
      * Trả về null nếu có lỗi request
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:04
-     *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
      * @return mixed|$this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:04
+     *
      */
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE)
     {
@@ -470,13 +471,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setBasicAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:24
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:24
+     *
      */
     public function setBasicAuthentication($username = '', $password = '')
     {
@@ -492,13 +493,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setDigestAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:28
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
      * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:28
+     *
      */
     public function setDigestAuthentication($username = '', $password = '')
     {
@@ -511,10 +512,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpCode
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getHttpCode()
     {
@@ -524,10 +525,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpMessage
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getHttpMessage()
     {
@@ -537,10 +538,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getErrorCode
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getErrorCode()
     {
@@ -550,10 +551,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getRequestsHeader
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getRequestsHeader()
     {
@@ -563,10 +564,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getResponseHeader
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:16
      *
-     * @return mixed
      */
     public function getResponseHeader()
     {
@@ -579,14 +580,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function guzzlePhpRequest
      * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:45
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return \GuzzleHttp\Stream\StreamInterface|null|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:45
+     *
      * @see   https://packagist.org/packages/guzzlehttp/guzzle
      */
     public function guzzlePhpRequest($url = '', $data = [], $method = 'GET')
@@ -716,8 +717,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $result = $request->getBody();
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+                if (function_exists('log_message')) {
+                    log_message('error', $result);
+                }
                 $this->debug->error(__FUNCTION__, 'Exception Error - ' . $result);
             }
         }
@@ -730,15 +734,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function curlRequest
      * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:54
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|null|string Response content from server,
      *                           null of Exception Message if Error
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:54
+     *
      * @see   https://packagist.org/packages/curl/curl
      */
     public function curlRequest($url = '', $data = [], $method = 'GET')
@@ -866,8 +870,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $this->debug->info(__FUNCTION__, 'Final Result from Request: ', $response);
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+                if (function_exists('log_message')) {
+                    log_message('error', $response);
+                }
                 $this->debug->error(__FUNCTION__, 'Exception Error - ' . $response);
             }
         }
@@ -880,16 +887,16 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function sendRequest
      * Handle send Request use Multi Method
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:07
-     *
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|\GuzzleHttp\Stream\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:07
+     *
+     *
      */
     public function sendRequest($url = '', $data = [], $method = 'GET')
     {
@@ -960,8 +967,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     $result = $this->curlRequest($url, $data, $method);
                 }
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+                if (function_exists('log_message')) {
+                    log_message('error', $result);
+                }
                 $this->debug->error(__FUNCTION__, $result);
             }
         }
@@ -974,14 +984,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function xmlRequest
      * Send XML Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:11
-     *
      * @param string $url     URL Endpoint to be Request
      * @param string $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:11
+     *
      */
     public function xmlRequest($url = '', $data = '', $timeout = 60)
     {
@@ -1026,14 +1036,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * Function jsonRequest
      * Send JSON Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:13
-     *
      * @param string $url     URL Endpoint to be Request
      * @param array  $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:13
+     *
      */
     public function jsonRequest($url = '', $data = [], $timeout = 60)
     {
@@ -1078,14 +1088,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function xmlGetValue
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
-     *
      * @param string $xml      XML String
      * @param string $openTag  OpenTag to find
      * @param string $closeTag CloseTag to find
      *
      * @return bool|string  Result from Tag, Empty string if not
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
      */
     public function xmlGetValue($xml = '', $openTag = '', $closeTag = '')
     {
@@ -1101,12 +1111,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function parseXmlDataRequest
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
-     *
      * @param string $resultXml XML String to Parse
      *
      * @return false|string
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:57
+     *
      */
     public function parseXmlDataRequest($resultXml = '')
     {

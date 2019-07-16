@@ -78,12 +78,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:59
-     *
      * @param bool $authentication
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 13:59
+     *
      */
     public function setAuthentication($authentication = FALSE)
     {
@@ -95,10 +95,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getAuthentication
      *
+     * @return int
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 13:59
      *
-     * @return int
      */
     public function getAuthentication()
     {
@@ -108,12 +108,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setUsername
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
      * @param string $username
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:00
+     *
      */
     public function setUsername($username = '')
     {
@@ -125,10 +125,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getUsername
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:00
      *
-     * @return string
      */
     public function getUsername()
     {
@@ -138,12 +138,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setPassword
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
      * @param string $password
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:01
+     *
      */
     public function setPassword($password = '')
     {
@@ -155,10 +155,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getPassword
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:00
      *
-     * @return string
      */
     public function getPassword()
     {
@@ -168,12 +168,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setUrl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
      * @param string $url
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:01
+     *
      */
     public function setUrl($url = '')
     {
@@ -185,10 +185,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getUrl
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:01
      *
-     * @return string
      */
     public function getUrl()
     {
@@ -198,12 +198,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setData
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:06
-     *
      * @param array $data
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:06
+     *
      */
     public function setData($data = [])
     {
@@ -215,10 +215,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getData
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:06
      *
-     * @return mixed
      */
     public function getData()
     {
@@ -228,12 +228,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:11
-     *
      * @param int $timeout
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:11
+     *
      */
     public function setTimeout($timeout = 60)
     {
@@ -245,10 +245,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getTimeout
      *
+     * @return int
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:11
      *
-     * @return int
      */
     public function getTimeout()
     {
@@ -258,10 +258,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function isPost
      *
+     * @return $this
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:07
      *
-     * @return $this
      */
     public function isPost()
     {
@@ -273,10 +273,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function isJson
      *
+     * @return $this
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:08
      *
-     * @return $this
      */
     public function isJson()
     {
@@ -288,10 +288,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function isXML
      *
+     * @return $this
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:08
      *
-     * @return $this
      */
     public function isXML()
     {
@@ -303,12 +303,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
      * @param string $userAgent
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:10
+     *
      */
     public function setUserAgent($userAgent = '')
     {
@@ -320,10 +320,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getUserAgent
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:09
      *
-     * @return string
      */
     public function getUserAgent()
     {
@@ -333,12 +333,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setCookieFileLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
      * @param string $cookieFileLocation
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:10
+     *
      */
     public function setCookieFileLocation($cookieFileLocation = '')
     {
@@ -350,10 +350,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getCookieFileLocation
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:10
      *
-     * @return string
      */
     public function getCookieFileLocation()
     {
@@ -363,12 +363,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setFollowLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:12
-     *
      * @param bool $followLocation
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:12
+     *
      */
     public function setFollowLocation($followLocation = TRUE)
     {
@@ -380,10 +380,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getFollowLocation
      *
+     * @return bool
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:12
      *
-     * @return bool
      */
     public function getFollowLocation()
     {
@@ -393,12 +393,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setMaxRedirect
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:14
-     *
      * @param int $maxRedirect
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:14
+     *
      */
     public function setMaxRedirect($maxRedirect = 10)
     {
@@ -410,10 +410,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getMaxRedirect
      *
+     * @return int
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:13
      *
-     * @return int
      */
     public function getMaxRedirect()
     {
@@ -423,12 +423,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setReferer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:16
-     *
      * @param string $referer
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:16
+     *
      */
     public function setReferer($referer = '')
     {
@@ -440,10 +440,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getReferer
      *
+     * @return string
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:16
      *
-     * @return string
      */
     public function getReferer()
     {
@@ -453,12 +453,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setSession
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
      * @param array $session
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:17
+     *
      */
     public function setSession($session = [])
     {
@@ -470,10 +470,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getSession
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:17
      *
-     * @return mixed
      */
     public function getSession()
     {
@@ -483,12 +483,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setIncludeHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
      * @param bool $includeHeader
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:17
+     *
      */
     public function setIncludeHeader($includeHeader = TRUE)
     {
@@ -500,10 +500,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getIncludeHeader
      *
+     * @return bool
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:18
      *
-     * @return bool
      */
     public function getIncludeHeader()
     {
@@ -513,12 +513,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setBinaryTransfer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @param bool $binaryTransfer
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:19
+     *
      */
     public function setBinaryTransfer($binaryTransfer = TRUE)
     {
@@ -530,10 +530,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function isBinaryTransfer
      *
+     * @return bool
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:19
      *
-     * @return bool
      */
     public function isBinaryTransfer()
     {
@@ -543,12 +543,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function setNoBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @param bool $noBody
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 14:19
+     *
      */
     public function setNoBody($noBody = TRUE)
     {
@@ -560,10 +560,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getNoBody
      *
+     * @return bool
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 14:19
      *
-     * @return bool
      */
     public function getNoBody()
     {
@@ -573,12 +573,12 @@ class CurlData implements CurlDataInterface
     /**
      * Function createCurl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:50
-     *
      * @param string $url
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 11/28/18 13:50
+     *
      */
     public function createCurl($url = '')
     {
@@ -644,10 +644,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function __toString
      *
+     * @return mixed
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 11/28/18 13:48
      *
-     * @return mixed
      */
     public function __toString()
     {
