@@ -25,6 +25,8 @@ use Curl\Curl;
  */
 class MyRequests implements ProjectInterface, SendRequestsInterface
 {
+    use Version;
+
     /**
      * An array of headers to be added to the request
      *
@@ -227,19 +229,6 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @return mixed|string Current Project version
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:46
-     *
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**

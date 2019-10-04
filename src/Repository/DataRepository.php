@@ -10,31 +10,21 @@
 namespace nguyenanhung\MyRequests\Repository;
 
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
+use nguyenanhung\MyRequests\Version;
 
 /**
  * Class DataRepository
  *
- * @package    nguyenanhung\MyRequests\Repository
- * @author     713uk13m <dev@nguyenanhung.com>
- * @copyright  713uk13m <dev@nguyenanhung.com>
+ * @package   nguyenanhung\MyRequests\Repository
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 class DataRepository implements ProjectInterface
 {
+    use Version;
+
     const CONFIG_PATH = 'config';
     const CONFIG_EXT  = '.php';
-
-    /**
-     * Function getVersion
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:07
-     *
-     * @return mixed|string
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
-    }
 
     /**
      * Function getData
