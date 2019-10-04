@@ -30,7 +30,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * @var  object \nguyenanhung\MyDebug\Debug Call to class
      */
-    private $debug;
+    private $logger;
 
     /**
      * Set Debug Status
@@ -187,18 +187,18 @@ class GetContents implements ProjectInterface, GetContentsInterface
         /**
          * Call to class Debug
          */
-        $this->debug = new Debug();
+        $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
         }
-        $this->debug->setDebugStatus($this->debugStatus);
-        $this->debug->setGlobalLoggerLevel($this->debugLevel);
-        $this->debug->setLoggerPath($this->debugLoggerPath);
-        $this->debug->setLoggerSubPath(__CLASS__);
+        $this->logger->setDebugStatus($this->debugStatus);
+        $this->logger->setGlobalLoggerLevel($this->debugLevel);
+        $this->logger->setLoggerPath($this->debugLoggerPath);
+        $this->logger->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
-        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->logger->setLoggerFilename($this->debugLoggerFilename);
         if ($url) {
             /**
              * If $url is not Empty, call method setURL
@@ -217,8 +217,8 @@ class GetContents implements ProjectInterface, GetContentsInterface
     {
         if (self::USE_BENCHMARK === TRUE) {
             $this->benchmark->mark('code_end');
-            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
-            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
     }
 
@@ -259,7 +259,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->debug->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, $message);
 
             return $message;
         }
@@ -291,7 +291,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->debug->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, $message);
 
             return $message;
         }
@@ -338,7 +338,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         catch (Exception $e) {
             $message = "Error: " . __CLASS__ . ": Please make sure to set a URL to fetch - Line: " . $e->getLine() . ' - Msg: ' . $e->getMessage();
-            $this->debug->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, $message);
 
             return $message;
         }
@@ -388,9 +388,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         $context      = stream_context_create($options);
         $query_string = $this->getQueryString();
-        $this->debug->debug(__FUNCTION__, 'Options into Request: ', $options);
-        $this->debug->debug(__FUNCTION__, 'Data Query String into Request: ', $query_string);
-        $this->debug->debug(__FUNCTION__, 'Endpoint URL into Request: ', $this->url);
+        $this->logger->debug(__FUNCTION__, 'Options into Request: ', $options);
+        $this->logger->debug(__FUNCTION__, 'Data Query String into Request: ', $query_string);
+        $this->logger->debug(__FUNCTION__, 'Endpoint URL into Request: ', $this->url);
         try {
             $response          = file_get_contents($this->url . $query_string, FALSE, $context);
             $responseHeaders   = $http_response_header;
@@ -402,7 +402,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     $responseJson = json_decode(trim($return['content']));
                     if (json_last_error() == JSON_ERROR_NONE) {
                         $return['content'] = $responseJson;
-                        $this->debug->debug(__FUNCTION__, 'Set Response is Json: ', $return['content']);
+                        $this->logger->debug(__FUNCTION__, 'Set Response is Json: ', $return['content']);
                     }
                 }
             }
@@ -414,7 +414,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 'message'  => 'Could not file_get_contents.',
                 'extended' => $e
             ];
-            $this->debug->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
+            $this->logger->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
         }
 
         if (isset($return['headers']['reponse_code'])) {
@@ -424,7 +424,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     'code'    => $return['headers']['reponse_code'],
                     'message' => 'Server returned an error.'
                 ];
-                $this->debug->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
+                $this->logger->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
             }
         }
 
@@ -441,7 +441,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->cookies = $cookies;
         }
         $return['cookies'] = $cookies;
-        $this->debug->info(__FUNCTION__, 'Final Result from Server: ', $return);
+        $this->logger->info(__FUNCTION__, 'Final Result from Server: ', $return);
 
         return $return;
     }
@@ -555,10 +555,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
             if (mb_strlen($url) > 0) {
                 if (substr($url, 0, 8) == 'https://') {
                     $this->isSSL = TRUE;
-                    $this->debug->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
+                    $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 } elseif (substr($url, 0, 7) == 'http://') {
                     $this->isSSL = TRUE;
-                    $this->debug->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
+                    $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
             }
             $this->url = $url;
@@ -566,11 +566,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
         catch (Exception $e) {
             $this->url = NULL;
             $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->debug->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, $message);
 
             return $message;
         }
-        $this->debug->debug(__FUNCTION__, 'Endpoint URL to Request: ', $this->url);
+        $this->logger->debug(__FUNCTION__, 'Endpoint URL to Request: ', $this->url);
 
         return $this;
     }
@@ -589,7 +589,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     public function setMethod($method = '')
     {
         if (mb_strlen($method) == 0) {
-            $this->debug->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
+            $this->logger->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
             $method = 'GET';
         } else {
             $method       = strtoupper($method);
@@ -602,7 +602,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             ];
             if (!in_array($method, $validMethods)) {
                 $message = "Error: " . __CLASS__ . ": The requested method (${method}) is not valid here";
-                $this->debug->error(__FUNCTION__, $message);
+                $this->logger->error(__FUNCTION__, $message);
 
                 return $message;
             }
@@ -631,7 +631,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         } else {
             $this->data = $data;
         }
-        $this->debug->debug(__FUNCTION__, 'Data into Request: ', $this->data);
+        $this->logger->debug(__FUNCTION__, 'Data into Request: ', $this->data);
     }
 
     /**
@@ -819,7 +819,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 }
             }
         }
-        $this->debug->debug(__FUNCTION__, 'Response Header: ', $head);
+        $this->logger->debug(__FUNCTION__, 'Response Header: ', $head);
 
         return $head;
     }

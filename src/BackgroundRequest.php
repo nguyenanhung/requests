@@ -22,10 +22,12 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
 {
+    use Version;
+
     /** @var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
     /** @var object \nguyenanhung\MyDebug\Debug Call to class */
-    private $debug;
+    private $logger;
     /** @var bool Set Debug Status */
     public $debugStatus = FALSE;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
@@ -37,6 +39,9 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
 
     /**
      * BackgroundRequest constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -44,18 +49,18 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->debug = new Debug();
+        $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
         }
-        $this->debug->setDebugStatus($this->debugStatus);
-        $this->debug->setGlobalLoggerLevel($this->debugLevel);
-        $this->debug->setLoggerPath($this->debugLoggerPath);
-        $this->debug->setLoggerSubPath(__CLASS__);
+        $this->logger->setDebugStatus($this->debugStatus);
+        $this->logger->setGlobalLoggerLevel($this->debugLevel);
+        $this->logger->setLoggerPath($this->debugLoggerPath);
+        $this->logger->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
-        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->logger->setLoggerFilename($this->debugLoggerFilename);
     }
 
     /**
@@ -65,23 +70,9 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     {
         if (self::USE_BENCHMARK === TRUE) {
             $this->benchmark->mark('code_end');
-            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
-            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @return mixed|string Current Project Version
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/7/18 02:24
-     *
-     * @example string 0.1.3
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**

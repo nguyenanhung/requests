@@ -24,6 +24,8 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class Ip implements ProjectInterface
 {
+    use Version;
+
     /** @var bool Cấu hình class có nhận IP theo HA Proxy hay không */
     protected $haProxyStatus;
 
@@ -32,19 +34,6 @@ class Ip implements ProjectInterface
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 9/19/18 14:02
-     *
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**

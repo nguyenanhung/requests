@@ -24,6 +24,8 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class SoapRequest implements ProjectInterface, SoapRequestInterface
 {
+    use Version;
+
     /**@var string Url Endpoint to Request */
     private $endpoint;
     /**@var array Data to Request */
@@ -37,7 +39,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**@var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
     /**@var object \nguyenanhung\MyDebug\Debug Call to class */
-    private $debug;
+    private $logger;
     /** @var bool Debug Status */
     public $debugStatus = FALSE;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
@@ -56,18 +58,18 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->debug = new Debug();
+        $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
         }
-        $this->debug->setDebugStatus($this->debugStatus);
-        $this->debug->setGlobalLoggerLevel($this->debugLevel);
-        $this->debug->setLoggerPath($this->debugLoggerPath);
-        $this->debug->setLoggerSubPath(__CLASS__);
+        $this->logger->setDebugStatus($this->debugStatus);
+        $this->logger->setGlobalLoggerLevel($this->debugLevel);
+        $this->logger->setLoggerPath($this->debugLoggerPath);
+        $this->logger->setLoggerSubPath(__CLASS__);
         if (empty($this->debugLoggerFilename)) {
             $this->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
         }
-        $this->debug->setLoggerFilename($this->debugLoggerFilename);
+        $this->logger->setLoggerFilename($this->debugLoggerFilename);
     }
 
     /**
@@ -77,23 +79,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     {
         if (self::USE_BENCHMARK === TRUE) {
             $this->benchmark->mark('code_end');
-            $this->debug->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
-            $this->debug->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
+            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @return mixed|string Current Project Version
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/7/18 02:24
-     *
-     * @example string 0.1.3
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**
@@ -109,7 +97,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function setEndpoint($endpoint = '')
     {
         $this->endpoint = $endpoint;
-        $this->debug->info(__FUNCTION__, 'setEndpoint: ', $this->endpoint);
+        $this->logger->debug(__FUNCTION__, 'setEndpoint: ', $this->endpoint);
 
         return $this;
     }
@@ -127,7 +115,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function setData($data = [])
     {
         $this->data = $data;
-        $this->debug->info(__FUNCTION__, 'setData: ', $this->data);
+        $this->logger->debug(__FUNCTION__, 'setData: ', $this->data);
 
         return $this;
     }
@@ -145,7 +133,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function setCallFunction($callFunction = '')
     {
         $this->callFunction = $callFunction;
-        $this->debug->info(__FUNCTION__, 'setCallFunction: ', $this->callFunction);
+        $this->logger->debug(__FUNCTION__, 'setCallFunction: ', $this->callFunction);
 
         return $this;
     }
@@ -167,7 +155,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function setFieldResult($fieldResult = '')
     {
         $this->fieldResult = $fieldResult;
-        $this->debug->info(__FUNCTION__, 'setFieldResult: ', $this->fieldResult);
+        $this->logger->debug(__FUNCTION__, 'setFieldResult: ', $this->fieldResult);
 
         return $this;
     }
@@ -187,7 +175,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function setResponseIsJson($responseIsJson = '')
     {
         $this->responseIsJson = $responseIsJson;
-        $this->debug->info(__FUNCTION__, 'setResponseIsJson: ', $this->responseIsJson);
+        $this->logger->debug(__FUNCTION__, 'setResponseIsJson: ', $this->responseIsJson);
 
         return $this;
     }
@@ -205,9 +193,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function clientRequestWsdl()
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
-            $this->debug->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
+            $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
             return NULL;
         }
@@ -219,20 +207,20 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $error                    = $client->getError();
             if ($error) {
                 $message = "Client Request WSDL Error: " . json_encode($error);
-                $this->debug->error(__FUNCTION__, $message);
+                $this->logger->error(__FUNCTION__, $message);
             } else {
                 $result = $client->call($this->callFunction, $this->data);
-                $this->debug->info(__FUNCTION__, 'Result from Endpoint: ', $result);
+                $this->logger->debug(__FUNCTION__, 'Result from Endpoint: ', $result);
                 if ($this->fieldResult) {
                     if (isset($result[$this->fieldResult])) {
-                        $this->debug->info(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
+                        $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
                         $message = [
                             'status' => 0,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
                         ];
                     } else {
-                        $this->debug->info(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
+                        $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
                         $message = [
                             'status' => 1,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
@@ -263,13 +251,13 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             if (function_exists('log_message')) {
                 log_message('error', $error_message);
             }
-            $this->debug->error(__FUNCTION__, $error_message);
+            $this->logger->error(__FUNCTION__, $error_message);
         }
         if ($this->responseIsJson) {
-            $this->debug->debug(__FUNCTION__, 'Response is Json');
+            $this->logger->debug(__FUNCTION__, 'Response is Json');
             $message = json_encode($message);
         }
-        $this->debug->info(__FUNCTION__, 'Final Result: ', $message);
+        $this->logger->debug(__FUNCTION__, 'Final Result: ', $message);
 
         return $message;
     }
@@ -287,9 +275,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function clientRequestSOAP()
     {
-        $this->debug->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
+        $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
-            $this->debug->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
+            $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
             return NULL;
         }
@@ -301,20 +289,20 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $error                    = $client->getError();
             if ($error) {
                 $message = "Client Request SOAP Error: " . json_encode($error);
-                $this->debug->error(__FUNCTION__, $message);
+                $this->logger->error(__FUNCTION__, $message);
             } else {
                 $result = $client->call($this->callFunction, $this->data);
-                $this->debug->info(__FUNCTION__, 'Result from Endpoint: ', $result);
+                $this->logger->debug(__FUNCTION__, 'Result from Endpoint: ', $result);
                 if ($this->fieldResult) {
                     if (isset($result[$this->fieldResult])) {
-                        $this->debug->info(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
+                        $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
                         $message = [
                             'status' => 0,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
                         ];
                     } else {
-                        $this->debug->info(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
+                        $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
                         $message = [
                             'status' => 1,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
@@ -338,20 +326,20 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                     'File'    => $e->getFile(),
                     'Line'    => $e->getLine(),
                     'Code'    => $e->getCode(),
-                    'Message' => $e->getMessage(),
+                    'Message' => $e->getMessage()
                 ]
             ];
             $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             if (function_exists('log_message')) {
                 log_message('error', $error_message);
             }
-            $this->debug->error(__FUNCTION__, $error_message);
+            $this->logger->error(__FUNCTION__, $error_message);
         }
         if ($this->responseIsJson) {
-            $this->debug->debug(__FUNCTION__, 'Response is Json');
+            $this->logger->debug(__FUNCTION__, 'Response is Json');
             $message = json_encode($message);
         }
-        $this->debug->info(__FUNCTION__, 'Final Result: ', $message);
+        $this->logger->debug(__FUNCTION__, 'Final Result: ', $message);
 
         return $message;
     }
