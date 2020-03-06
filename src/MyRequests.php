@@ -778,6 +778,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $curl->setOpt(CURLOPT_RETURNTRANSFER, self::RETURN_TRANSFER);
                 $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
                 $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
+                $curl->setOpt(CURLOPT_SSLVERSION, 6);
                 $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
                 $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
                 $curl->setOpt(CURLOPT_TIMEOUT, $this->timeout);
