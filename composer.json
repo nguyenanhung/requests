@@ -27,8 +27,6 @@
         "symfony/http-foundation": "3.4.36",
         "php-curl-class/php-curl-class": "^8.3",
         "react/promise": "^2.7.0",
-        "guzzlehttp/streams": "^3.0",
-        "guzzlehttp/ringphp": "^1.1.1",
         "guzzlehttp/guzzle": "^6.5",
         "markrogoyski/ipv4-subnet-calculator": "^2.1",
         "mlocati/ip-lib": "^1.6",
