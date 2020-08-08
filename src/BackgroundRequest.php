@@ -81,21 +81,22 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      * @param string $url Url Endpoint
      *
      * @return bool TRUE nếu thành công, FALSE nếu thất bại
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:15
      *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 10/16/18 17:15
      */
     public static function backgroundHttpGet($url)
     {
         $parts = parse_url($url);
-        if ($parts['scheme'] == 'https') {
-            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errstr, 30);
+        if (strtolower($parts['scheme']) == 'https') {
+            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errStr, 30);
         } else {
-            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errstr, 30);
+            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errStr, 30);
         }
         if (!$fp) {
             if (function_exists('log_message')) {
-                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errstr));
+                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errStr));
             }
 
             return FALSE;
@@ -118,21 +119,22 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      * @param string $paramString Params to Request
      *
      * @return bool TRUE nếu thành công, FALSE nếu thất bại
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:16
      *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 10/16/18 17:16
      */
     public static function backgroundHttpPost($url, $paramString = '')
     {
         $parts = parse_url($url);
         if ($parts['scheme'] == 'https') {
-            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errstr, 30);
+            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errStr, 30);
         } else {
-            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errstr, 30);
+            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errStr, 30);
         }
         if (!$fp) {
             if (function_exists('log_message')) {
-                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errstr));
+                log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errStr));
             }
 
             return FALSE;

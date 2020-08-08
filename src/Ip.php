@@ -31,6 +31,9 @@ class Ip implements ProjectInterface
 
     /**
      * Ip constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -41,10 +44,10 @@ class Ip implements ProjectInterface
      *
      * @param bool $convertToInteger
      *
-     * @return bool|int|mixed|string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:16
-     *
+     * @return bool|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 43:50
      */
     public function getIpAddress($convertToInteger = FALSE)
     {
@@ -62,13 +65,16 @@ class Ip implements ProjectInterface
      *
      * @param bool $haProxyStatus
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:19
-     *
+     * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 44:11
      */
     public function setHaProxy($haProxyStatus = FALSE)
     {
         $this->haProxyStatus = $haProxyStatus;
+
+        return $this;
     }
 
     /**
@@ -76,27 +82,25 @@ class Ip implements ProjectInterface
      *
      * @param bool $convertToInteger
      *
-     * @return bool|int|string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:20
-     *
+     * @return bool|false|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 44:32
      */
     public function getIpByHaProxy($convertToInteger = FALSE)
     {
-        $ip_keys = ['HTTP_X_FORWARDED_FOR'];
-        foreach ($ip_keys as $key) {
-            if (array_key_exists($key, $_SERVER) === TRUE) {
-                foreach (explode(',', $_SERVER[$key]) as $ip) {
-                    $ip = trim($ip);
-                    if ($this->ipValidate($ip)) {
-                        if ($convertToInteger === TRUE) {
-                            $result = ip2long($ip);
+        $key = 'HTTP_X_FORWARDED_FOR';
+        if (array_key_exists($key, $_SERVER) === TRUE) {
+            foreach (explode(',', $_SERVER[$key]) as $ip) {
+                $ip = trim($ip);
+                if ($this->ipValidate($ip)) {
+                    if ($convertToInteger === TRUE) {
+                        $result = ip2long($ip);
 
-                            return $result;
-                        }
-
-                        return $ip;
+                        return $result;
                     }
+
+                    return $ip;
                 }
             }
         }
@@ -109,14 +113,24 @@ class Ip implements ProjectInterface
      *
      * @param bool $convertToInteger
      *
-     * @return bool|int|string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:12
-     *
+     * @return bool|false|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 45:27
      */
     public function getRawIpAddress($convertToInteger = FALSE)
     {
-        $ip_keys = Repository\DataRepository::getData('ip_address_server');
+        $ip_keys = array(
+            0 => 'HTTP_X_FORWARDED_FOR',
+            1 => 'HTTP_X_FORWARDED',
+            2 => 'HTTP_X_IPADDRESS',
+            3 => 'HTTP_X_CLUSTER_CLIENT_IP',
+            4 => 'HTTP_FORWARDED_FOR',
+            5 => 'HTTP_FORWARDED',
+            6 => 'HTTP_CLIENT_IP',
+            7 => 'HTTP_IP',
+            8 => 'REMOTE_ADDR'
+        );
         foreach ($ip_keys as $key) {
             if (array_key_exists($key, $_SERVER) === TRUE) {
                 foreach (explode(',', $_SERVER[$key]) as $ip) {
@@ -143,10 +157,10 @@ class Ip implements ProjectInterface
      * @param string $ip_address
      * @param string $network_range
      *
-     * @return bool|null|string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:22
-     *
+     * @return bool|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 46:26
      */
     public function ipInRange($ip_address = '', $network_range = '')
     {
@@ -165,7 +179,8 @@ class Ip implements ProjectInterface
         catch (Exception $e) {
             $result = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             if (function_exists('log_message')) {
-                log_message('error', $result);
+                log_message('error', 'Error Message: ' . $e->getMessage());
+                log_message('error', 'Error Trace As String: ' . $e->getTraceAsString());
             }
 
             return $result;
@@ -179,9 +194,9 @@ class Ip implements ProjectInterface
      * @param $network_size
      *
      * @return array|string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:18
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:09
      */
     public function ipCalculator($ip, $network_size)
     {
@@ -193,7 +208,8 @@ class Ip implements ProjectInterface
         catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             if (function_exists('log_message')) {
-                log_message('error', $message);
+                log_message('error', 'Error Message: ' . $e->getMessage());
+                log_message('error', 'Error Trace As String: ' . $e->getTraceAsString());
             }
 
             return $message;
@@ -206,9 +222,9 @@ class Ip implements ProjectInterface
      * @param $ip
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/12/18 01:12
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:25
      */
     public function ipValidate($ip)
     {
@@ -225,9 +241,9 @@ class Ip implements ProjectInterface
      * @param $ip
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:17
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:31
      */
     public function ipValidateV4($ip)
     {
@@ -244,9 +260,9 @@ class Ip implements ProjectInterface
      * @param $ip
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/13/18 14:17
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:40
      */
     public function ipValidateV6($ip)
     {
@@ -263,9 +279,9 @@ class Ip implements ProjectInterface
      * @param $ip
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 9/20/18 14:26
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:45
      */
     public function ip2longV6($ip)
     {
@@ -286,10 +302,10 @@ class Ip implements ProjectInterface
      *
      * @param string $ip
      *
-     * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/18/18 11:39
-     *
+     * @return string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 47:51
      */
     public function ipInfo($ip = '')
     {
@@ -306,7 +322,8 @@ class Ip implements ProjectInterface
         catch (Exception $e) {
             $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             if (function_exists('log_message')) {
-                log_message('error', $message);
+                log_message('error', 'Error Message: ' . $e->getMessage());
+                log_message('error', 'Error Trace As String: ' . $e->getTraceAsString());
             }
 
             return $message;

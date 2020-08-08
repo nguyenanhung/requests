@@ -28,7 +28,7 @@ interface SendRequestsInterface
      *
      * @return $this
      */
-    public function setHeader($headers = []);
+    public function setHeader($headers = array());
 
     /**
      * Function setCookie
@@ -40,7 +40,7 @@ interface SendRequestsInterface
      *
      * @return $this
      */
-    public function setCookie($cookies = []);
+    public function setCookie($cookies = array());
 
     /**
      * Function setOptions
@@ -52,7 +52,7 @@ interface SendRequestsInterface
      *
      * @return $this
      */
-    public function setOptions($options = []);
+    public function setOptions($options = array());
 
     /**
      * Function setTimeout
@@ -250,7 +250,7 @@ interface SendRequestsInterface
      *
      * @return mixed
      */
-    public function guzzlePhpRequest($url = '', $data = [], $method = 'GET');
+    public function guzzlePhpRequest($url = '', $data = array(), $method = 'GET');
 
     /**
      * Function curlRequest
@@ -267,25 +267,24 @@ interface SendRequestsInterface
      *                           null of Exception Message if Error
      * @see   https://packagist.org/packages/curl/curl
      */
-    public function curlRequest($url = '', $data = [], $method = 'GET');
+    public function curlRequest($url = '', $data = array(), $method = 'GET');
 
     /******************************** Handle Send Request ********************************/
     /**
      * Function sendRequest
      * Handle send Request use Multi Method
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:07
-     *
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
-     * @return array|\GuzzleHttp\Stream\StreamInterface|string|null Response content from server
+     * @return array|mixed|object|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 07:07
      */
-    public function sendRequest($url = '', $data = [], $method = 'GET');
+    public function sendRequest($url = '', $data = array(), $method = 'GET');
 
     /**
      * Function xmlRequest
@@ -315,7 +314,7 @@ interface SendRequestsInterface
      *
      * @return array|null|string Response from Server
      */
-    public function jsonRequest($url = '', $data = [], $timeout = 60);
+    public function jsonRequest($url = '', $data = array(), $timeout = 60);
     /******************************** Utils Function ********************************/
     /**
      * Function xmlGetValue

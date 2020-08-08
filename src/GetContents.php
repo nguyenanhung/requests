@@ -23,149 +23,69 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
  */
 class GetContents implements ProjectInterface, GetContentsInterface
 {
-    /**
-     * @var object \nguyenanhung\MyDebug\Benchmark
-     */
+    use Version;
+
+    /** @var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
-    /**
-     * @var  object \nguyenanhung\MyDebug\Debug Call to class
-     */
+
+    /** @var object \nguyenanhung\MyDebug\Debug */
     private $logger;
 
-    /**
-     * Set Debug Status
-     *
-     * @var bool
-     */
+    /** @var bool Set Debug Status */
     public $debugStatus = FALSE;
 
-    /**
-     * @var null Set level Debug: DEBUG, INFO, ERROR ....
-     */
+    /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
     public $debugLevel = NULL;
 
-    /**
-     * Set Logger Path to Save
-     *
-     * @var null|string
-     */
+    /** @var null|string Set Logger Path to Save */
     public $debugLoggerPath = NULL;
 
-    /**
-     * Set Logger Filename to Save
-     *
-     * @var string
-     */
+    /** @var null|string Set Logger Filename to Save */
     public $debugLoggerFilename;
 
-    /**
-     * Response from Request
-     *
-     * @var array
-     */
+    /** @var null|array|object|mixed Response from Request */
     private $response;
 
-    /**
-     * The base URL to be the target of the Request
-     *
-     * @var string
-     */
+    /** @var string The base URL to be the target of the Request */
     private $url = '';
 
-    /**
-     * The method to use - GET, POST, PUT, DELETE
-     *
-     * @var string
-     */
+    /** @var string The method to use - GET, POST, PUT, DELETE */
     private $method = 'GET';
 
-    /**
-     * An array of headers to be added to the request
-     *
-     * @var array
-     */
-    private $headers = [];
+    /** @var array An array of headers to be added to the request */
+    private $headers = array();
 
-    /**
-     * An array of cookies (which are added to the headers)
-     *
-     * @var array
-     */
-    private $cookies = [];
+    /** @var array An array of cookies (which are added to the headers) */
+    private $cookies = array();
 
-    /**
-     * An array of data to be added to the request.
-     * Where the method is POST these are sent as a form body,
-     * otherwise - they are added as a query string
-     *
-     * @var array
-     */
-    private $data = [];
+    /** @var array An array of data to be added to the request. Where the method is POST these are sent as a form body, otherwise - they are added as a query string */
+    private $data = array();
 
-    /**
-     * An array of items to be sent as a query string
-     *
-     * @var array
-     */
-    private $query_string = [];
+    /** @var array An array of items to be sent as a query string */
+    private $query_string = array();
 
-    /**
-     * Should we track cookies?
-     * This does not stop the processing of cookies, it just allows for any
-     * received cookies to be sent in subsequent requests. Great for scraping.
-     *
-     * @var [type]
-     */
+    /** @var bool|mixed Should we track cookies? This does not stop the processing of cookies, it just allows for any received cookies to be sent in subsequent requests. Great for scraping. */
     private $trackCookies = TRUE;
 
-    /**
-     * Is the request sent in XML and received in XML
-     *
-     * @var boolean
-     */
+    /** @var bool|boolean Is the request sent in XML and received in XML */
     private $isXML = FALSE;
 
-    /**
-     * Is the request sent in JSON and received in JSON
-     *
-     * @var boolean
-     */
+    /** @var bool|boolean Is the request sent in JSON and received in JSON */
     private $isJson = FALSE;
-    /**
-     * Is the response decode Json to Object
-     *
-     * @var boolean
-     */
+
+    /** @var bool|boolean Is the response decode Json to Object */
     private $isDecodeJson = FALSE;
 
-    /**
-     * Should JSON be sent in JSON_PRETTY_PRINT?
-     * Only really useful for debugging.
-     *
-     * @var boolean
-     */
+    /** @var bool|boolean Should JSON be sent in JSON_PRETTY_PRINT? Only really useful for debugging. */
     private $isJsonPretty = FALSE;
 
-    /**
-     * Should SSL peers be verified.
-     * You should have a good reason for turning this off.
-     *
-     * @var [type]
-     */
+    /** @var bool|mixed Should SSL peers be verified. You should have a good reason for turning this off. */
     private $verifyPeer = TRUE;
 
-    /**
-     * How long to wait for a server to respond to a  request.
-     *
-     * @var integer
-     */
+    /** @var int|integer How long to wait for a server to respond to a  request. */
     private $timeout = 60;
 
-    /**
-     * Internal flag to track if the request is in SSL or not.
-     *
-     * @var boolean
-     */
+    /** @var bool|boolean Internal flag to track if the request is in SSL or not. */
     private $isSSL = FALSE;
 
     /**
@@ -177,16 +97,16 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *                        Where the method is POST these are sent as a form body,
      *                        otherwise - they are added as a query string
      * @param array  $headers An array of headers to be added to the request
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function __construct($url = '', $method = 'GET', $data = [], $headers = [])
+    public function __construct($url = '', $method = 'GET', $data = array(), $headers = array())
     {
         if (self::USE_BENCHMARK === TRUE) {
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        /**
-         * Call to class Debug
-         */
         $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = FALSE;
@@ -200,10 +120,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
         }
         $this->logger->setLoggerFilename($this->debugLoggerFilename);
         if ($url) {
-            /**
-             * If $url is not Empty, call method setURL
-             */
-            $this->setURL($url);
+            $this->setURL($url); // If $url is not Empty, call method setURL
         }
         $this->setMethod($method);
         $this->setData($data);
@@ -223,28 +140,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Function getVersion
-     *
-     * @return mixed|string Current Project version
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:46
-     *
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
-    }
-
-    /**
      * Function getContent - Get Body Content from Request
      *
-     * @return array|mixed|string Return Response content if exists
+     * @return array|mixed|object|string|null Return Response content if exists
      *                            Full Response content if $this->response['content'] not exists
      *                            Exception Error Message if Exception Error
      *                            Null if Not
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:08
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 10/7/18 02:08
      */
     public function getContent()
     {
@@ -258,10 +162,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
         }
         catch (Exception $e) {
-            $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->logger->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
-            return $message;
+            return $e->getMessage();
         }
 
         return NULL;
@@ -270,13 +174,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function getError - Get Error Code and Message
      *
-     * @return array|mixed|string Return Response error if exists
+     * @return array|mixed|object|string|null Return Response error if exists
      *                            Full Response if $this->response['error'] not exists
      *                            Exception Error Message if Exception Error
      *                            Null if Not
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/9/18 09:33
-     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/9/18 09:33
      */
     public function getError()
     {
@@ -290,10 +194,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
         }
         catch (Exception $e) {
-            $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->logger->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
-            return $message;
+            return $e->getMessage();
         }
 
         return NULL;
@@ -302,10 +206,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Function get Response of Request
      *
-     * @return array|null Array if Exists, Null if Not Response
+     * @return array|mixed|object|null Array if Exists, Null if Not Response
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:50
-     *
      */
     public function response()
     {
@@ -322,9 +225,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @return array|null|string Response from Request if Exists
      *                           Exception Error Message if Exception Error
      *                           Null if Not
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:12
-     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:12
      */
     public function sendRequest()
     {
@@ -337,40 +240,42 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
         }
         catch (Exception $e) {
-            $message = "Error: " . __CLASS__ . ": Please make sure to set a URL to fetch - Line: " . $e->getLine() . ' - Msg: ' . $e->getMessage();
-            $this->logger->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
-            return $message;
+            return $e->getMessage();
         }
 
         return NULL;
     }
 
     /**
-     * Function useFileGetContents
-     * Use file_get_contents to perform the request
+     * Function useFileGetContents. Use file_get_contents to perform the request
      *
      * @return array The server response array
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:19
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:19
      */
     public function useFileGetContents()
     {
-        $return  = [];
-        $options = [
-            'http' => [
+        $return = array();
+
+        // Options Setup
+        $options = array(
+            'http' => array(
                 'method'  => $this->method,
                 'timeout' => $this->timeout
-            ]
-        ];
+            )
+        );
 
+        // Use SSL
         if ($this->isSSL) {
-            // use SSL
-            $options['ssl'] = [
+            $options['ssl'] = array(
                 'verify_peer'      => $this->verifyPeer,
                 'verify_peer_name' => $this->verifyPeer
-            ];
+            );
         }
 
         $headers = $this->getHeaderArray();
@@ -386,6 +291,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             }
             $return['post'] = $post;
         }
+
         $context      = stream_context_create($options);
         $query_string = $this->getQueryString();
         $this->logger->debug(__FUNCTION__, 'Options into Request: ', $options);
@@ -407,28 +313,28 @@ class GetContents implements ProjectInterface, GetContentsInterface
                 }
             }
         }
-
         catch (Exception $e) {
-            $return['error'] = [
+            $return['error'] = array(
                 'code'     => 500,
                 'message'  => 'Could not file_get_contents.',
                 'extended' => $e
-            ];
-            $this->logger->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
+            );
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
         }
 
         if (isset($return['headers']['reponse_code'])) {
             $responseType = substr($return['headers']['reponse_code'], 0, 1);
             if ($responseType != '2') {
-                $return['error'] = [
+                $return['error'] = array(
                     'code'    => $return['headers']['reponse_code'],
                     'message' => 'Server returned an error.'
-                ];
+                );
                 $this->logger->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
             }
         }
 
-        $cookies = [];
+        $cookies = array();
         foreach ($http_response_header as $hdr) {
             if (preg_match('/^Set-Cookie:\s*([^;]+)/i', $hdr, $matches)) {
                 parse_str($matches[1], $tmp);
@@ -447,14 +353,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Generate the complete header array
-     * Merges the supplied (if any) headers with those needed by the
-     * request.
+     * Generate the complete header array. Merges the supplied (if any) headers with those needed by the request.
      *
      * @return array An array of headers
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:19
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:19
      */
     public function getHeaderArray()
     {
@@ -490,9 +395,10 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * Get the post body - either JSON encoded or ready to be sent as a form post
      *
      * @return array|false|string Data to be sent Request
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:19
      *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:19
      */
     public function getPostBody()
     {
@@ -512,13 +418,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Get the query string by merging any supplied string
-     * with that of the generated components.
+     * Get the query string by merging any supplied string with that of the generated components.
      *
      * @return string The query string
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:19
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:19
      */
     public function getQueryString()
     {
@@ -539,15 +445,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Set the target URL
-     * Must include http:// or https://
+     * Set the target URL - Must include http:// or https://
      *
      * @param string $url
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:10
      *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:10
      */
     public function setURL($url = '')
     {
@@ -566,7 +472,8 @@ class GetContents implements ProjectInterface, GetContentsInterface
         catch (Exception $e) {
             $this->url = NULL;
             $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            $this->logger->error(__FUNCTION__, $message);
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
             return $message;
         }
@@ -576,15 +483,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Set the HTTP method
-     * GET, HEAD, PUT, POST are valid
+     * Set the HTTP method: GET, HEAD, PUT, POST, DELETE are valid
      *
-     * @param string $method Method to Request GET, HEAD, PUT, POST are valid
+     * @param string $method Method to Request GET, HEAD, PUT, POST, DELETE are valid
      *
      * @return $this|string Method
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:15
      *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:15
      */
     public function setMethod($method = '')
     {
@@ -593,13 +500,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $method = 'GET';
         } else {
             $method       = strtoupper($method);
-            $validMethods = [
-                'GET',
-                'HEAD',
-                'PUT',
-                'POST',
-                'DELETE'
-            ];
+            $validMethods = array('GET', 'HEAD', 'PUT', 'POST', 'DELETE');
             if (!in_array($method, $validMethods)) {
                 $message = "Error: " . __CLASS__ . ": The requested method (${method}) is not valid here";
                 $this->logger->error(__FUNCTION__, $message);
@@ -613,21 +514,21 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Set Data contents
-     * Must be supplied as an array
+     * Set Data contents. Must be supplied as an array
      *
      * @param array $data The contents to be sent to the target URL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:18
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:18
      */
-    public function setData($data = [])
+    public function setData($data = array())
     {
         if (!is_array($data) && is_string($data)) {
             $data = parse_str($data);
         }
         if (count($data) == 0) {
-            $this->data = [];
+            $this->data = array();
         } else {
             $this->data = $data;
         }
@@ -635,57 +536,57 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Set query string data
-     * Must be supplied as an array
+     * Set query string data. Must be supplied as an array
      *
      * @param array $query_string The query string to be sent to the target URL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:36
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 01:36
      */
-    public function setQueryString($query_string = [])
+    public function setQueryString($query_string = array())
     {
         if (!is_array($query_string) && is_string($query_string)) {
             $query_string = parse_str($query_string);
         }
         if (count($query_string) == 0) {
-            $this->query_string = [];
+            $this->query_string = array();
         } else {
             $this->query_string = $query_string;
         }
     }
 
     /**
-     * Set any headers to be sent to the target URL
-     * Must be supplied as an array
+     * Set any headers to be sent to the target URL. Must be supplied as an array
      *
      * @param array $headers Header to Set
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:18
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:18
      */
-    public function setHeaders($headers = [])
+    public function setHeaders($headers = array())
     {
         if (!is_array($headers)) {
-            $this->headers = [];
+            $this->headers = array();
         } else {
             $this->headers = $headers;
         }
     }
 
     /**
-     * Set any cookies to be included in the headers
-     * Must be supplied as an array
+     * Set any cookies to be included in the headers. Must be supplied as an array
      *
      * @param array $cookies The array of cookies to be sent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:18
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:18
      */
-    public function setCookies($cookies = [])
+    public function setCookies($cookies = array())
     {
         if (!is_array($cookies)) {
-            $this->cookies = [];
+            $this->cookies = array();
         } else {
             $this->cookies      = $cookies;
             $this->trackCookies = TRUE;
@@ -697,8 +598,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param boolean $value true to track cookies
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:18
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:18
      */
     public function setTrackCookies($value = FALSE)
     {
@@ -714,9 +616,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param bool $value true if XML is being used and is expected
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:38
-     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 01:38
      */
     public function setXML($value = FALSE)
     {
@@ -732,8 +634,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param boolean $value true if JSON is being used and is expected
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:17
      */
     public function setJson($value = FALSE)
     {
@@ -745,13 +648,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     }
 
     /**
-     * Should JSON being sent be encoded in an easily readable format?
-     * Only useful for debugging
+     * Should JSON being sent be encoded in an easily readable format? Only useful for debugging
      *
      * @param boolean $value true for JSON_PRETTY_PRINT
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:17
      */
     public function setJsonPretty($value = FALSE)
     {
@@ -767,9 +670,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param bool $value
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
-     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:17
      */
     public function setVerifyPeer($value = FALSE)
     {
@@ -785,10 +688,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param int $timeout
      *
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/7/18 02:17
+     * @example     60
      *
-     * @example 60
+     * @author      : 713uk13m <dev@nguyenanhung.com>
+     * @copyright   : 713uk13m <dev@nguyenanhung.com>
+     * @time        : 10/7/18 02:17
      */
     public function setTimeout($timeout = 20)
     {
@@ -801,13 +705,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @param array $headers
      *
      * @return array Header Response
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:17
      *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 02:17
      */
     public function parseReturnHeaders($headers)
     {
-        $head = [];
+        $head = array();
         foreach ($headers as $k => $v) {
             $t = explode(':', $v, 2);
             if (isset($t[1])) {

@@ -18,9 +18,9 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 /**
  * Class SoapRequest
  *
- * @package    nguyenanhung\MyRequests
- * @author     713uk13m <dev@nguyenanhung.com>
- * @copyright  713uk13m <dev@nguyenanhung.com>
+ * @package   nguyenanhung\MyRequests
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 class SoapRequest implements ProjectInterface, SoapRequestInterface
 {
@@ -51,6 +51,9 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
 
     /**
      * SoapRequest constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -85,14 +88,14 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function setEndpoint
+     * Function setEndpoint - Cấu hình URL SOAP Endpoint cần gọi
      *
      * @param string $endpoint Link to Url Endpoint
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:26
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 32:50
      */
     public function setEndpoint($endpoint = '')
     {
@@ -103,16 +106,16 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function setData
+     * Function setData - Cấu hình dữ liệu cần gọi qua SOAP Request
      *
      * @param array $data Data to SOAP Request, call
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:26
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 33:22
      */
-    public function setData($data = [])
+    public function setData($data = array())
     {
         $this->data = $data;
         $this->logger->debug(__FUNCTION__, 'setData: ', $this->data);
@@ -121,14 +124,14 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function setCallFunction
+     * Function setCallFunction - Cấu hình hàm SOAP cần gọi trong Endpoint
      *
      * @param string $callFunction Require Set Function to call SOAP endpoint
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:36
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 34:00
      */
     public function setCallFunction($callFunction = '')
     {
@@ -139,17 +142,16 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function setFieldResult
-     * Nếu input giá trì vào đây, result sẽ map trực tiếp đến mã này
-     * nếu không có sẽ trả error luôn
+     * Function setFieldResult - Nếu input giá trì vào đây, result sẽ map trực tiếp đến mã này, nếu không có sẽ trả error luôn
      *
      * @param string $fieldResult If input fieldResult, result return $response[$fieldResult] f
      *                            from Response SOAP Service
      *                            Return Error Code if not find $fieldResult from Response
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:37
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 34:39
      *
      */
     public function setFieldResult($fieldResult = '')
@@ -161,16 +163,16 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function setResponseIsJson
-     * Return Response is Json if value = true
+     * Function setResponseIsJson - Return Response is Json if value = true
      *
      * @param string $responseIsJson
      *
      * @return $this|mixed if set value = TRUE, response is Json string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/8/18 19:00
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 10/8/18 19:00
      *
-     * @see   clientRequestWsdl() method
+     * @see      clientRequestWsdl() method
      */
     public function setResponseIsJson($responseIsJson = '')
     {
@@ -181,15 +183,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function clientRequestWsdl
+     * Function clientRequestWsdl - Hàm khởi tạo reques tới endpoint qua giao thức WSDL
      *
-     * @return array|null|string Call to SOAP request and received Response from Server
+     * @return array|false|string|null Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
      *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
      *                           exists
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 02:41
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 10/7/18 02:41
      */
     public function clientRequestWsdl()
     {
@@ -214,44 +216,41 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 if ($this->fieldResult) {
                     if (isset($result[$this->fieldResult])) {
                         $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
-                        $message = [
+                        $message = array(
                             'status' => 0,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
-                        ];
+                        );
                     } else {
                         $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
-                        $message = [
+                        $message = array(
                             'status' => 1,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
                             'data'   => $result
-                        ];
+                        );
                     }
                 } else {
-                    $message = [
+                    $message = array(
                         'status' => 0,
                         'code'   => 'Return full Response',
                         'data'   => $result
-                    ];
+                    );
                 }
             }
         }
         catch (Exception $e) {
-            $message       = [
+            $message = array(
                 'status' => 2,
                 'code'   => 'Exception Error',
-                'data'   => [
+                'data'   => array(
                     'File'    => $e->getFile(),
                     'Line'    => $e->getLine(),
                     'Code'    => $e->getCode(),
-                    'Message' => $e->getMessage(),
-                ]
-            ];
-            $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            if (function_exists('log_message')) {
-                log_message('error', $error_message);
-            }
-            $this->logger->error(__FUNCTION__, $error_message);
+                    'Message' => $e->getMessage()
+                )
+            );
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
         }
         if ($this->responseIsJson) {
             $this->logger->debug(__FUNCTION__, 'Response is Json');
@@ -263,15 +262,15 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     }
 
     /**
-     * Function clientRequestSOAP
+     * Function clientRequestSOAP - Hàm khởi tạo reques tới endpoint qua giao thức SOAP
      *
      * @return array|null|string Call to SOAP request and received Response from Server
      *                           Return is Json String if set setResponseIsJson(true)
      *                           Return Null if class nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not
      *                           exists
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/10/18 11:15
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 11/10/18 11:15
      */
     public function clientRequestSOAP()
     {
@@ -296,44 +295,41 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                 if ($this->fieldResult) {
                     if (isset($result[$this->fieldResult])) {
                         $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
-                        $message = [
+                        $message = array(
                             'status' => 0,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
-                        ];
+                        );
                     } else {
                         $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
-                        $message = [
+                        $message = array(
                             'status' => 1,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
                             'data'   => $result
-                        ];
+                        );
                     }
                 } else {
-                    $message = [
+                    $message = array(
                         'status' => 0,
                         'code'   => 'Return full Response',
                         'data'   => $result
-                    ];
+                    );
                 }
             }
         }
         catch (Exception $e) {
-            $message       = [
+            $message = array(
                 'status' => 2,
                 'code'   => 'Exception Error',
-                'data'   => [
+                'data'   => array(
                     'File'    => $e->getFile(),
                     'Line'    => $e->getLine(),
                     'Code'    => $e->getCode(),
                     'Message' => $e->getMessage()
-                ]
-            ];
-            $error_message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
-            if (function_exists('log_message')) {
-                log_message('error', $error_message);
-            }
-            $this->logger->error(__FUNCTION__, $error_message);
+                )
+            );
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
+            $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
         }
         if ($this->responseIsJson) {
             $this->logger->debug(__FUNCTION__, 'Response is Json');

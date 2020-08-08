@@ -70,9 +70,25 @@ class CurlData implements CurlDataInterface
 
     /**
      * CurlData constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
+    }
+
+    /**
+     * Function __toString
+     *
+     * @return mixed
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:23
+     */
+    public function __toString()
+    {
+        return $this->response;
     }
 
     /**
@@ -80,10 +96,10 @@ class CurlData implements CurlDataInterface
      *
      * @param bool $authentication
      *
-     * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:59
-     *
+     * @return $this|\nguyenanhung\MyRequests\CurlDataInterface
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 53:36
      */
     public function setAuthentication($authentication = FALSE)
     {
@@ -95,10 +111,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getAuthentication
      *
-     * @return int
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:59
-     *
+     * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:08
      */
     public function getAuthentication()
     {
@@ -111,9 +127,9 @@ class CurlData implements CurlDataInterface
      * @param string $username
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:11
      */
     public function setUsername($username = '')
     {
@@ -126,9 +142,9 @@ class CurlData implements CurlDataInterface
      * Function getUsername
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:19
      */
     public function getUsername()
     {
@@ -141,9 +157,9 @@ class CurlData implements CurlDataInterface
      * @param string $password
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:25
      */
     public function setPassword($password = '')
     {
@@ -156,9 +172,9 @@ class CurlData implements CurlDataInterface
      * Function getPassword
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:29
      */
     public function getPassword()
     {
@@ -171,9 +187,9 @@ class CurlData implements CurlDataInterface
      * @param string $url
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:32
      */
     public function setUrl($url = '')
     {
@@ -186,9 +202,9 @@ class CurlData implements CurlDataInterface
      * Function getUrl
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:35
      */
     public function getUrl()
     {
@@ -198,14 +214,14 @@ class CurlData implements CurlDataInterface
     /**
      * Function setData
      *
-     * @param array $data
+     * @param array|mixed $data
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:06
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:38
      */
-    public function setData($data = [])
+    public function setData($data = array())
     {
         $this->data = $data;
 
@@ -215,10 +231,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getData
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:06
-     *
+     * @return array|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:42
      */
     public function getData()
     {
@@ -231,9 +247,9 @@ class CurlData implements CurlDataInterface
      * @param int $timeout
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:11
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:45
      */
     public function setTimeout($timeout = 60)
     {
@@ -246,9 +262,9 @@ class CurlData implements CurlDataInterface
      * Function getTimeout
      *
      * @return int
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:11
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:47
      */
     public function getTimeout()
     {
@@ -259,9 +275,9 @@ class CurlData implements CurlDataInterface
      * Function isPost
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:07
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:51
      */
     public function isPost()
     {
@@ -274,9 +290,9 @@ class CurlData implements CurlDataInterface
      * Function isJson
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:08
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:02
      */
     public function isJson()
     {
@@ -289,9 +305,9 @@ class CurlData implements CurlDataInterface
      * Function isXML
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:08
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:05
      */
     public function isXML()
     {
@@ -306,9 +322,9 @@ class CurlData implements CurlDataInterface
      * @param string $userAgent
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:09
      */
     public function setUserAgent($userAgent = '')
     {
@@ -321,9 +337,9 @@ class CurlData implements CurlDataInterface
      * Function getUserAgent
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:09
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:12
      */
     public function getUserAgent()
     {
@@ -336,9 +352,9 @@ class CurlData implements CurlDataInterface
      * @param string $cookieFileLocation
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:15
      */
     public function setCookieFileLocation($cookieFileLocation = '')
     {
@@ -351,9 +367,9 @@ class CurlData implements CurlDataInterface
      * Function getCookieFileLocation
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:18
      */
     public function getCookieFileLocation()
     {
@@ -366,9 +382,9 @@ class CurlData implements CurlDataInterface
      * @param bool $followLocation
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:12
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:21
      */
     public function setFollowLocation($followLocation = TRUE)
     {
@@ -381,9 +397,9 @@ class CurlData implements CurlDataInterface
      * Function getFollowLocation
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:12
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:25
      */
     public function getFollowLocation()
     {
@@ -396,9 +412,9 @@ class CurlData implements CurlDataInterface
      * @param int $maxRedirect
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:14
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:29
      */
     public function setMaxRedirect($maxRedirect = 10)
     {
@@ -411,9 +427,9 @@ class CurlData implements CurlDataInterface
      * Function getMaxRedirect
      *
      * @return int
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:13
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:34
      */
     public function getMaxRedirect()
     {
@@ -426,9 +442,9 @@ class CurlData implements CurlDataInterface
      * @param string $referer
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:16
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:38
      */
     public function setReferer($referer = '')
     {
@@ -441,9 +457,9 @@ class CurlData implements CurlDataInterface
      * Function getReferer
      *
      * @return string
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:16
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:42
      */
     public function getReferer()
     {
@@ -453,14 +469,14 @@ class CurlData implements CurlDataInterface
     /**
      * Function setSession
      *
-     * @param array $session
+     * @param array|mixed $session
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:44
      */
-    public function setSession($session = [])
+    public function setSession($session = array())
     {
         $this->session = $session;
 
@@ -470,10 +486,10 @@ class CurlData implements CurlDataInterface
     /**
      * Function getSession
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
+     * @return array|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:47
      */
     public function getSession()
     {
@@ -486,9 +502,9 @@ class CurlData implements CurlDataInterface
      * @param bool $includeHeader
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:51
      */
     public function setIncludeHeader($includeHeader = TRUE)
     {
@@ -501,9 +517,9 @@ class CurlData implements CurlDataInterface
      * Function getIncludeHeader
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:18
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:57
      */
     public function getIncludeHeader()
     {
@@ -516,9 +532,9 @@ class CurlData implements CurlDataInterface
      * @param bool $binaryTransfer
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:00
      */
     public function setBinaryTransfer($binaryTransfer = TRUE)
     {
@@ -531,9 +547,9 @@ class CurlData implements CurlDataInterface
      * Function isBinaryTransfer
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:03
      */
     public function isBinaryTransfer()
     {
@@ -546,9 +562,9 @@ class CurlData implements CurlDataInterface
      * @param bool $noBody
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:10
      */
     public function setNoBody($noBody = TRUE)
     {
@@ -561,9 +577,9 @@ class CurlData implements CurlDataInterface
      * Function getNoBody
      *
      * @return bool
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:14
      */
     public function getNoBody()
     {
@@ -576,9 +592,9 @@ class CurlData implements CurlDataInterface
      * @param string $url
      *
      * @return $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:50
-     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:20
      */
     public function createCurl($url = '')
     {
@@ -594,7 +610,7 @@ class CurlData implements CurlDataInterface
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, $this->followLocation);
         curl_setopt($curl, CURLOPT_COOKIEJAR, $this->cookieFileLocation);
         curl_setopt($curl, CURLOPT_COOKIEFILE, $this->cookieFileLocation);
-        if ($this->authentication == 1) {
+        if ($this->authentication) {
             curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
         }
         if ($this->includeHeader) {
@@ -639,18 +655,5 @@ class CurlData implements CurlDataInterface
         curl_close($curl);
 
         return $this;
-    }
-
-    /**
-     * Function __toString
-     *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:48
-     *
-     */
-    public function __toString()
-    {
-        return $this->response;
     }
 }
