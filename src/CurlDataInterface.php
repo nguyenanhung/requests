@@ -21,382 +21,372 @@ interface CurlDataInterface
     /**
      * Function setAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:59
-     *
      * @param bool $authentication
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\CurlDataInterface
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 53:36
      */
     public function setAuthentication($authentication = FALSE);
 
     /**
      * Function getAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:59
-     *
-     * @return int
+     * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:08
      */
     public function getAuthentication();
 
     /**
      * Function setUsername
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
      * @param string $username
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:11
      */
     public function setUsername($username = '');
 
     /**
      * Function getUsername
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:19
      */
     public function getUsername();
 
     /**
      * Function setPassword
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
      * @param string $password
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:25
      */
     public function setPassword($password = '');
 
     /**
      * Function getPassword
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:00
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:29
      */
     public function getPassword();
 
     /**
      * Function setUrl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
      * @param string $url
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:32
      */
     public function setUrl($url = '');
 
     /**
      * Function getUrl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:01
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:35
      */
     public function getUrl();
 
     /**
      * Function setData
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:06
-     *
-     * @param array $data
+     * @param array|mixed $data
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:38
      */
-    public function setData($data = []);
+    public function setData($data = array());
 
     /**
      * Function getData
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:06
-     *
-     * @return mixed
+     * @return array|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:42
      */
     public function getData();
 
     /**
      * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:11
-     *
      * @param int $timeout
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:45
      */
     public function setTimeout($timeout = 60);
 
     /**
      * Function getTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:11
-     *
      * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:47
      */
     public function getTimeout();
 
     /**
      * Function isPost
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:07
-     *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 54:51
      */
     public function isPost();
 
     /**
      * Function isJson
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:08
-     *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:02
      */
     public function isJson();
 
     /**
      * Function isXML
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:08
-     *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:05
      */
     public function isXML();
 
     /**
      * Function setUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
      * @param string $userAgent
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:09
      */
     public function setUserAgent($userAgent = '');
 
     /**
      * Function getUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:09
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:12
      */
     public function getUserAgent();
 
     /**
      * Function setCookieFileLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
      * @param string $cookieFileLocation
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:15
      */
     public function setCookieFileLocation($cookieFileLocation = '');
 
     /**
      * Function getCookieFileLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:10
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:18
      */
     public function getCookieFileLocation();
 
     /**
      * Function setFollowLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:12
-     *
      * @param bool $followLocation
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:21
      */
     public function setFollowLocation($followLocation = TRUE);
 
     /**
      * Function getFollowLocation
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:12
-     *
      * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:25
      */
     public function getFollowLocation();
 
     /**
      * Function setMaxRedirect
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:14
-     *
      * @param int $maxRedirect
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:29
      */
     public function setMaxRedirect($maxRedirect = 10);
 
     /**
      * Function getMaxRedirect
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:13
-     *
      * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:34
      */
     public function getMaxRedirect();
 
     /**
      * Function setReferer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:16
-     *
      * @param string $referer
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:38
      */
     public function setReferer($referer = '');
 
     /**
      * Function getReferer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:16
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:42
      */
     public function getReferer();
 
     /**
      * Function setSession
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
-     * @param array $session
+     * @param array|mixed $session
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:44
      */
-    public function setSession($session = []);
+    public function setSession($session = array());
 
     /**
      * Function getSession
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
-     * @return mixed
+     * @return array|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:47
      */
     public function getSession();
 
     /**
      * Function setIncludeHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:17
-     *
      * @param bool $includeHeader
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:51
      */
     public function setIncludeHeader($includeHeader = TRUE);
 
     /**
      * Function getIncludeHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:18
-     *
      * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 55:57
      */
     public function getIncludeHeader();
 
     /**
      * Function setBinaryTransfer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @param bool $binaryTransfer
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:00
      */
     public function setBinaryTransfer($binaryTransfer = TRUE);
 
     /**
      * Function isBinaryTransfer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:03
      */
     public function isBinaryTransfer();
 
     /**
      * Function setNoBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @param bool $noBody
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:10
      */
     public function setNoBody($noBody = TRUE);
 
     /**
      * Function getNoBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 14:19
-     *
      * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:14
      */
     public function getNoBody();
 
     /**
      * Function createCurl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:50
-     *
      * @param string $url
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 56:20
      */
     public function createCurl($url = '');
-
-    /**
-     * Function __toString
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 11/28/18 13:48
-     *
-     * @return mixed
-     */
-    public function __toString();
 }
