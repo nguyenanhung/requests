@@ -8,7 +8,7 @@
 
 Library Interface Requests use cURL, File Get Contents, SOAP Requests
 
-Library use package: Curl, GuzzleHttp, Requests and nuSoap
+Library use package: Curl, GuzzleHttp and nuSOAP
 
 ### Installation
 
@@ -60,7 +60,7 @@ require '/your/to/path/vendor/autoload.php';
 use \nguyenanhung\MyRequests\MyRequests;
 $requests = new MyRequests();
 
-echo $requests->getVersion(); // Print: 0.1.3.4
+echo $requests->getVersion(); // Print: 1.0.14
 ```
 
 ##### Send Request
@@ -90,10 +90,7 @@ $request->__construct();
 $request->setHeader($headers);
 $request->setOptions($options);
 
-echo $requests->getVersion(); // Print: 0.1.3.4
-
-$pyRequest = $request->pyRequest($url, $data, $method);
-d($pyRequest);
+echo $request->getVersion(); // Print: 0.1.3.4
 
 $guzzlePhpRequest = $request->guzzlePhpRequest($url, $data, $method);
 d($guzzlePhpRequest);

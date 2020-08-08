@@ -12,14 +12,14 @@ namespace nguyenanhung\MyRequests\Interfaces;
 /**
  * Interface ProjectInterface
  *
- * @package    nguyenanhung\MyRequests\Interfaces
- * @author     713uk13m <dev@nguyenanhung.com>
- * @copyright  713uk13m <dev@nguyenanhung.com>
+ * @package   nguyenanhung\MyRequests\Interfaces
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 interface ProjectInterface
 {
-    const VERSION         = '1.0.13';
-    const LAST_MODIFIED   = '2020-03-23';
+    const VERSION         = '1.0.14';
+    const LAST_MODIFIED   = '2020-08-08';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
