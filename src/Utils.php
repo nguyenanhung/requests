@@ -12,21 +12,21 @@ namespace nguyenanhung\MyRequests;
 /**
  * Class Utils
  *
- * @package    nguyenanhung\MyRequests
- * @author     713uk13m <dev@nguyenanhung.com>
- * @copyright  713uk13m <dev@nguyenanhung.com>
+ * @package   nguyenanhung\MyRequests
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 class Utils
 {
     /**
      * Function httpStatus
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:07
-     *
      * @param $num
      *
      * @return array
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 28:29
      */
     public static function httpStatus($num)
     {
@@ -83,10 +83,10 @@ class Utils
     /**
      * Function getHost
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:08
-     *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 28:34
      */
     public static function getHost()
     {
@@ -110,10 +110,10 @@ class Utils
     /**
      * Function getBrowserLanguage
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:09
-     *
-     * @return bool|string
+     * @return false|bool|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 28:43
      */
     public static function getBrowserLanguage()
     {
@@ -128,12 +128,12 @@ class Utils
     /**
      * Function paddingWebsitePrefix
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:10
-     *
      * @param $url
      *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 28:56
      */
     public static function paddingWebsitePrefix($url)
     {
@@ -147,13 +147,13 @@ class Utils
     /**
      * Function urlAddParam
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:12
-     *
      * @param $url
      * @param $paramString
      *
      * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 29:03
      */
     public static function urlAddParam($url, $paramString)
     {
@@ -168,10 +168,10 @@ class Utils
     /**
      * Function currentPageURL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:12
-     *
      * @return mixed|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 29:13
      */
     public static function currentPageURL()
     {
@@ -192,14 +192,14 @@ class Utils
     }
 
     /**
-     * Ham replace cac ky tu dash thua (double dash --> single dash, remove first and last dash in url)
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:14
+     * Hàm replace các ký tự dash thừa (double dash --> single dash, remove first and last dash in url)
      *
      * @param $url
      *
-     * @return bool|null|string|string[]
+     * @return false|string|string[]|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 29:22
      */
     public static function refineDashInUrl($url)
     {
@@ -217,20 +217,20 @@ class Utils
     /**
      * Function saveExternalFile
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:13
-     *
-     * @param string $img      : URL of external file
-     * @param string $fullpath : local filepath
-     * @param string $type     : type of external file.
+     * @param        $img
+     * @param        $fullPath
+     * @param string $type
      * @param bool   $isUseCurl
      *
-     * @return bool|int
+     * @return bool|false|int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 30:13
      */
-    public static function saveExternalFile($img, $fullpath, $type = 'image', $isUseCurl = TRUE)
+    public static function saveExternalFile($img, $fullPath, $type = 'image', $isUseCurl = TRUE)
     {
         if ($isUseCurl) {
-            //$fullpath = urlencode($fullpath);
+            //$fullPath = urlencode($fullPath);
             $ch = curl_init($img);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -240,7 +240,7 @@ class Utils
             curl_close($ch);
             //check if return error (include html in output)
             if (strpos($raw_data, 'html') === FALSE) {
-                $fp = fopen($fullpath, 'w');
+                $fp = fopen($fullPath, 'w');
                 if (!$fp) {
                     return FALSE;
                 } elseif (!empty($raw_data)) {
@@ -255,7 +255,7 @@ class Utils
         } else {
             $file_headers = @get_headers($img);
             if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
-                return file_put_contents($fullpath, file_get_contents($img));
+                return file_put_contents($fullPath, file_get_contents($img));
             } else {
                 return FALSE;
             }
@@ -267,12 +267,12 @@ class Utils
     /**
      * Function xssClean
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/16/18 17:14
-     *
      * @param $data
      *
-     * @return null|string|string[]
+     * @return string|string[]|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/08/2020 31:01
      */
     public static function xssClean($data)
     {
