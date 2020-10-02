@@ -21,17 +21,17 @@
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
-        "paragonie/random_compat": "^2.0.17",
-        "paragonie/sodium_compat": "^1.6.6",
-        "ircmaxell/password-compat": "^1.0.4",
-        "symfony/http-foundation": "3.4.36",
-        "php-curl-class/php-curl-class": "^8.3",
-        "react/promise": "^2.7.0",
+        "paragonie/random_compat": "^2.0",
+        "paragonie/sodium_compat": "^1.13",
+        "ircmaxell/password-compat": "^1.0",
+        "symfony/http-foundation": "^4.4",
+        "php-curl-class/php-curl-class": "^8.8",
+        "react/promise": "^2.8",
         "guzzlehttp/guzzle": "^6.5",
         "markrogoyski/ipv4-subnet-calculator": "^2.1",
-        "mlocati/ip-lib": "^1.6",
+        "mlocati/ip-lib": "^1.12",
         "nguyenanhung/nusoap": "^0.9.5",
-        "nguyenanhung/my-debug": "^1.0"
+        "nguyenanhung/my-debug": "^2.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.0"
