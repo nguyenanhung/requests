@@ -10,6 +10,7 @@
 namespace nguyenanhung\MyRequests;
 
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
@@ -102,7 +103,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @var bool
      */
-    private $isXml;
+    protected $isXml;
 
     /**
      * Set data request is SSL
@@ -198,6 +199,9 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
 
     /**
      * MyRequests constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -232,14 +236,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     }
 
     /**
-     * Function setHeaders
+     * Function setHeader
      *
      * @param array $headers
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 09:44
      */
     public function setHeader($headers = array())
     {
@@ -254,10 +258,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param array $cookies
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:28
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 09:51
      */
     public function setCookie($cookies = array())
     {
@@ -272,10 +276,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param array $options
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:04
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:00
      */
     public function setOptions($options = array())
     {
@@ -290,15 +294,15 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param int $timeout
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 04:05
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:06
      */
     public function setTimeout($timeout = 60)
     {
         $this->timeout = $timeout;
-        $this->logger->info(__FUNCTION__, 'setTimeout: ', $this->timeout);
+        $this->logger->info(__FUNCTION__, 'setTimeout: ' . $this->timeout);
 
         return $this;
     }
@@ -308,15 +312,20 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param string $userAgent
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:19
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:15
      */
     public function setUserAgent($userAgent = '')
     {
         $this->userAgent = $userAgent;
-        $this->logger->info(__FUNCTION__, 'setUserAgent: ', $this->userAgent);
+        if (is_array($this->userAgent)) {
+            $this->logger->info(__FUNCTION__, 'setUserAgent: ', $this->userAgent);
+        } else {
+            $this->logger->info(__FUNCTION__, 'setUserAgent: ' . $this->userAgent);
+        }
+
 
         return $this;
     }
@@ -326,15 +335,19 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param string $referrer
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:26
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:28
      */
     public function setReferrer($referrer = '')
     {
         $this->referrer = $referrer;
-        $this->logger->info(__FUNCTION__, 'setReferrer: ', $this->referrer);
+        if (is_array($this->referrer)) {
+            $this->logger->info(__FUNCTION__, 'setReferrer: ', $this->referrer);
+        } else {
+            $this->logger->info(__FUNCTION__, 'setReferrer: ' . $this->referrer);
+        }
 
         return $this;
     }
@@ -342,17 +355,21 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setUserBody
      *
-     * @param bool $isBody
+     * @param false $isBody
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:25
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 11:34
      */
     public function setUserBody($isBody = FALSE)
     {
         $this->isBody = $isBody;
-        $this->logger->info(__FUNCTION__, 'setUserBody: ', $this->referrer);
+        if (is_array($this->isBody)) {
+            $this->logger->info(__FUNCTION__, 'setUserBody: ', $this->isBody);
+        } else {
+            $this->logger->info(__FUNCTION__, 'setUserBody: ' . $this->isBody);
+        }
 
         return $this;
     }
@@ -360,12 +377,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsXml
      *
-     * @param bool $isXml
+     * @param false $isXml
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:00
      */
     public function setRequestIsXml($isXml = FALSE)
     {
@@ -375,7 +392,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $header['Content-type'] = 'text/xml; charset=utf-8';
             $this->headers          = $header;
         }
-        $this->logger->info(__FUNCTION__, 'setRequestIsXml: ', $this->isXml);
+        $this->logger->info(__FUNCTION__, 'setRequestIsXml: ' . $this->isXml);
 
         return $this;
     }
@@ -383,12 +400,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsJson
      *
-     * @param bool $isJson
+     * @param false $isJson
      *
-     * @return  $this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:17
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:31
      */
     public function setRequestIsJson($isJson = FALSE)
     {
@@ -398,7 +415,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $header['Content-type'] = 'application/json; charset=utf-8';
             $this->headers          = $header;
         }
-        $this->logger->info(__FUNCTION__, 'setRequestIsJson: ', $this->isJson);
+        $this->logger->info(__FUNCTION__, 'setRequestIsJson: ' . $this->isJson);
 
         return $this;
     }
@@ -406,12 +423,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function setRequestIsSSL
      *
-     * @param bool $isSSL
+     * @param false $isSSL
      *
-     * @return mixed|$this
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 20:03
-     *
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:38
      */
     public function setRequestIsSSL($isSSL = FALSE)
     {
@@ -435,7 +452,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     public function setErrorResponseIsData($errorResponseIsData = FALSE)
     {
         $this->errorResponseIsData = $errorResponseIsData;
-        $this->logger->info(__FUNCTION__, 'setErrorResponseIsData: ', $this->errorResponseIsData);
+        $this->logger->info(__FUNCTION__, 'setErrorResponseIsData: ' . $this->errorResponseIsData);
 
         return $this;
     }
@@ -454,7 +471,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE)
     {
         $this->errorResponseIsNull = $errorResponseIsNull;
-        $this->logger->info(__FUNCTION__, 'setErrorResponseIsNull: ', $this->errorResponseIsNull);
+        $this->logger->info(__FUNCTION__, 'setErrorResponseIsNull: ' . $this->errorResponseIsNull);
 
         return $this;
     }
@@ -695,6 +712,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } else {
                     $result = $request->getBody();
                 }
+            }
+            catch (GuzzleException $exception) {
+                $result = "Error File: " . $exception->getFile() . ' - Line: ' . $exception->getLine() . ' Code: ' . $exception->getCode() . ' - Message: ' . $exception->getMessage();
+                $this->logger->error(__FUNCTION__, 'Error Message: ' . $exception->getMessage());
+                $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $exception->getTraceAsString());
             }
             catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();

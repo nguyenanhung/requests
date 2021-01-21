@@ -67,25 +67,25 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /** @var bool|mixed Should we track cookies? This does not stop the processing of cookies, it just allows for any received cookies to be sent in subsequent requests. Great for scraping. */
     private $trackCookies = TRUE;
 
-    /** @var bool|boolean Is the request sent in XML and received in XML */
+    /** @var bool Is the request sent in XML and received in XML */
     private $isXML = FALSE;
 
-    /** @var bool|boolean Is the request sent in JSON and received in JSON */
+    /** @var bool Is the request sent in JSON and received in JSON */
     private $isJson = FALSE;
 
-    /** @var bool|boolean Is the response decode Json to Object */
+    /** @var bool Is the response decode Json to Object */
     private $isDecodeJson = FALSE;
 
-    /** @var bool|boolean Should JSON be sent in JSON_PRETTY_PRINT? Only really useful for debugging. */
+    /** @var bool Should JSON be sent in JSON_PRETTY_PRINT? Only really useful for debugging. */
     private $isJsonPretty = FALSE;
 
     /** @var bool|mixed Should SSL peers be verified. You should have a good reason for turning this off. */
     private $verifyPeer = TRUE;
 
-    /** @var int|integer How long to wait for a server to respond to a  request. */
+    /** @var int How long to wait for a server to respond to a  request. */
     private $timeout = 60;
 
-    /** @var bool|boolean Internal flag to track if the request is in SSL or not. */
+    /** @var bool Internal flag to track if the request is in SSL or not. */
     private $isSSL = FALSE;
 
     /**
