@@ -16,12 +16,16 @@ use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 /**
  * Class BackgroundRequest
  *
- * @package    nguyenanhung\MyRequests
- * @author     713uk13m <dev@nguyenanhung.com>
- * @copyright  713uk13m <dev@nguyenanhung.com>
+ * @package   nguyenanhung\MyRequests
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
 {
+    const REQUEST_TIMEOUT = 30;
+    const PORT_SSL        = 443;
+    const PORT_HTTP       = 80;
+
     use Version;
 
     /** @var object \nguyenanhung\MyDebug\Benchmark */
@@ -90,9 +94,9 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     {
         $parts = parse_url($url);
         if (strtolower($parts['scheme']) == 'https') {
-            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errStr, 30);
+            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : self::PORT_SSL, $errno, $errStr, self::REQUEST_TIMEOUT);
         } else {
-            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errStr, 30);
+            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : self::PORT_HTTP, $errno, $errStr, self::REQUEST_TIMEOUT);
         }
         if (!$fp) {
             if (function_exists('log_message')) {
@@ -128,9 +132,9 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     {
         $parts = parse_url($url);
         if ($parts['scheme'] == 'https') {
-            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : 443, $errno, $errStr, 30);
+            $fp = fsockopen('ssl://' . $parts['host'], isset($parts['port']) ? $parts['port'] : self::PORT_SSL, $errno, $errStr, self::REQUEST_TIMEOUT);
         } else {
-            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errStr, 30);
+            $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : self::PORT_HTTP, $errno, $errStr, self::REQUEST_TIMEOUT);
         }
         if (!$fp) {
             if (function_exists('log_message')) {

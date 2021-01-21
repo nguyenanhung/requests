@@ -95,9 +95,7 @@ class Ip implements ProjectInterface
                 $ip = trim($ip);
                 if ($this->ipValidate($ip)) {
                     if ($convertToInteger === TRUE) {
-                        $result = ip2long($ip);
-
-                        return $result;
+                        return ip2long($ip);
                     }
 
                     return $ip;
@@ -137,9 +135,7 @@ class Ip implements ProjectInterface
                     $ip = trim($ip);
                     if ($this->ipValidate($ip)) {
                         if ($convertToInteger === TRUE) {
-                            $result = ip2long($ip);
-
-                            return $result;
+                            return ip2long($ip);
                         }
 
                         return $ip;
@@ -172,9 +168,8 @@ class Ip implements ProjectInterface
         try {
             $address = Factory::addressFromString($ip_address);
             $range   = Factory::rangeFromString($network_range);
-            $result  = $address->matches($range);
 
-            return $result;
+            return $address->matches($range);
         }
         catch (Exception $e) {
             $result = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
@@ -305,7 +300,7 @@ class Ip implements ProjectInterface
      * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 47:51
+     * @time     : 01/21/2021 58:35
      */
     public function ipInfo($ip = '')
     {
@@ -315,18 +310,17 @@ class Ip implements ProjectInterface
         try {
             $curl = new Curl();
             $curl->get('http://ip-api.com/json/' . $ip);
-            $response = $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
 
-            return $response;
+            return $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
         }
         catch (Exception $e) {
-            $message = 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             if (function_exists('log_message')) {
                 log_message('error', 'Error Message: ' . $e->getMessage());
                 log_message('error', 'Error Trace As String: ' . $e->getTraceAsString());
             }
 
-            return $message;
+            return 'Error File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+
         }
     }
 }

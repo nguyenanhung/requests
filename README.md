@@ -3,7 +3,6 @@
 [![Latest Unstable Version](https://poser.pugx.org/nguyenanhung/requests/v/unstable)](https://packagist.org/packages/nguyenanhung/requests)
 [![composer.lock](https://poser.pugx.org/nguyenanhung/requests/composerlock)](https://packagist.org/packages/nguyenanhung/requests)
 [![License](https://poser.pugx.org/nguyenanhung/requests/license)](https://packagist.org/packages/nguyenanhung/requests)
-
 # My Requests
 
 Library Interface Requests use cURL, File Get Contents, SOAP Requests
@@ -159,7 +158,7 @@ d($result);
 
 ### Contact
 
-If any quetion & request, please contact following infomation
+If any question & request, please contact following information
 
 | Name        | Email                | Skype            | Facebook      |
 | ----------- | -------------------- | ---------------- | ------------- |

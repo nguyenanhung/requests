@@ -117,7 +117,7 @@ class Input implements InputInterface
         if (!is_array($this->inputStream)) {
             // $this->raw_input_stream will trigger __get().
             parse_str($this->rawInputStream, $this->inputStream);
-            is_array($this->inputStream) OR $this->inputStream = array();
+            is_array($this->inputStream) or $this->inputStream = array();
         }
 
         return $this->fetchFromArray($this->inputStream, $index, $xss_clean);
@@ -392,7 +392,7 @@ class Input implements InputInterface
      */
     public function isCLI()
     {
-        return (PHP_SAPI === 'cli' OR defined('STDIN'));
+        return (PHP_SAPI === 'cli' or defined('STDIN'));
     }
 
     // -------------------------------------------------------------------- //
@@ -412,9 +412,9 @@ class Input implements InputInterface
      */
     public function fetchFromArray(&$array, $index = NULL, $xss_clean = NULL)
     {
-        is_bool($xss_clean) OR $xss_clean = $this->enableXss;
+        is_bool($xss_clean) or $xss_clean = $this->enableXss;
         // If $index is NULL, it means that the whole $array is requested
-        isset($index) OR $index = array_keys($array);
+        isset($index) or $index = array_keys($array);
         // allow fetching multiple keys at once
         if (is_array($index)) {
             $output = array();
