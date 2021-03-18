@@ -30,8 +30,7 @@
         "markrogoyski/ipv4-subnet-calculator": "^3.1",
         "mlocati/ip-lib": "^1.14",
         "nguyenanhung/nusoap": "^0.9.5",
-        "nguyenanhung/my-debug": "^2.0",
-        "ext-apache": "*"
+        "nguyenanhung/my-debug": "^2.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.0"
