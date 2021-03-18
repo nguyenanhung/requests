@@ -601,7 +601,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
-        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         $method   = strtoupper($method);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
@@ -723,7 +723,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
             }
         }
-        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -757,7 +757,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $curl = new Curl();
                 if ($this->isJson) {
                     $data = json_encode($data);
-                    $this->logger->info(__FUNCTION__, 'isJson Data: ', $data);
+                    $this->logger->debug(__FUNCTION__, 'isJson Data: ', $data);
                 }
                 if ($this->userAgent) {
                     $curl->setUserAgent($this->userAgent);
@@ -862,7 +862,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $curl->close();
                 // Log Response
                 if (isset($response)) {
-                    $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $response);
+                    $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $response);
                 }
             }
             catch (Exception $e) {
@@ -893,7 +893,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
-        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
+        $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         $method   = strtoupper($method);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
@@ -960,7 +960,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
             }
         }
-        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -981,10 +981,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     public function xmlRequest($url = '', $data = '', $timeout = 60)
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        $inputParams = array('url' => $url, 'data' => $data, 'timeout' => $timeout);
-        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $inputParams = array('url' => $url, 'data' => $data, 'timeout' => $timeout);
+        $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
 
@@ -1010,7 +1010,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
@@ -1031,10 +1031,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     public function jsonRequest($url = '', $data = array(), $timeout = 60)
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        $inputParams = array('url' => $url, 'data' => $data, 'timeout' => $timeout);
-        $this->logger->info(__FUNCTION__, 'input Params: ', $inputParams);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
+        $inputParams = array('url' => $url, 'data' => $data, 'timeout' => $timeout);
+        $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
 
@@ -1060,7 +1060,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->logger->info(__FUNCTION__, 'Final Result from Request: ', $result);
+        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
 
         return $result;
     }
