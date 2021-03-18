@@ -11,7 +11,6 @@ namespace nguyenanhung\MyRequests;
 
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
-use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**
  * Class BackgroundRequest

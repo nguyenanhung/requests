@@ -13,7 +13,6 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
-use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 use GuzzleHttp\Client;
 use Curl\Curl;
 
@@ -988,6 +987,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+
             // Create Request use File Get Content
             $content                  = new GetContents();
             $content->debugStatus     = $this->debugStatus;
@@ -998,6 +998,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->setXML(TRUE);
             $content->setData($data);
             $content->sendRequest();
+
             // Create Request
             $result     = $content->response();
             $getContent = $content->getContent();
@@ -1036,6 +1037,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ', $endpoint);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
+
             // Create Request use File Get Content
             $content                  = new GetContents();
             $content->debugStatus     = $this->debugStatus;
@@ -1046,6 +1048,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->setJson(TRUE);
             $content->setData($data);
             $content->sendRequest();
+
             // Create Request
             $result     = $content->response();
             $getContent = $content->getContent();

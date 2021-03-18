@@ -13,7 +13,6 @@ use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;
-use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**
  * Class SoapRequest

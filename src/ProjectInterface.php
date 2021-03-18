@@ -7,19 +7,19 @@
  * Time: 14:55
  */
 
-namespace nguyenanhung\MyRequests\Interfaces;
+namespace nguyenanhung\MyRequests;
 
 /**
  * Interface ProjectInterface
  *
- * @package   nguyenanhung\MyRequests\Interfaces
+ * @package   nguyenanhung\MyRequests
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 interface ProjectInterface
 {
-    const VERSION         = '2.0.1';
-    const LAST_MODIFIED   = '2021-01-21';
+    const VERSION         = '2.0.2';
+    const LAST_MODIFIED   = '2021-03-18';
     const MIN_PHP_VERSION = '5.3';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
