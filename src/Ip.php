@@ -13,7 +13,6 @@ use Exception;
 use IPv4\SubnetCalculator;
 use IPLib\Factory;
 use Curl\Curl;
-use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**
  * Class Ip

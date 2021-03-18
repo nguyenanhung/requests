@@ -12,7 +12,6 @@ namespace nguyenanhung\MyRequests;
 use Exception;
 use nguyenanhung\MyDebug\Debug;
 use nguyenanhung\MyDebug\Benchmark;
-use nguyenanhung\MyRequests\Interfaces\ProjectInterface;
 
 /**
  * Class GetContents
@@ -323,11 +322,11 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
         }
 
-        if (isset($return['headers']['reponse_code'])) {
-            $responseType = substr($return['headers']['reponse_code'], 0, 1);
+        if (isset($return['headers']['response_code'])) {
+            $responseType = substr($return['headers']['response_code'], 0, 1);
             if ($responseType != '2') {
                 $return['error'] = array(
-                    'code'    => $return['headers']['reponse_code'],
+                    'code'    => $return['headers']['response_code'],
                     'message' => 'Server returned an error.'
                 );
                 $this->logger->error(__FUNCTION__, 'Could not file_get_contents: ', $return['error']);
@@ -713,14 +712,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
     public function parseReturnHeaders($headers)
     {
         $head = array();
-        foreach ($headers as $k => $v) {
-            $t = explode(':', $v, 2);
+        foreach ($headers as $key => $value) {
+            $t = explode(':', $value, 2);
             if (isset($t[1])) {
                 $head[trim($t[0])] = trim($t[1]);
             } else {
-                $head[] = $v;
-                if (preg_match("#HTTP/[0-9\.]+\s+([0-9]+)#", $v, $out)) {
-                    $head['reponse_code'] = intval($out[1]);
+                $head[]      = $value;
+                $patternHttp = "#HTTP/[0-9\.]+\s+([0-9]+)#";
+                if (preg_match($patternHttp, $value, $out)) {
+                    $head['response_code'] = intval($out[1]);
                 }
             }
         }
