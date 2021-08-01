@@ -21,234 +21,240 @@ interface SendRequestsInterface
     /**
      * Function setHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param array $headers
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 09:44
      */
     public function setHeader($headers = array());
 
     /**
      * Function setCookie
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param array $cookies
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 09:51
      */
     public function setCookie($cookies = array());
 
     /**
      * Function setOptions
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param array $options
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:00
      */
     public function setOptions($options = array());
 
     /**
      * Function setTimeout
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param int $timeout
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:06
      */
     public function setTimeout($timeout = 60);
 
     /**
      * Function setUserAgent
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param string $userAgent
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:15
      */
     public function setUserAgent($userAgent = '');
 
     /**
      * Function setReferrer
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param string $referrer
      *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 10:28
      */
     public function setReferrer($referrer = '');
 
     /**
      * Function setUserBody
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
+     * @param false $isBody
      *
-     * @param bool $isBody
-     *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 11:34
      */
     public function setUserBody($isBody = FALSE);
 
     /**
      * Function setRequestIsXml
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
+     * @param false $isXml
      *
-     * @param bool $isXml
-     *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:00
      */
     public function setRequestIsXml($isXml = FALSE);
 
     /**
      * Function setRequestIsJson
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
+     * @param false $isJson
      *
-     * @param bool $isJson
-     *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:31
      */
     public function setRequestIsJson($isJson = FALSE);
 
     /**
      * Function setRequestIsSSL
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 20:03
+     * @param false $isSSL
      *
-     * @param bool $isSSL
-     *
-     * @return $this
+     * @return $this|\nguyenanhung\MyRequests\MyRequests
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 01/21/2021 12:38
      */
     public function setRequestIsSSL($isSSL = FALSE);
 
     /**
      * Function setErrorResponseIsData
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:04
+     * = true -> sẽ trả về 1 response đầy đủ error code, error message
      *
      * @param bool $errorResponseIsData Array Data if Response is Null if Error
      *
-     * @return $this
+     * @return  $this;
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:02
+     *
      */
     public function setErrorResponseIsData($errorResponseIsData = FALSE);
 
     /**
      * Function setErrorResponseIsNull
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:04
+     * Trả về null nếu có lỗi request
      *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
      * @return $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 23:04
+     *
      */
     public function setErrorResponseIsNull($errorResponseIsNull = FALSE);
 
     /**
      * Function setBasicAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
-     * @return $this
+     * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:24
+     *
      */
     public function setBasicAuthentication($username = '', $password = '');
 
     /**
      * Function setDigestAuthentication
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:53
-     *
      * @param string $username Username to be Authentication
      * @param string $password Password to be Authentication
      *
-     * @return $this
+     * @return  $this
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 06:28
+     *
      */
     public function setDigestAuthentication($username = '', $password = '');
 
     /**
      * Function getHttpCode
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:15
-     *
-     * @return mixed
+     * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:11
      */
     public function getHttpCode();
 
     /**
      * Function getHttpMessage
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:15
-     *
-     * @return mixed
+     * @return string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:09
      */
     public function getHttpMessage();
 
     /**
      * Function getErrorCode
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:15
-     *
-     * @return mixed
+     * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:06
      */
     public function getErrorCode();
 
     /**
      * Function getRequestsHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:15
-     *
-     * @return mixed
+     * @return array|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:04
      */
     public function getRequestsHeader();
 
     /**
      * Function getResponseHeader
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:15
-     *
-     * @return mixed
+     * @return array|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:01
      */
     public function getResponseHeader();
 
     /**
      * Function guzzlePhpRequest
+     * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:54
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
+     * @param string $method Set Method to be Request
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $method
+     * @return array|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null
      *
-     * @return mixed
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 06:45
+     *
+     * @see       https://packagist.org/packages/guzzlehttp/guzzle
      */
     public function guzzlePhpRequest($url = '', $data = array(), $method = 'GET');
 
@@ -256,20 +262,19 @@ interface SendRequestsInterface
      * Function curlRequest
      * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 05:54
-     *
      * @param string $url    URL Endpoint to be Request
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|null|string Response content from server,
      *                           null of Exception Message if Error
-     * @see   https://packagist.org/packages/curl/curl
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 05:54
+     *
+     * @see   https://packagist.org/packages/php-curl-class/php-curl-class
      */
     public function curlRequest($url = '', $data = array(), $method = 'GET');
 
-    /******************************** Handle Send Request ********************************/
     /**
      * Function sendRequest
      * Handle send Request use Multi Method
@@ -290,14 +295,14 @@ interface SendRequestsInterface
      * Function xmlRequest
      * Send XML Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:11
-     *
      * @param string $url     URL Endpoint to be Request
      * @param string $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:11
+     *
      */
     public function xmlRequest($url = '', $data = '', $timeout = 60);
 
@@ -305,40 +310,42 @@ interface SendRequestsInterface
      * Function jsonRequest
      * Send JSON Request to Server
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 07:13
-     *
      * @param string $url     URL Endpoint to be Request
      * @param array  $data    Data Content to be Request
      * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 10/7/18 07:13
+     *
      */
     public function jsonRequest($url = '', $data = array(), $timeout = 60);
-    /******************************** Utils Function ********************************/
+
     /**
      * Function xmlGetValue
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
      *
      * @param string $xml      XML String
      * @param string $openTag  OpenTag to find
      * @param string $closeTag CloseTag to find
      *
      * @return bool|string  Result from Tag, Empty string if not
+     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 06:57
      */
     public function xmlGetValue($xml = '', $openTag = '', $closeTag = '');
 
     /**
      * Function parseXmlDataRequest
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 06:57
-     *
      * @param string $resultXml XML String to Parse
      *
      * @return false|string
+     *
+     * @author    : 713uk13m <dev@nguyenanhung.com>
+     * @copyright : 713uk13m <dev@nguyenanhung.com>
+     * @time      : 10/7/18 06:57
      */
     public function parseXmlDataRequest($resultXml = '');
 }

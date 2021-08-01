@@ -462,7 +462,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @param bool $errorResponseIsNull TRUE if Response is Null if Error
      *
-     * @return mixed|$this
+     * @return $this
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 23:04
      *
@@ -519,10 +519,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpCode
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:16
-     *
+     * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:11
      */
     public function getHttpCode()
     {
@@ -532,10 +532,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getHttpMessage
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:16
-     *
+     * @return string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:09
      */
     public function getHttpMessage()
     {
@@ -545,10 +545,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getErrorCode
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:16
-     *
+     * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:06
      */
     public function getErrorCode()
     {
@@ -558,10 +558,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getRequestsHeader
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:16
-     *
+     * @return array|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:04
      */
     public function getRequestsHeader()
     {
@@ -571,10 +571,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     /**
      * Function getResponseHeader
      *
-     * @return mixed
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 23:16
-     *
+     * @return array|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 12:01
      */
     public function getResponseHeader()
     {
@@ -589,7 +589,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
-     * @return array|mixed|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null
+     * @return array|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
@@ -741,7 +741,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 05:54
      *
-     * @see   https://packagist.org/packages/curl/curl
+     * @see   https://packagist.org/packages/php-curl-class/php-curl-class
      */
     public function curlRequest($url = '', $data = array(), $method = 'GET')
     {
@@ -840,7 +840,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->requests_header = isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL;
                 $this->response_header = isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL;
                 // Response
-                if (($curl->error)) {
+                if (isset($curl->error)) {
                     // Debug
                     $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
