@@ -21,21 +21,24 @@
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
+        "ext-iconv": "*",
         "paragonie/random_compat": "^9.99",
-        "paragonie/sodium_compat": "^1.14",
+        "paragonie/sodium_compat": "^1.16",
         "ircmaxell/password-compat": "^1.0",
-        "symfony/http-foundation": "^5.2",
-        "php-curl-class/php-curl-class": "^8.9",
-        "guzzlehttp/guzzle": "^7.2",
+        "symfony/http-foundation": "^5.3 || ^4.4",
+        "php-curl-class/php-curl-class": "^9.3",
+        "guzzlehttp/guzzle": "^7.3",
         "markrogoyski/ipv4-subnet-calculator": "^3.1",
-        "mlocati/ip-lib": "^1.14",
-        "nguyenanhung/nusoap": "^0.9.5",
+        "mlocati/ip-lib": "^1.16",
+        "nguyenanhung/nusoap": "^0.9",
         "nguyenanhung/my-debug": "^2.0"
     },
     "require-dev": {
-        "kint-php/kint": "^3.0"
+        "kint-php/kint": "^3.3"
     },
     "suggest": {
+        "ext-curl": "Needed to support cURL",
+        "ext-json": "Needed to support JSON",
         "ext-iconv": "Needed to support iconv",
         "ext-openssl": "Needed to support SSL",
         "ext-mbstring": "Needed to support mb_string"
