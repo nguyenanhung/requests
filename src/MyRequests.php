@@ -840,7 +840,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->requests_header = isset($curl->requestHeaders) ? $curl->requestHeaders : (isset($curl->request_headers)) ? $curl->request_headers : NULL;
                 $this->response_header = isset($curl->responseHeaders) ? $curl->responseHeaders : (isset($curl->response_headers)) ? $curl->response_headers : NULL;
                 // Response
-                if (isset($curl->error)) {
+                if ($curl->error) {
                     // Debug
                     $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                     if ($this->errorResponseIsData === TRUE) {
