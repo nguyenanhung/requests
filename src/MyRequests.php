@@ -916,41 +916,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
             try {
-                if ($method == self::GET) {
-                    // Handle GET Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->curlRequest($url, $data, $method);
-                } elseif ($method == self::HEAD) {
-                    // Handle HEAD Request with pyRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::HEAD . ' request to ' . $url . ' with Data: ', $data);
+                $useGuzzlePhp = [self::HEAD, self::TRACE, self::OPTIONS];
+                $this->logger->debug(__FUNCTION__, 'Make ' . $method . ' request to ' . $url . ' with Data: ', $data);
+                if (in_array($method, $useGuzzlePhp)) {
                     $result = $this->guzzlePhpRequest($url, $data, $method);
-                } elseif ($method == self::DELETE) {
-                    // Handle DELETE Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::DELETE . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->curlRequest($url, $data, $method);
-                } elseif ($method == self::TRACE) {
-                    // Handle TRACE Request with pyRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::TRACE . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->guzzlePhpRequest($url, $data, $method);
-                } elseif ($method == self::POST) {
-                    // Handle POST Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::POST . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->curlRequest($url, $data, $method);
-                } elseif ($method == self::PUT) {
-                    // Handle PUT Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PUT . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->curlRequest($url, $data, $method);
-                } elseif ($method == self::OPTIONS) {
-                    // Handle OPTIONS Request with pyRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::OPTIONS . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->guzzlePhpRequest($url, $data, $method);
-                } elseif ($method == self::PATCH) {
-                    // Handle PATCH Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make ' . self::PATCH . ' request to ' . $url . ' with Data: ', $data);
-                    $result = $this->curlRequest($url, $data, $method);
                 } else {
-                    // Handle DEFAULT Request with curlRequest
-                    $this->logger->debug(__FUNCTION__, 'Make DEFAULT request to ' . $url . ' with Data: ', $data);
                     $result = $this->curlRequest($url, $data, $method);
                 }
             }
