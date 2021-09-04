@@ -56,7 +56,7 @@ class Input implements InputInterface
      *
      * @var    bool
      */
-    protected $enableXss = FALSE;
+    protected $enableXss = false;
 
     /**
      * List of all HTTP request headers
@@ -96,10 +96,10 @@ class Input implements InputInterface
     /**
      * Function getRawInputStream
      *
-     * @return mixed|string
+     * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 03/18/2021 00:12
+     * @time     : 09/04/2021 14:38
      */
     public function getRawInputStream()
     {
@@ -117,7 +117,7 @@ class Input implements InputInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 03/18/2021 00:18
      */
-    public function inputStream($index = NULL, $xss_clean = NULL)
+    public function inputStream($index = null, $xss_clean = null)
     {
         // Prior to PHP 5.6, the input stream can only be read once,
         // so we'll need to check if we have already done that first.
@@ -140,11 +140,11 @@ class Input implements InputInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 03/18/2021 00:27
      */
-    public function method($upper = FALSE)
+    public function method($upper = false)
     {
         return ($upper)
-            ? strtoupper($this->server('REQUEST_METHOD', TRUE))
-            : strtolower($this->server('REQUEST_METHOD', TRUE));
+            ? strtoupper($this->server('REQUEST_METHOD', true))
+            : strtolower($this->server('REQUEST_METHOD', true));
     }
 
     /**
@@ -159,18 +159,18 @@ class Input implements InputInterface
      * @time     : 10/18/18 10:58
      *
      */
-    public function post($key = '', $xss_clean = FALSE)
+    public function post($key = '', $xss_clean = false)
     {
         if ($this->input->request->has($key)) {
             $content = $this->input->request->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -185,18 +185,18 @@ class Input implements InputInterface
      * @time     : 10/18/18 10:58
      *
      */
-    public function get($key = '', $xss_clean = FALSE)
+    public function get($key = '', $xss_clean = false)
     {
         if ($this->input->query->has($key)) {
             $content = $this->input->query->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -211,18 +211,18 @@ class Input implements InputInterface
      * @time      : 10/18/18 10:58
      *
      */
-    public function server($key = '', $xss_clean = FALSE)
+    public function server($key = '', $xss_clean = false)
     {
         if ($this->input->server->has($key)) {
             $content = $this->input->server->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -237,18 +237,18 @@ class Input implements InputInterface
      * @time      : 10/18/18 10:58
      *
      */
-    public function cookie($key = '', $xss_clean = FALSE)
+    public function cookie($key = '', $xss_clean = false)
     {
         if ($this->input->cookies->has($key)) {
             $content = $this->input->cookies->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -263,18 +263,18 @@ class Input implements InputInterface
      * @time      : 10/18/18 10:58
      *
      */
-    public function file($key = '', $xss_clean = FALSE)
+    public function file($key = '', $xss_clean = false)
     {
         if ($this->input->files->has($key)) {
             $content = $this->input->files->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -289,18 +289,18 @@ class Input implements InputInterface
      * @time      : 10/18/18 10:58
      *
      */
-    public function header($key = '', $xss_clean = FALSE)
+    public function header($key = '', $xss_clean = false)
     {
         if ($this->input->headers->has($key)) {
             $content = $this->input->headers->get($key);
-            if ($xss_clean === TRUE) {
+            if ($xss_clean === true) {
                 $content = Utils::xssClean($content);
             }
 
             return $content;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -324,11 +324,11 @@ class Input implements InputInterface
      *
      * @return    array
      */
-    public function requestHeaders($xss_clean = FALSE)
+    public function requestHeaders($xss_clean = false)
     {
         // If header is already defined, return it immediately
         if (!empty($this->headers)) {
-            return $this->fetchFromArray($this->headers, NULL, $xss_clean);
+            return $this->fetchFromArray($this->headers, null, $xss_clean);
         }
 
         // In Apache, you can simply call apache_request_headers()
@@ -341,12 +341,12 @@ class Input implements InputInterface
                     // take SOME_HEADER and turn it into Some-Header
                     $header                 = str_replace('_', ' ', strtolower($header));
                     $header                 = str_replace(' ', '-', ucwords($header));
-                    $this->headers[$header] = $_SERVER[$key];
+                    $this->headers[$header] = $val;
                 }
             }
         }
 
-        return $this->fetchFromArray($this->headers, NULL, $xss_clean);
+        return $this->fetchFromArray($this->headers, null, $xss_clean);
     }
 
     /**
@@ -359,7 +359,7 @@ class Input implements InputInterface
      *
      * @return    string|null    The requested header on success or NULL on failure
      */
-    public function getRequestHeader($index, $xss_clean = FALSE)
+    public function getRequestHeader($index, $xss_clean = false)
     {
         static $headers;
         if (!isset($headers)) {
@@ -370,10 +370,10 @@ class Input implements InputInterface
         }
         $index = strtolower($index);
         if (!isset($headers[$index])) {
-            return NULL;
+            return null;
         }
 
-        return ($xss_clean === TRUE)
+        return ($xss_clean === true)
             ? Utils::xssClean($headers[$index])
             : $headers[$index];
     }
@@ -415,7 +415,7 @@ class Input implements InputInterface
      * @copyright CodeIgniter
      *
      */
-    public function fetchFromArray(&$array, $index = NULL, $xss_clean = NULL)
+    public function fetchFromArray(&$array, $index = null, $xss_clean = null)
     {
         is_bool($xss_clean) or $xss_clean = $this->enableXss;
 
@@ -445,14 +445,14 @@ class Input implements InputInterface
                 if (isset($value[$key])) {
                     $value = $value[$key];
                 } else {
-                    return NULL;
+                    return null;
                 }
             }
         } else {
-            return NULL;
+            return null;
         }
 
-        return ($xss_clean === TRUE)
+        return ($xss_clean === true)
             ? Utils::xssClean($value)
             : $value;
     }

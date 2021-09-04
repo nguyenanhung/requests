@@ -78,7 +78,7 @@ interface SoapRequestInterface
      *
      * @param string $responseIsJson
      *
-     * @return $this|mixed if set value = TRUE, response is Json string
+     * @return $this if set value = TRUE, response is Json string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/8/18 19:00

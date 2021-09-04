@@ -40,11 +40,11 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**@var object \nguyenanhung\MyDebug\Debug Call to class */
     private $logger;
     /** @var bool Debug Status */
-    public $debugStatus = FALSE;
+    public $debugStatus = false;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = NULL;
+    public $debugLevel = null;
     /** @var null|string Set Logger Path to Save */
-    public $debugLoggerPath = NULL;
+    public $debugLoggerPath = null;
     /** @var string|null Set Logger Filename to Save */
     public $debugLoggerFilename;
 
@@ -56,13 +56,13 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function __construct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
         $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
-            $this->debugStatus = FALSE;
+            $this->debugStatus = false;
         }
         $this->logger->setDebugStatus($this->debugStatus);
         $this->logger->setGlobalLoggerLevel($this->debugLevel);
@@ -79,7 +79,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      */
     public function __destruct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark->mark('code_end');
             $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
@@ -166,7 +166,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @param string $responseIsJson
      *
-     * @return $this|mixed if set value = TRUE, response is Json string
+     * @return $this if set value = TRUE, response is Json string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/8/18 19:00
@@ -198,10 +198,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
         if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
             $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
-            return NULL;
+            return null;
         }
         try {
-            $client                   = new nusoap_client($this->endpoint, TRUE);
+            $client                   = new nusoap_client($this->endpoint, true);
             $client->soap_defencoding = self::SOAP_ENCODING;
             $client->xml_encoding     = self::XML_ENCODING;
             $client->decode_utf8      = self::DECODE_UTF8;
@@ -236,8 +236,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                     );
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = array(
                 'status' => 2,
                 'code'   => 'Exception Error',
@@ -277,10 +276,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
         if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
             $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
-            return NULL;
+            return null;
         }
         try {
-            $client                   = new nusoap_client($this->endpoint, TRUE);
+            $client                   = new nusoap_client($this->endpoint, true);
             $client->soap_defencoding = self::SOAP_ENCODING;
             $client->xml_encoding     = self::XML_ENCODING;
             $client->decode_utf8      = self::DECODE_UTF8;
@@ -315,8 +314,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
                     );
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = array(
                 'status' => 2,
                 'code'   => 'Exception Error',

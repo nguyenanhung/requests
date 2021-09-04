@@ -158,7 +158,7 @@ class Utils
     public static function urlAddParam($url, $paramString)
     {
         // neu chua co dau ?
-        if (strpos($url, '?') === FALSE) {
+        if (strpos($url, '?') === false) {
             $url .= '?';
         }
 
@@ -227,7 +227,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 30:13
      */
-    public static function saveExternalFile($img, $fullPath, $type = 'image', $isUseCurl = TRUE)
+    public static function saveExternalFile($img, $fullPath, $type = 'image', $isUseCurl = true)
     {
         if ($isUseCurl) {
             //$fullPath = urlencode($fullPath);
@@ -239,29 +239,29 @@ class Utils
             $raw_data = curl_exec($ch);
             curl_close($ch);
             //check if return error (include html in output)
-            if (strpos($raw_data, 'html') === FALSE) {
+            if (strpos($raw_data, 'html') === false) {
                 $fp = fopen($fullPath, 'w');
                 if (!$fp) {
-                    return FALSE;
+                    return false;
                 } elseif (!empty($raw_data)) {
                     fwrite($fp, $raw_data);
                     fclose($fp);
 
-                    return TRUE;
+                    return true;
                 }
             } else {
-                return FALSE;
+                return false;
             }
         } else {
             $file_headers = @get_headers($img);
             if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
                 return file_put_contents($fullPath, file_get_contents($img));
             } else {
-                return FALSE;
+                return false;
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
