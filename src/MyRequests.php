@@ -77,6 +77,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
     private $basicAuthentication;
 
     /**
+     * An string of bearerToken to be added to the request
+     *
+     * @var string
+     */
+    private $bearerToken;
+
+    /**
      * An array of digestAuthentication: username, password to be added to the request
      *
      * @var array
@@ -109,21 +116,21 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @var bool
      */
-    private $isSSL = FALSE;
+    private $isSSL = false;
 
     /**
      * Set Response Error is Array Data
      *
      * @var bool
      */
-    private $errorResponseIsData = FALSE;
+    private $errorResponseIsData = false;
 
     /**
      * Set Response Error is Null
      *
      * @var bool
      */
-    private $errorResponseIsNull = FALSE;
+    private $errorResponseIsNull = false;
 
     /**
      * Error Code from Request
@@ -175,19 +182,19 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      *
      * @var bool
      */
-    public $debugStatus = FALSE;
+    public $debugStatus = false;
 
     /**
      * @var null Set level Debug: DEBUG, INFO, ERROR ....
      */
-    public $debugLevel = NULL;
+    public $debugLevel = null;
 
     /**
      * Set Logger Path to Save
      *
      * @var null|string
      */
-    public $debugLoggerPath = NULL;
+    public $debugLoggerPath = null;
 
     /**
      * Set Logger Filename to Save
@@ -204,13 +211,13 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      */
     public function __construct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
         $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
-            $this->debugStatus = FALSE;
+            $this->debugStatus = false;
         }
         $this->logger->setDebugStatus($this->debugStatus);
         $this->logger->setGlobalLoggerLevel($this->debugLevel);
@@ -227,7 +234,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      */
     public function __destruct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark->mark('code_end');
             $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
@@ -361,7 +368,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 11:34
      */
-    public function setUserBody($isBody = FALSE)
+    public function setUserBody($isBody = false)
     {
         $this->isBody = $isBody;
         if (is_array($this->isBody)) {
@@ -383,10 +390,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:00
      */
-    public function setRequestIsXml($isXml = FALSE)
+    public function setRequestIsXml($isXml = false)
     {
         $this->isXml = $isXml;
-        if ($this->isXml === TRUE) {
+        if ($this->isXml === true) {
             $header['Accept']       = 'text/xml; charset=utf-8';
             $header['Content-type'] = 'text/xml; charset=utf-8';
             $this->headers          = $header;
@@ -406,10 +413,10 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:31
      */
-    public function setRequestIsJson($isJson = FALSE)
+    public function setRequestIsJson($isJson = false)
     {
         $this->isJson = $isJson;
-        if ($this->isJson === TRUE) {
+        if ($this->isJson === true) {
             $header['Accept']       = 'application/json; charset=utf-8';
             $header['Content-type'] = 'application/json; charset=utf-8';
             $this->headers          = $header;
@@ -429,7 +436,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:38
      */
-    public function setRequestIsSSL($isSSL = FALSE)
+    public function setRequestIsSSL($isSSL = false)
     {
         $this->isSSL = $isSSL;
         $this->logger->info(__FUNCTION__, 'setRequestIsSSL: ', $this->isSSL);
@@ -448,7 +455,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 23:02
      *
      */
-    public function setErrorResponseIsData($errorResponseIsData = FALSE)
+    public function setErrorResponseIsData($errorResponseIsData = false)
     {
         $this->errorResponseIsData = $errorResponseIsData;
         $this->logger->info(__FUNCTION__, 'setErrorResponseIsData: ' . $this->errorResponseIsData);
@@ -467,7 +474,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
      * @time  : 10/7/18 23:04
      *
      */
-    public function setErrorResponseIsNull($errorResponseIsNull = FALSE)
+    public function setErrorResponseIsNull($errorResponseIsNull = false)
     {
         $this->errorResponseIsNull = $errorResponseIsNull;
         $this->logger->info(__FUNCTION__, 'setErrorResponseIsNull: ' . $this->errorResponseIsNull);
@@ -492,6 +499,24 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             'username' => $username,
             'password' => $password
         ];
+        $this->logger->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
+
+        return $this;
+    }
+
+    /**
+     * Function setBearerToken
+     *
+     * @param string $bearerToken String BearerToken for Request
+     *
+     * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/04/2021 18:11
+     */
+    public function setBearerToken($bearerToken = '')
+    {
+        $this->bearerToken = $bearerToken;
         $this->logger->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
 
         return $this;
@@ -610,7 +635,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         }
         if (!class_exists('GuzzleHttp\Client')) {
             $this->logger->critical(__FUNCTION__, 'class GuzzleHttp\Client is not exits');
-            $result = NULL;
+            $result = null;
         } else {
             try {
                 $client = new Client();
@@ -631,7 +656,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 if ($this->digestAuthentication) {
                     $options['auth'] = $this->digestAuthentication;
                 }
-                if (($this->isBody == TRUE) && ($method == self::POST || $method == self::PUT || $method == self::PATCH || $method == self::OPTIONS)) {
+                if ($this->bearerToken) {
+                    $options['headers'] = [
+                        'Authorization' => 'Bearer ' . $this->bearerToken
+                    ];
+                }
+                if (($this->isBody == true) && ($method == self::POST || $method == self::PUT || $method == self::PATCH || $method == self::OPTIONS)) {
                     if ($this->isJson) {
                         $options['body'] = json_encode($data);
                     } else {
@@ -698,12 +728,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->error_code   = $error_code;
                 $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                 if ($http_error) {
-                    if ($this->errorResponseIsData === TRUE) {
+                    if ($this->errorResponseIsData === true) {
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Array Data');
                         $result = $error_code;
-                    } elseif ($this->errorResponseIsNull === TRUE) {
+                    } elseif ($this->errorResponseIsNull === true) {
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Null');
-                        $result = NULL;
+                        $result = null;
                     } else {
                         $result = $request;
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Message: ' . json_encode($result));
@@ -711,13 +741,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } else {
                     $result = $request->getBody();
                 }
-            }
-            catch (GuzzleException $exception) {
+            } catch (GuzzleException $exception) {
                 $result = "Error File: " . $exception->getFile() . ' - Line: ' . $exception->getLine() . ' Code: ' . $exception->getCode() . ' - Message: ' . $exception->getMessage();
                 $this->logger->error(__FUNCTION__, 'Error Message: ' . $exception->getMessage());
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $exception->getTraceAsString());
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
                 $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
@@ -751,7 +779,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         $method = strtoupper($method);
         if (!class_exists('Curl\Curl')) {
             $this->logger->critical(__FUNCTION__, 'class \Curl\Curl() is not exits');
-            $response = NULL;
+            $response = null;
         } else {
             try {
                 $curl = new Curl();
@@ -774,6 +802,9 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 }
                 if ($this->basicAuthentication) {
                     $curl->setBasicAuthentication($this->basicAuthentication['username'], $this->basicAuthentication['password']);
+                }
+                if ($this->bearerToken) {
+                    $curl->setHeader("Authorization", 'Bearer ' . $this->bearerToken);
                 }
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
@@ -824,12 +855,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 if ($curl->error) {
                     // Debug
                     $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
-                    if ($this->errorResponseIsData === TRUE) {
+                    if ($this->errorResponseIsData === true) {
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Array Data');
                         $response = $error_code;
-                    } elseif ($this->errorResponseIsNull === TRUE) {
+                    } elseif ($this->errorResponseIsNull === true) {
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Null');
-                        $response = NULL;
+                        $response = null;
                     } else {
                         $errMsg   = $error_code['error_message'];
                         $response = "cURL Error: " . $errMsg;
@@ -841,7 +872,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                     } elseif (isset($curl->response)) {
                         $response = $curl->response;
                     } else {
-                        $response = NULL;
+                        $response = null;
                     }
                     $this->logger->debug(__FUNCTION__, 'Response from Request, no Error: ' . $response);
                 }
@@ -851,8 +882,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 if (isset($response)) {
                     $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $response);
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
                 $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
@@ -879,70 +909,70 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
         } elseif (isset($curl->error_code)) {
             $resErrorCode = $curl->error_code;
         } else {
-            $resErrorCode = NULL;
+            $resErrorCode = null;
         }
         if ($curl->errorMessage) {
             $resErrorMessage = $curl->errorMessage;
         } elseif (isset($curl->error_message)) {
             $resErrorMessage = $curl->error_message;
         } else {
-            $resErrorMessage = NULL;
+            $resErrorMessage = null;
         }
         if ($curl->curlError) {
             $resErrorCurl = $curl->curlError;
         } elseif (isset($curl->curl_error)) {
             $resErrorCurl = $curl->curl_error;
         } else {
-            $resErrorCurl = NULL;
+            $resErrorCurl = null;
         }
         if ($curl->curlErrorCode) {
             $resErrorCurlCode = $curl->curlErrorCode;
         } elseif (isset($curl->curl_error_code)) {
             $resErrorCurlCode = $curl->curl_error_code;
         } else {
-            $resErrorCurlCode = NULL;
+            $resErrorCurlCode = null;
         }
         if ($curl->curlErrorMessage) {
             $resErrorCurlMessage = $curl->curlErrorMessage;
         } elseif (isset($curl->curl_error_message)) {
             $resErrorCurlMessage = $curl->curl_error_message;
         } else {
-            $resErrorCurlMessage = NULL;
+            $resErrorCurlMessage = null;
         }
         if ($curl->httpError) {
             $resErrorHttp = $curl->httpError;
         } elseif (isset($curl->http_error)) {
             $resErrorHttp = $curl->http_error;
         } else {
-            $resErrorHttp = NULL;
+            $resErrorHttp = null;
         }
         if ($curl->httpStatusCode) {
             $resErrorHttpStatusCode = $curl->httpStatusCode;
         } elseif (isset($curl->curl_status_code)) {
             $resErrorHttpStatusCode = $curl->curl_status_code;
         } else {
-            $resErrorHttpStatusCode = NULL;
+            $resErrorHttpStatusCode = null;
         }
         if ($curl->httpErrorMessage) {
             $resErrorHttpMessage = $curl->httpErrorMessage;
         } elseif (isset($curl->curl_error_message)) {
             $resErrorHttpMessage = $curl->curl_error_message;
         } else {
-            $resErrorHttpMessage = NULL;
+            $resErrorHttpMessage = null;
         }
         if ($curl->requestHeaders) {
             $resRequestHeaders = $curl->requestHeaders;
         } elseif (isset($curl->request_headers)) {
             $resRequestHeaders = $curl->request_headers;
         } else {
-            $resRequestHeaders = NULL;
+            $resRequestHeaders = null;
         }
         if ($curl->responseHeaders) {
             $resResponseHeaders = $curl->responseHeaders;
         } elseif (isset($curl->response_headers)) {
             $resResponseHeaders = $curl->response_headers;
         } else {
-            $resResponseHeaders = NULL;
+            $resResponseHeaders = null;
         }
 
         return array(
@@ -998,6 +1028,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->__construct();
             $content->setURL($url);
             $content->setMethod($method);
+            $content->setHeaders($this->headers);
             $content->setData($data);
             $content->sendRequest();
             // Create Request
@@ -1015,8 +1046,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 } else {
                     $result = $this->curlRequest($url, $data, $method);
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $result = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
                 $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
@@ -1057,7 +1087,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->__construct();
             $content->setURL($url);
             $content->setMethod('POST');
-            $content->setXML(TRUE);
+            $content->setXML(true);
             $content->setData($data);
             $content->sendRequest();
 
@@ -1068,7 +1098,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
-            $this->setRequestIsXml(TRUE);
+            $this->setRequestIsXml(true);
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
@@ -1107,7 +1137,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->__construct();
             $content->setURL($url);
             $content->setMethod('POST');
-            $content->setJson(TRUE);
+            $content->setJson(true);
             $content->setData($data);
             $content->sendRequest();
 
@@ -1118,7 +1148,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
-            $this->setRequestIsJson(TRUE);
+            $this->setRequestIsJson(true);
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
