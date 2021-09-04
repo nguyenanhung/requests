@@ -100,7 +100,7 @@ interface SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 11:34
      */
-    public function setUserBody($isBody = FALSE);
+    public function setUserBody($isBody = false);
 
     /**
      * Function setRequestIsXml
@@ -112,7 +112,7 @@ interface SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:00
      */
-    public function setRequestIsXml($isXml = FALSE);
+    public function setRequestIsXml($isXml = false);
 
     /**
      * Function setRequestIsJson
@@ -124,7 +124,7 @@ interface SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:31
      */
-    public function setRequestIsJson($isJson = FALSE);
+    public function setRequestIsJson($isJson = false);
 
     /**
      * Function setRequestIsSSL
@@ -136,7 +136,7 @@ interface SendRequestsInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:38
      */
-    public function setRequestIsSSL($isSSL = FALSE);
+    public function setRequestIsSSL($isSSL = false);
 
     /**
      * Function setErrorResponseIsData
@@ -149,7 +149,7 @@ interface SendRequestsInterface
      * @time  : 10/7/18 23:02
      *
      */
-    public function setErrorResponseIsData($errorResponseIsData = FALSE);
+    public function setErrorResponseIsData($errorResponseIsData = false);
 
     /**
      * Function setErrorResponseIsNull
@@ -162,7 +162,7 @@ interface SendRequestsInterface
      * @time  : 10/7/18 23:04
      *
      */
-    public function setErrorResponseIsNull($errorResponseIsNull = FALSE);
+    public function setErrorResponseIsNull($errorResponseIsNull = false);
 
     /**
      * Function setBasicAuthentication
@@ -176,6 +176,18 @@ interface SendRequestsInterface
      *
      */
     public function setBasicAuthentication($username = '', $password = '');
+
+    /**
+     * Function setBearerToken
+     *
+     * @param string $bearerToken String BearerToken for Request
+     *
+     * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/04/2021 18:11
+     */
+    public function setBearerToken($bearerToken = '');
 
     /**
      * Function setDigestAuthentication
