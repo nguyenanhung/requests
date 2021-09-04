@@ -751,7 +751,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
             }
         }
-        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
+        if (is_array($result) || is_object($result)) {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
+        } else {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . trim($result));
+        }
 
         return $result;
     }
@@ -880,7 +884,11 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $curl->close();
                 // Log Response
                 if (isset($response)) {
-                    $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $response);
+                    if (is_array($response) || is_object($response)) {
+                        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . json_encode($response));
+                    } else {
+                        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . trim($response));
+                    }
                 }
             } catch (Exception $e) {
                 $response = "Error File: " . $e->getFile() . ' - Line: ' . $e->getLine() . ' Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
@@ -1052,7 +1060,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
                 $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
             }
         }
-        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
+        if (is_array($result) || is_object($result)) {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
+        } else {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . trim($result));
+        }
+        if (is_array($result) || is_object($result)) {
+            $result = json_encode($result);
+        }
 
         return $result;
     }
@@ -1102,7 +1117,12 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
+        if (is_array($result) || is_object($result)) {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
+        } else {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . trim($result));
+        }
+
 
         return $result;
     }
@@ -1152,7 +1172,14 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->setTimeout($timeout);
             $result = $this->curlRequest($url, $data, 'POST');
         }
-        $this->logger->debug(__FUNCTION__, 'Final Result from Request: ', $result);
+        if (is_array($result) || is_object($result)) {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . json_encode($result));
+        } else {
+            $this->logger->debug(__FUNCTION__, 'Final Result from Request: ' . trim($result));
+        }
+        if (is_object($result) || is_array($result)) {
+            $result = json_encode($result);
+        }
 
         return $result;
     }

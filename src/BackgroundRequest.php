@@ -32,11 +32,11 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
     /** @var object \nguyenanhung\MyDebug\Debug Call to class */
     private $logger;
     /** @var bool Set Debug Status */
-    public $debugStatus = FALSE;
+    public $debugStatus = false;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = NULL;
+    public $debugLevel = null;
     /** @var null|string Set Logger Path to Save */
-    public $debugLoggerPath = NULL;
+    public $debugLoggerPath = null;
     /** @var null|string Set Logger Filename to Save */
     public $debugLoggerFilename;
 
@@ -48,13 +48,13 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      */
     public function __construct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
         $this->logger = new Debug();
         if (empty($this->debugLoggerPath)) {
-            $this->debugStatus = FALSE;
+            $this->debugStatus = false;
         }
         $this->logger->setDebugStatus($this->debugStatus);
         $this->logger->setGlobalLoggerLevel($this->debugLevel);
@@ -71,7 +71,7 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      */
     public function __destruct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark->mark('code_end');
             $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
@@ -102,7 +102,7 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
                 log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errStr));
             }
 
-            return FALSE;
+            return false;
         } else {
             $out = "GET " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
             $out .= "Host: " . $parts['host'] . "\r\n";
@@ -111,7 +111,7 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             fwrite($fp, $out);
             fclose($fp);
 
-            return TRUE;
+            return true;
         }
     }
 
@@ -140,7 +140,7 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
                 log_message('error', "ERROR: " . json_encode($errno) . " - " . json_encode($errStr));
             }
 
-            return FALSE;
+            return false;
         } else {
             $out = "POST " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
             $out .= "Host: " . $parts['host'] . "\r\n";
@@ -153,7 +153,7 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             fwrite($fp, $out);
             fclose($fp);
 
-            return TRUE;
+            return true;
         }
     }
 }
