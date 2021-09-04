@@ -448,7 +448,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      *
      * @param string $url
      *
-     * @return string
+     * @return $this
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
@@ -471,10 +471,9 @@ class GetContents implements ProjectInterface, GetContentsInterface
         catch (Exception $e) {
             $this->url = NULL;
             $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $this->logger->error(__FUNCTION__, 'Error Message: ' . $message);
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
-
-            return $message;
         }
         $this->logger->debug(__FUNCTION__, 'Endpoint URL to Request: ', $this->url);
 
@@ -712,7 +711,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     public function parseReturnHeaders($headers)
     {
         $head = array();
-        foreach ($headers as $key => $value) {
+        foreach ($headers as $value) {
             $t = explode(':', $value, 2);
             if (isset($t[1])) {
                 $head[trim($t[0])] = trim($t[1]);

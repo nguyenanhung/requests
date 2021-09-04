@@ -1028,6 +1028,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $content->__construct();
             $content->setURL($url);
             $content->setMethod($method);
+            $content->setHeaders($this->headers);
             $content->setData($data);
             $content->sendRequest();
             // Create Request
