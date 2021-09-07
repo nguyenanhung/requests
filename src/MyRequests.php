@@ -11,7 +11,7 @@ namespace nguyenanhung\MyRequests;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Logger;
 use nguyenanhung\MyDebug\Benchmark;
 use GuzzleHttp\Client;
 use Curl\Curl;
@@ -215,7 +215,7 @@ class MyRequests implements ProjectInterface, SendRequestsInterface
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->logger = new Debug();
+        $this->logger = new Logger();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = false;
         }

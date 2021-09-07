@@ -48,7 +48,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 43:50
      */
-    public function getIpAddress($convertToInteger = FALSE)
+    public function getIpAddress(bool $convertToInteger = FALSE)
     {
         if ($this->haProxyStatus === TRUE) {
             $ip = $this->getIpByHaProxy($convertToInteger);
@@ -69,7 +69,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 44:11
      */
-    public function setHaProxy($haProxyStatus = FALSE)
+    public function setHaProxy(bool $haProxyStatus = FALSE)
     {
         $this->haProxyStatus = $haProxyStatus;
 
@@ -81,12 +81,12 @@ class Ip implements ProjectInterface
      *
      * @param bool $convertToInteger
      *
-     * @return bool|false|int|string
+     * @return false|int|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 44:32
+     * @time     : 09/07/2021 58:38
      */
-    public function getIpByHaProxy($convertToInteger = FALSE)
+    public function getIpByHaProxy(bool $convertToInteger = FALSE)
     {
         $key = 'HTTP_X_FORWARDED_FOR';
         if (array_key_exists($key, $_SERVER) === TRUE) {
@@ -110,12 +110,12 @@ class Ip implements ProjectInterface
      *
      * @param bool $convertToInteger
      *
-     * @return bool|false|int|string
+     * @return false|int|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 45:27
+     * @time     : 09/07/2021 58:45
      */
-    public function getRawIpAddress($convertToInteger = FALSE)
+    public function getRawIpAddress(bool $convertToInteger = FALSE)
     {
         $ip_keys = array(
             0 => 'HTTP_X_FORWARDED_FOR',
@@ -157,7 +157,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 46:26
      */
-    public function ipInRange($ip_address = '', $network_range = '')
+    public function ipInRange(string $ip_address = '', string $network_range = '')
     {
         $ip_address    = trim($ip_address);
         $network_range = trim($network_range);
@@ -165,8 +165,8 @@ class Ip implements ProjectInterface
             return NULL;
         }
         try {
-            $address = Factory::addressFromString($ip_address);
-            $range   = Factory::rangeFromString($network_range);
+            $address = Factory::parseAddressString($ip_address);
+            $range   = Factory::parseRangeString($network_range);
 
             return $address->matches($range);
         }
@@ -301,7 +301,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 58:35
      */
-    public function ipInfo($ip = '')
+    public function ipInfo(string $ip = '')
     {
         if (empty($ip)) {
             $ip = $this->getIpAddress();

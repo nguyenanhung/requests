@@ -10,7 +10,7 @@
 namespace nguyenanhung\MyRequests;
 
 use Exception;
-use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Logger;
 use nguyenanhung\MyDebug\Benchmark;
 
 /**
@@ -31,13 +31,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
     private $logger;
 
     /** @var bool Set Debug Status */
-    public $debugStatus = FALSE;
+    public $debugStatus = false;
 
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = NULL;
+    public $debugLevel = null;
 
     /** @var null|string Set Logger Path to Save */
-    public $debugLoggerPath = NULL;
+    public $debugLoggerPath = null;
 
     /** @var null|string Set Logger Filename to Save */
     public $debugLoggerFilename;
@@ -64,28 +64,28 @@ class GetContents implements ProjectInterface, GetContentsInterface
     private $query_string = array();
 
     /** @var bool|mixed Should we track cookies? This does not stop the processing of cookies, it just allows for any received cookies to be sent in subsequent requests. Great for scraping. */
-    private $trackCookies = TRUE;
+    private $trackCookies = true;
 
     /** @var bool Is the request sent in XML and received in XML */
-    private $isXML = FALSE;
+    private $isXML = false;
 
     /** @var bool Is the request sent in JSON and received in JSON */
-    private $isJson = FALSE;
+    private $isJson = false;
 
     /** @var bool Is the response decode Json to Object */
-    private $isDecodeJson = FALSE;
+    private $isDecodeJson = false;
 
     /** @var bool Should JSON be sent in JSON_PRETTY_PRINT? Only really useful for debugging. */
-    private $isJsonPretty = FALSE;
+    private $isJsonPretty = false;
 
     /** @var bool|mixed Should SSL peers be verified. You should have a good reason for turning this off. */
-    private $verifyPeer = TRUE;
+    private $verifyPeer = true;
 
     /** @var int How long to wait for a server to respond to a  request. */
     private $timeout = 60;
 
     /** @var bool Internal flag to track if the request is in SSL or not. */
-    private $isSSL = FALSE;
+    private $isSSL = false;
 
     /**
      * GetContents constructor.
@@ -100,15 +100,15 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function __construct($url = '', $method = 'GET', $data = array(), $headers = array())
+    public function __construct(string $url = '', string $method = 'GET', array $data = array(), array $headers = array())
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->logger = new Debug();
+        $this->logger = new Logger();
         if (empty($this->debugLoggerPath)) {
-            $this->debugStatus = FALSE;
+            $this->debugStatus = false;
         }
         $this->logger->setDebugStatus($this->debugStatus);
         $this->logger->setGlobalLoggerLevel($this->debugLevel);
@@ -131,7 +131,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
      */
     public function __destruct()
     {
-        if (self::USE_BENCHMARK === TRUE) {
+        if (self::USE_BENCHMARK === true) {
             $this->benchmark->mark('code_end');
             $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
@@ -159,15 +159,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     return $this->response;
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
             return $e->getMessage();
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -191,15 +190,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     return $this->response;
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
             return $e->getMessage();
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -215,7 +213,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             return $this->response;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -237,15 +235,14 @@ class GetContents implements ProjectInterface, GetContentsInterface
 
                 return $response;
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
 
             return $e->getMessage();
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -297,13 +294,13 @@ class GetContents implements ProjectInterface, GetContentsInterface
         $this->logger->debug(__FUNCTION__, 'Data Query String into Request: ', $query_string);
         $this->logger->debug(__FUNCTION__, 'Endpoint URL into Request: ', $this->url);
         try {
-            $response          = file_get_contents($this->url . $query_string, FALSE, $context);
+            $response          = file_get_contents($this->url . $query_string, false, $context);
             $responseHeaders   = $http_response_header;
             $return['headers'] = $this->parseReturnHeaders($responseHeaders);
             $return['url']     = $this->url . $query_string;
             if ($response) {
                 $return['content'] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($response));
-                if ($this->isJson === TRUE && $this->isDecodeJson === TRUE) {
+                if ($this->isJson === true && $this->isDecodeJson === true) {
                     $responseJson = json_decode(trim($return['content']));
                     if (json_last_error() == JSON_ERROR_NONE) {
                         $return['content'] = $responseJson;
@@ -311,8 +308,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
                     }
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $return['error'] = array(
                 'code'     => 500,
                 'message'  => 'Could not file_get_contents.',
@@ -403,7 +399,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     {
         $output = '';
         if ($this->isJson) {
-            $jsonPretty = ($this->isJsonPretty ? JSON_PRETTY_PRINT : NULL);
+            $jsonPretty = ($this->isJsonPretty ? JSON_PRETTY_PRINT : null);
             if (count($this->data) > 0) {
                 $output = json_encode($this->data, $jsonPretty);
             }
@@ -459,17 +455,16 @@ class GetContents implements ProjectInterface, GetContentsInterface
         try {
             if (mb_strlen($url) > 0) {
                 if (substr($url, 0, 8) == 'https://') {
-                    $this->isSSL = TRUE;
+                    $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 } elseif (substr($url, 0, 7) == 'http://') {
-                    $this->isSSL = TRUE;
+                    $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
             }
             $this->url = $url;
-        }
-        catch (Exception $e) {
-            $this->url = NULL;
+        } catch (Exception $e) {
+            $this->url = null;
             $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $message);
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
@@ -587,7 +582,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
             $this->cookies = array();
         } else {
             $this->cookies      = $cookies;
-            $this->trackCookies = TRUE;
+            $this->trackCookies = true;
         }
     }
 
@@ -600,12 +595,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:18
      */
-    public function setTrackCookies($value = FALSE)
+    public function setTrackCookies($value = false)
     {
         if (!$value) {
-            $this->trackCookies = FALSE;
+            $this->trackCookies = false;
         } else {
-            $this->trackCookies = TRUE;
+            $this->trackCookies = true;
         }
     }
 
@@ -618,12 +613,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 01:38
      */
-    public function setXML($value = FALSE)
+    public function setXML($value = false)
     {
         if (!$value) {
-            $this->isXML = FALSE;
+            $this->isXML = false;
         } else {
-            $this->isXML = TRUE;
+            $this->isXML = true;
         }
     }
 
@@ -636,12 +631,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setJson($value = FALSE)
+    public function setJson($value = false)
     {
         if (!$value) {
-            $this->isJson = FALSE;
+            $this->isJson = false;
         } else {
-            $this->isJson = TRUE;
+            $this->isJson = true;
         }
     }
 
@@ -654,12 +649,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setJsonPretty($value = FALSE)
+    public function setJsonPretty($value = false)
     {
         if (!$value) {
-            $this->isJsonPretty = FALSE;
+            $this->isJsonPretty = false;
         } else {
-            $this->isJsonPretty = TRUE;
+            $this->isJsonPretty = true;
         }
     }
 
@@ -672,12 +667,12 @@ class GetContents implements ProjectInterface, GetContentsInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setVerifyPeer($value = FALSE)
+    public function setVerifyPeer($value = false)
     {
         if (!$value) {
-            $this->verifyPeer = FALSE;
+            $this->verifyPeer = false;
         } else {
-            $this->verifyPeer = TRUE;
+            $this->verifyPeer = true;
         }
     }
 

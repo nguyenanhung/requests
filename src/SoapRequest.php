@@ -10,7 +10,7 @@
 namespace nguyenanhung\MyRequests;
 
 use Exception;
-use nguyenanhung\MyDebug\Debug;
+use nguyenanhung\MyDebug\Logger;
 use nguyenanhung\MyDebug\Benchmark;
 use nguyenanhung\MyNuSOAP\nusoap_client;
 
@@ -60,7 +60,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
             $this->benchmark = new Benchmark();
             $this->benchmark->mark('code_start');
         }
-        $this->logger = new Debug();
+        $this->logger = new Logger();
         if (empty($this->debugLoggerPath)) {
             $this->debugStatus = false;
         }

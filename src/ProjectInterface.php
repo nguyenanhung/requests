@@ -18,8 +18,8 @@ namespace nguyenanhung\MyRequests;
  */
 interface ProjectInterface
 {
-    const VERSION         = '2.0.8.2';
-    const LAST_MODIFIED   = '2021-09-04';
+    const VERSION         = '3.0.0';
+    const LAST_MODIFIED   = '2021-09-07';
     const MIN_PHP_VERSION = '7.0';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
@@ -31,9 +31,9 @@ interface ProjectInterface
     const PATCH           = 'PATCH';
     const ENCODING        = "utf-8";
     const MAX_REDIRECT    = 10;
-    const RETURN_TRANSFER = TRUE;
-    const FOLLOW_LOCATION = TRUE;
-    const USE_BENCHMARK   = FALSE;
+    const RETURN_TRANSFER = true;
+    const FOLLOW_LOCATION = true;
+    const USE_BENCHMARK   = false;
 
     /**
      * Hàm lấy phiên bản hiện tại của Package
