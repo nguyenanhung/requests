@@ -19,19 +19,17 @@
         }
     ],
     "require": {
+        "php": "^7.0||^8.0",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-iconv": "*",
-        "paragonie/random_compat": "^9.99",
-        "paragonie/sodium_compat": "^1.16",
-        "ircmaxell/password-compat": "^1.0",
         "symfony/http-foundation": "^5.3 || ^4.4",
-        "php-curl-class/php-curl-class": "^9.3",
+        "php-curl-class/php-curl-class": "^9.4",
         "guzzlehttp/guzzle": "^7 || ^6",
         "markrogoyski/ipv4-subnet-calculator": "^3.1",
-        "mlocati/ip-lib": "^1.16",
+        "mlocati/ip-lib": "^1.17",
         "nguyenanhung/nusoap": "^0.9",
-        "nguyenanhung/my-debug": "^2.0"
+        "nguyenanhung/my-debug": "^3.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.3"
