@@ -1,15 +1,12 @@
-[![Latest Stable Version](https://poser.pugx.org/nguyenanhung/requests/v/stable)](https://packagist.org/packages/nguyenanhung/requests)
-[![Total Downloads](https://poser.pugx.org/nguyenanhung/requests/downloads)](https://packagist.org/packages/nguyenanhung/requests)
-[![Latest Unstable Version](https://poser.pugx.org/nguyenanhung/requests/v/unstable)](https://packagist.org/packages/nguyenanhung/requests)
-[![composer.lock](https://poser.pugx.org/nguyenanhung/requests/composerlock)](https://packagist.org/packages/nguyenanhung/requests)
-[![License](https://poser.pugx.org/nguyenanhung/requests/license)](https://packagist.org/packages/nguyenanhung/requests)
+[![Latest Stable Version](http://poser.pugx.org/nguyenanhung/requests/v)](https://packagist.org/packages/nguyenanhung/requests) [![Total Downloads](http://poser.pugx.org/nguyenanhung/requests/downloads)](https://packagist.org/packages/nguyenanhung/requests) [![Latest Unstable Version](http://poser.pugx.org/nguyenanhung/requests/v/unstable)](https://packagist.org/packages/nguyenanhung/requests) [![License](http://poser.pugx.org/nguyenanhung/requests/license)](https://packagist.org/packages/nguyenanhung/requests) [![PHP Version Require](http://poser.pugx.org/nguyenanhung/requests/require/php)](https://packagist.org/packages/nguyenanhung/requests)
+
 # My Requests
 
 Library Interface Requests use cURL, File Get Contents, SOAP Requests
 
 Library use package: Curl, GuzzleHttp and nuSOAP
 
-### Installation
+## Installation
 
 **Manual install**
 
@@ -49,7 +46,7 @@ use \nguyenanhung\MyRequests\MyRequests;
 $requests = new MyRequests();
 ```
 
-### **How to Use**
+## **How to Use**
 
 **Get Version of Library**
 
@@ -62,7 +59,7 @@ $requests = new MyRequests();
 echo $requests->getVersion(); // Print: 1.0.14
 ```
 
-##### Send Request
+### Send Request
 
 ```php
 <?php
@@ -101,7 +98,7 @@ $sendRequest = $request->sendRequest($url, $data, $method);
 d($sendRequest);
 ```
 
-##### Send Request with File Get Contents
+### Send Request with File Get Contents
 
 ```php
 <?php
@@ -134,7 +131,7 @@ d($getContent);
 d($getError);
 ```
 
-##### Send Request with SOAP Request
+### Send Request with SOAP Request
 
 ```php
 <?php
@@ -154,9 +151,7 @@ echo $soap->getVersion(); // Print: 0.1.3.4
 d($result);
 ```
 
-
-
-### Contact
+## Contact
 
 If any question & request, please contact following information
 
