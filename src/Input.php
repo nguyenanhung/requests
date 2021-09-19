@@ -22,11 +22,12 @@ use Symfony\Component\HttpFoundation\Request;
  * @author     713uk13m <dev@nguyenanhung.com>
  * @copyright  713uk13m <dev@nguyenanhung.com>
  */
-class Input implements InputInterface
+class Input
 {
-    /** @var object khởi tạo đối tượng đến class \Symfony\Component\HttpFoundation\Request */
+    /** @var \Symfony\Component\HttpFoundation\Request $input */
     protected $input;
-    /** @var object khởi tạo đối tượng đến class \nguyenanhung\MyRequests\Ip */
+
+    /** @var \nguyenanhung\MyRequests\Ip $ip */
     protected $ip;
 
     /**
@@ -80,12 +81,12 @@ class Input implements InputInterface
     /**
      * Function rawInputStream
      *
-     * @return $this|\nguyenanhung\MyRequests\Input
+     * @return $this
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 03/18/2021 59:59
+     * @time     : 09/20/2021 10:38
      */
-    public function rawInputStream()
+    public function rawInputStream(): self
     {
         $rawInputStream       = file_get_contents('php://input');
         $this->rawInputStream = $rawInputStream;
@@ -101,7 +102,7 @@ class Input implements InputInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/04/2021 14:38
      */
-    public function getRawInputStream()
+    public function getRawInputStream(): string
     {
         return $this->rawInputStream;
     }
@@ -133,14 +134,14 @@ class Input implements InputInterface
     /**
      * Function method - Hàm lấy thông tin Request Method
      *
-     * @param false $upper Whether to return in upper or lower case (default: FALSE)
+     * @param bool $upper Whether to return in upper or lower case (default: FALSE)
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 03/18/2021 00:27
      */
-    public function method($upper = false)
+    public function method(bool $upper = false): string
     {
         return ($upper)
             ? strtoupper($this->server('REQUEST_METHOD', true))
@@ -153,13 +154,13 @@ class Input implements InputInterface
      * @param string|mixed $key       POST parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return bool|float|int|mixed|string|string[]|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
+     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/18/18 10:58
      *
      */
-    public function post($key = '', $xss_clean = false)
+    public function post($key = '', bool $xss_clean = false)
     {
         if ($this->input->request->has($key)) {
             $content = $this->input->request->get($key);
@@ -179,13 +180,13 @@ class Input implements InputInterface
      * @param string|mixed $key       GET parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return mixed|null|string|string[] $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
+     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/18/18 10:58
      *
      */
-    public function get($key = '', $xss_clean = false)
+    public function get($key = '', bool $xss_clean = false)
     {
         if ($this->input->query->has($key)) {
             $content = $this->input->query->get($key);
@@ -205,13 +206,13 @@ class Input implements InputInterface
      * @param string|mixed $key       SERVER parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return mixed|null|string|string[] $_SERVER f no parameters supplied, otherwise the SERVER value if found or NULL if not
+     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_SERVER f no parameters supplied, otherwise the SERVER value if found or NULL if not
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/18/18 10:58
      *
      */
-    public function server($key = '', $xss_clean = false)
+    public function server($key = '', bool $xss_clean = false)
     {
         if ($this->input->server->has($key)) {
             $content = $this->input->server->get($key);
@@ -231,13 +232,13 @@ class Input implements InputInterface
      * @param string|mixed $key       COOKIE parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return mixed|null|string|string[] $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
+     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/18/18 10:58
      *
      */
-    public function cookie($key = '', $xss_clean = false)
+    public function cookie($key = '', bool $xss_clean = false)
     {
         if ($this->input->cookies->has($key)) {
             $content = $this->input->cookies->get($key);
@@ -263,7 +264,7 @@ class Input implements InputInterface
      * @time      : 10/18/18 10:58
      *
      */
-    public function file($key = '', $xss_clean = false)
+    public function file($key = '', bool $xss_clean = false)
     {
         if ($this->input->files->has($key)) {
             $content = $this->input->files->get($key);
@@ -283,13 +284,13 @@ class Input implements InputInterface
      * @param string|mixed $key       _SERVER parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return mixed|null|string|string[] $_SERVER f no parameters supplied, otherwise the _SERVER value if found or NULL if not
+     * @return array|string|string[]|null $_SERVER f no parameters supplied, otherwise the _SERVER value if found or NULL if not
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/18/18 10:58
      *
      */
-    public function header($key = '', $xss_clean = false)
+    public function header($key = '', bool $xss_clean = false)
     {
         if ($this->input->headers->has($key)) {
             $content = $this->input->headers->get($key);
@@ -304,13 +305,12 @@ class Input implements InputInterface
     }
 
     /**
-     * Hàm lấy địa chỉ IP của người dùng
+     * Function ip_address - Hàm lấy địa chỉ IP của người dùng
      *
-     * @return bool|int|mixed|string
-     * @author    : 713uk13m <dev@nguyenanhung.com>
-     * @copyright : 713uk13m <dev@nguyenanhung.com>
-     * @time      : 10/18/18 11:41
-     *
+     * @return bool|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/20/2021 13:02
      */
     public function ip_address()
     {
@@ -324,7 +324,7 @@ class Input implements InputInterface
      *
      * @return    array
      */
-    public function requestHeaders($xss_clean = false)
+    public function requestHeaders(bool $xss_clean = false): ?array
     {
         // If header is already defined, return it immediately
         if (!empty($this->headers)) {
@@ -359,7 +359,7 @@ class Input implements InputInterface
      *
      * @return    string|null    The requested header on success or NULL on failure
      */
-    public function getRequestHeader($index, $xss_clean = false)
+    public function getRequestHeader(string $index, bool $xss_clean = false): ?string
     {
         static $headers;
         if (!isset($headers)) {
@@ -385,7 +385,7 @@ class Input implements InputInterface
      *
      * @return    bool
      */
-    public function isAjax()
+    public function isAjax(): bool
     {
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
@@ -397,7 +397,7 @@ class Input implements InputInterface
      *
      * @return    bool
      */
-    public function isCLI()
+    public function isCLI(): bool
     {
         return (PHP_SAPI === 'cli' or defined('STDIN'));
     }
@@ -409,13 +409,13 @@ class Input implements InputInterface
      *
      * @param array    &$array     $_GET, $_POST, $_COOKIE, $_SERVER, etc.
      * @param mixed     $index     Index for item to be fetched from $array
-     * @param bool      $xss_clean Whether to apply XSS filtering
+     * @param bool|null $xss_clean Whether to apply XSS filtering
      *
      * @return    mixed
      * @copyright CodeIgniter
      *
      */
-    public function fetchFromArray(&$array, $index = null, $xss_clean = null)
+    public function fetchFromArray(array &$array, $index = null, bool $xss_clean = null)
     {
         is_bool($xss_clean) or $xss_clean = $this->enableXss;
 

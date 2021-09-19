@@ -20,7 +20,7 @@ use nguyenanhung\MyDebug\Benchmark;
  * @author     713uk13m <dev@nguyenanhung.com>
  * @copyright  713uk13m <dev@nguyenanhung.com>
  */
-class GetContents implements ProjectInterface, GetContentsInterface
+class GetContents implements ProjectInterface
 {
     use Version;
 
@@ -531,7 +531,7 @@ class GetContents implements ProjectInterface, GetContentsInterface
     /**
      * Set query string data. Must be supplied as an array
      *
-     * @param array $query_string The query string to be sent to the target URL
+     * @param array|string $query_string The query string to be sent to the target URL
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>

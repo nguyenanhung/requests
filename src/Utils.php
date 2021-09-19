@@ -269,10 +269,10 @@ class Utils
      *
      * @param $data
      *
-     * @return string|string[]|null
+     * @return array|string|string[]|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 31:01
+     * @time     : 09/20/2021 12:17
      */
     public static function xssClean($data)
     {
