@@ -35,6 +35,6 @@ jobs:
             -   name: Test Helper Simple Send Request & Get IP Address
                 run: php ./test/testHelper.php
             -   name: Test class IP
-                run: php ./test/testHelper.php
+                run: php ./test/testIP.php
             -   name: Test class Utils
                 run: php ./test/testUtils.php
