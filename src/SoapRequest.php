@@ -26,8 +26,10 @@ class SoapRequest implements ProjectInterface
     use Version;
 
     public const SOAP_ENCODING = 'utf-8'; // Default SOAP Encoding
-    public const XML_ENCODING  = 'utf-8'; // Default XML Encoding
-    public const DECODE_UTF8   = false; // Default Decode UTF8 Status
+
+    public const XML_ENCODING = 'utf-8'; // Default XML Encoding
+
+    public const DECODE_UTF8 = false; // Default Decode UTF8 Status
 
     /**@var string Url Endpoint to Request */
     private $endpoint;
@@ -46,11 +48,11 @@ class SoapRequest implements ProjectInterface
     /** @var bool Debug Status */
     public $debugStatus = false;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = null;
+    public $debugLevel = 'error';
     /** @var string Set Logger Path to Save */
-    public $debugLoggerPath;
+    public $debugLoggerPath = '';
     /** @var string|null Set Logger Filename to Save */
-    public $debugLoggerFilename;
+    public $debugLoggerFilename = '';
 
     /**
      * SoapRequest constructor.

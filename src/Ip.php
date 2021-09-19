@@ -288,9 +288,9 @@ class Ip implements ProjectInterface
      * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/20/2021 09:30
+     * @time     : 09/20/2021 14:49
      */
-    public function ipInfo(string $ip = '')
+    public function ipInfo(string $ip = ''): ?string
     {
         if (empty($ip)) {
             $ip = $this->getIpAddress();
@@ -299,7 +299,11 @@ class Ip implements ProjectInterface
             $curl = new Curl();
             $curl->get('http://ip-api.com/json/' . $ip);
 
-            return $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
+            if ($curl->error) {
+                return "cURL Error: " . $curl->errorMessage;
+            }
+
+            return $curl->rawResponse;
         }
         catch (Exception $e) {
             if (function_exists('log_message')) {

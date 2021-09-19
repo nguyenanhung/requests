@@ -187,21 +187,21 @@ class MyRequests implements ProjectInterface
     /**
      * @var null|string Set level Debug: DEBUG, INFO, ERROR ....
      */
-    public $debugLevel;
+    public $debugLevel = 'error';
 
     /**
      * Set Logger Path to Save
      *
-     * @var null|string
+     * @var string|null
      */
-    public $debugLoggerPath;
+    public $debugLoggerPath = '';
 
     /**
      * Set Logger Filename to Save
      *
      * @var string
      */
-    public $debugLoggerFilename;
+    public $debugLoggerFilename = '';
 
     /**
      * MyRequests constructor.
@@ -1227,5 +1227,73 @@ class MyRequests implements ProjectInterface
         );
 
         return json_encode($array);
+    }
+
+    /**
+     * Function setDebugStatus
+     *
+     * @param bool $debugStatus
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugStatus(bool $debugStatus): MyRequests
+    {
+        $this->debugStatus = $debugStatus;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLevel
+     *
+     * @param string|null $debugLevel
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLevel(?string $debugLevel): MyRequests
+    {
+        $this->debugLevel = $debugLevel;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLoggerPath
+     *
+     * @param string|null $debugLoggerPath
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLoggerPath(?string $debugLoggerPath): MyRequests
+    {
+        $this->debugLoggerPath = $debugLoggerPath;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLoggerFilename
+     *
+     * @param string $debugLoggerFilename
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLoggerFilename(string $debugLoggerFilename): MyRequests
+    {
+        $this->debugLoggerFilename = $debugLoggerFilename;
+
+        return $this;
     }
 }

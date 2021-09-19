@@ -50,3 +50,21 @@ if (!function_exists('sendSimpleRequest')) {
         return $response;
     }
 }
+if (!function_exists('getIpAddress')) {
+    /**
+     * Function getIpAddress
+     *
+     * @param bool $convertToInteger
+     *
+     * @return bool|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/20/2021 10:36
+     */
+    function getIpAddress(bool $convertToInteger = false)
+    {
+        $ip = new nguyenanhung\MyRequests\Ip();
+
+        return $ip->getIpAddress($convertToInteger);
+    }
+}

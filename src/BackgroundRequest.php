@@ -37,13 +37,13 @@ class BackgroundRequest implements ProjectInterface
     public $debugStatus = false;
 
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel;
+    public $debugLevel = 'error';
 
     /** @var string Set Logger Path to Save */
-    public $debugLoggerPath;
+    public $debugLoggerPath = '';
 
-    /** @var string Set Logger Filename to Save */
-    public $debugLoggerFilename;
+    /** @var string|null Set Logger Filename to Save */
+    public $debugLoggerFilename = '';
 
     /**
      * BackgroundRequest constructor.

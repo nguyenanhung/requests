@@ -28,7 +28,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:29
      */
-    public static function httpStatus($num)
+    public static function httpStatus($num): array
     {
         $http = array(
             100 => 'HTTP/1.1 100 Continue',
@@ -88,17 +88,15 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:34
      */
-    public static function getHost()
+    public static function getHost(): string
     {
         $host = '';
         if (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && $host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
             $elements = explode(',', $host);
             $host     = trim(end($elements));
-        } else {
-            if (isset($_SERVER['HTTP_HOST']) && !$host = $_SERVER['HTTP_HOST']) {
-                if (isset($_SERVER['SERVER_NAME']) && !$host = $_SERVER['SERVER_NAME']) {
-                    $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
-                }
+        } elseif (isset($_SERVER['HTTP_HOST']) && !$host = $_SERVER['HTTP_HOST']) {
+            if (isset($_SERVER['SERVER_NAME']) && !$host = $_SERVER['SERVER_NAME']) {
+                $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
             }
         }
         // Remove port number from host
@@ -110,10 +108,10 @@ class Utils
     /**
      * Function getBrowserLanguage
      *
-     * @return false|bool|string
+     * @return false|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 28:43
+     * @time     : 09/20/2021 17:32
      */
     public static function getBrowserLanguage()
     {
@@ -135,7 +133,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:56
      */
-    public static function paddingWebsitePrefix($url)
+    public static function paddingWebsitePrefix($url): string
     {
         if (strpos($url, 'http') !== 0) {
             $url = 'http://' . $url;
@@ -155,7 +153,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 29:03
      */
-    public static function urlAddParam($url, $paramString)
+    public static function urlAddParam($url, $paramString): string
     {
         // neu chua co dau ?
         if (strpos($url, '?') === false) {
@@ -168,27 +166,26 @@ class Utils
     /**
      * Function currentPageURL
      *
-     * @return mixed|string
+     * @return array|string|string[]
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 29:13
+     * @time     : 09/20/2021 18:37
      */
     public static function currentPageURL()
     {
         $pageURL = 'http';
-        if ($_SERVER["HTTPS"] == "on") {
+        if ($_SERVER["HTTPS"] === "on") {
             $pageURL .= "s";
         }
-        $pageURL .= "://";
-        if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL    .= "://";
+        $serverPort = $_SERVER["SERVER_PORT"];
+        if ($serverPort !== 80) {
             $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
         } else {
             $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         }
-        $pageURL = str_replace('?live', '?', $pageURL);
-        $pageURL = str_replace('&live', '', $pageURL);
 
-        return $pageURL;
+        return str_replace(array('?live', '&live'), array('?', ''), $pageURL);
     }
 
     /**
@@ -204,11 +201,11 @@ class Utils
     public static function refineDashInUrl($url)
     {
         $url = preg_replace('/[-]+/', '-', $url);
-        if ($url[0] == '-') {
+        if ($url[0] === '-') {
             $url = substr($url, 1);
         }
-        if ($url[strlen($url) - 1] == '-') {
-            $url = substr($url, 0, strlen($url) - 1);
+        if ($url[strlen($url) - 1] === '-') {
+            $url = substr($url, 0, -1);
         }
 
         return $url;
@@ -222,12 +219,12 @@ class Utils
      * @param string $type
      * @param bool   $isUseCurl
      *
-     * @return bool|false|int
+     * @return bool|int
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 30:13
+     * @time     : 09/20/2021 19:21
      */
-    public static function saveExternalFile($img, $fullPath, $type = 'image', $isUseCurl = true)
+    public static function saveExternalFile($img, $fullPath, $type = 'image', bool $isUseCurl = true)
     {
         if ($isUseCurl) {
             //$fullPath = urlencode($fullPath);
@@ -240,10 +237,12 @@ class Utils
             curl_close($ch);
             //check if return error (include html in output)
             if (strpos($raw_data, 'html') === false) {
-                $fp = fopen($fullPath, 'w');
+                $fp = fopen($fullPath, 'wb');
                 if (!$fp) {
                     return false;
-                } elseif (!empty($raw_data)) {
+                }
+
+                if (!empty($raw_data)) {
                     fwrite($fp, $raw_data);
                     fclose($fp);
 
@@ -256,9 +255,9 @@ class Utils
             $file_headers = @get_headers($img);
             if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
                 return file_put_contents($fullPath, file_get_contents($img));
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         return false;
