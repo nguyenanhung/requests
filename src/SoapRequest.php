@@ -21,9 +21,15 @@ use nguyenanhung\MyNuSOAP\nusoap_client;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class SoapRequest implements ProjectInterface, SoapRequestInterface
+class SoapRequest implements ProjectInterface
 {
     use Version;
+
+    public const SOAP_ENCODING = 'utf-8'; // Default SOAP Encoding
+
+    public const XML_ENCODING = 'utf-8'; // Default XML Encoding
+
+    public const DECODE_UTF8 = false; // Default Decode UTF8 Status
 
     /**@var string Url Endpoint to Request */
     private $endpoint;
@@ -42,11 +48,11 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /** @var bool Debug Status */
     public $debugStatus = false;
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = null;
-    /** @var null|string Set Logger Path to Save */
-    public $debugLoggerPath = null;
+    public $debugLevel = 'error';
+    /** @var string Set Logger Path to Save */
+    public $debugLoggerPath = '';
     /** @var string|null Set Logger Filename to Save */
-    public $debugLoggerFilename;
+    public $debugLoggerFilename = '';
 
     /**
      * SoapRequest constructor.
@@ -96,10 +102,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 32:50
      */
-    public function setEndpoint($endpoint = '')
+    public function setEndpoint(string $endpoint = ''): self
     {
         $this->endpoint = $endpoint;
-        $this->logger->debug(__FUNCTION__, 'setEndpoint: ', $this->endpoint);
+        $this->logger->debug(__FUNCTION__, 'setEndpoint: ' . $this->endpoint);
 
         return $this;
     }
@@ -114,7 +120,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 33:22
      */
-    public function setData($data = array())
+    public function setData(array $data = array()): self
     {
         $this->data = $data;
         $this->logger->debug(__FUNCTION__, 'setData: ', $this->data);
@@ -132,10 +138,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 34:00
      */
-    public function setCallFunction($callFunction = '')
+    public function setCallFunction(string $callFunction = ''): self
     {
         $this->callFunction = $callFunction;
-        $this->logger->debug(__FUNCTION__, 'setCallFunction: ', $this->callFunction);
+        $this->logger->debug(__FUNCTION__, 'setCallFunction: ' . $this->callFunction);
 
         return $this;
     }
@@ -153,10 +159,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      * @time     : 08/08/2020 34:39
      *
      */
-    public function setFieldResult($fieldResult = '')
+    public function setFieldResult(string $fieldResult = ''): self
     {
         $this->fieldResult = $fieldResult;
-        $this->logger->debug(__FUNCTION__, 'setFieldResult: ', $this->fieldResult);
+        $this->logger->debug(__FUNCTION__, 'setFieldResult: ' . $this->fieldResult);
 
         return $this;
     }
@@ -164,7 +170,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     /**
      * Function setResponseIsJson - Return Response is Json if value = true
      *
-     * @param string $responseIsJson
+     * @param bool $responseIsJson
      *
      * @return $this if set value = TRUE, response is Json string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -173,10 +179,10 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
      *
      * @see      clientRequestWsdl() method
      */
-    public function setResponseIsJson($responseIsJson = '')
+    public function setResponseIsJson(bool $responseIsJson = false): self
     {
         $this->responseIsJson = $responseIsJson;
-        $this->logger->debug(__FUNCTION__, 'setResponseIsJson: ', $this->responseIsJson);
+        $this->logger->debug(__FUNCTION__, 'setResponseIsJson: ' . $this->responseIsJson);
 
         return $this;
     }
@@ -195,7 +201,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function clientRequestWsdl()
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
+        if (!class_exists(nusoap_client::class)) {
             $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
             return null;
@@ -273,7 +279,7 @@ class SoapRequest implements ProjectInterface, SoapRequestInterface
     public function clientRequestSOAP()
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
-        if (!class_exists('nguyenanhung\MyNuSOAP\nusoap_client')) {
+        if (!class_exists(nusoap_client::class)) {
             $this->logger->critical(__FUNCTION__, 'nguyenanhung\MyNuSOAP\nusoap_client is unavailable, class is not exists');
 
             return null;

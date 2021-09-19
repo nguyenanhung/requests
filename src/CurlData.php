@@ -16,10 +16,10 @@ namespace nguyenanhung\MyRequests;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class CurlData implements CurlDataInterface
+class CurlData
 {
     /** @var bool Set Authentication */
-    protected $authentication = FALSE;
+    protected $authentication = false;
     /** @var string Username */
     protected $username = '';
     /** @var string Password */
@@ -94,14 +94,14 @@ class CurlData implements CurlDataInterface
     /**
      * Function setAuthentication
      *
-     * @param bool $authentication
+     * @param false $authentication
      *
-     * @return $this|\nguyenanhung\MyRequests\CurlDataInterface
+     * @return $this
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 53:36
+     * @time     : 09/20/2021 16:42
      */
-    public function setAuthentication($authentication = FALSE)
+    public function setAuthentication(bool $authentication = false): self
     {
         $this->authentication = $authentication;
 
@@ -116,7 +116,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:08
      */
-    public function getAuthentication()
+    public function getAuthentication(): bool
     {
         return $this->authentication;
     }
@@ -131,7 +131,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:11
      */
-    public function setUsername($username = '')
+    public function setUsername(string $username = ''): self
     {
         $this->username = $username;
 
@@ -146,7 +146,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:19
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -161,7 +161,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:25
      */
-    public function setPassword($password = '')
+    public function setPassword(string $password = ''): self
     {
         $this->password = $password;
 
@@ -176,7 +176,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:29
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -191,7 +191,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:32
      */
-    public function setUrl($url = '')
+    public function setUrl(string $url = ''): self
     {
         $this->url = $url;
 
@@ -206,7 +206,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:35
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -221,7 +221,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:38
      */
-    public function setData($data = array())
+    public function setData($data = array()): self
     {
         $this->data = $data;
 
@@ -251,7 +251,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:45
      */
-    public function setTimeout($timeout = 60)
+    public function setTimeout(int $timeout = 60): self
     {
         $this->timeout = $timeout;
 
@@ -266,7 +266,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:47
      */
-    public function getTimeout()
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
@@ -279,9 +279,9 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:51
      */
-    public function isPost()
+    public function isPost(): self
     {
-        $this->isPost = TRUE;
+        $this->isPost = true;
 
         return $this;
     }
@@ -294,9 +294,9 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:02
      */
-    public function isJson()
+    public function isJson(): self
     {
-        $this->isJson = TRUE;
+        $this->isJson = true;
 
         return $this;
     }
@@ -309,9 +309,9 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:05
      */
-    public function isXML()
+    public function isXML(): self
     {
-        $this->isXML = TRUE;
+        $this->isXML = true;
 
         return $this;
     }
@@ -326,7 +326,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:09
      */
-    public function setUserAgent($userAgent = '')
+    public function setUserAgent(string $userAgent = ''): self
     {
         $this->userAgent = $userAgent;
 
@@ -341,7 +341,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:12
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->userAgent;
     }
@@ -356,7 +356,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:15
      */
-    public function setCookieFileLocation($cookieFileLocation = '')
+    public function setCookieFileLocation(string $cookieFileLocation = ''): self
     {
         $this->cookieFileLocation = $cookieFileLocation;
 
@@ -371,7 +371,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:18
      */
-    public function getCookieFileLocation()
+    public function getCookieFileLocation(): string
     {
         return $this->cookieFileLocation;
     }
@@ -386,7 +386,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:21
      */
-    public function setFollowLocation($followLocation = TRUE)
+    public function setFollowLocation(bool $followLocation = true): self
     {
         $this->followLocation = $followLocation;
 
@@ -401,7 +401,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:25
      */
-    public function getFollowLocation()
+    public function getFollowLocation(): bool
     {
         return $this->followLocation;
     }
@@ -416,7 +416,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:29
      */
-    public function setMaxRedirect($maxRedirect = 10)
+    public function setMaxRedirect(int $maxRedirect = 10): self
     {
         $this->maxRedirect = $maxRedirect;
 
@@ -431,7 +431,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:34
      */
-    public function getMaxRedirect()
+    public function getMaxRedirect(): int
     {
         return $this->maxRedirect;
     }
@@ -446,7 +446,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:38
      */
-    public function setReferer($referer = '')
+    public function setReferer(string $referer = ''): self
     {
         $this->referer = $referer;
 
@@ -461,7 +461,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:42
      */
-    public function getReferer()
+    public function getReferer(): string
     {
         return $this->referer;
     }
@@ -476,7 +476,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:44
      */
-    public function setSession($session = array())
+    public function setSession($session = array()): self
     {
         $this->session = $session;
 
@@ -506,7 +506,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:51
      */
-    public function setIncludeHeader($includeHeader = TRUE)
+    public function setIncludeHeader(bool $includeHeader = true): self
     {
         $this->includeHeader = $includeHeader;
 
@@ -521,7 +521,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:57
      */
-    public function getIncludeHeader()
+    public function getIncludeHeader(): bool
     {
         return $this->includeHeader;
     }
@@ -536,7 +536,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:00
      */
-    public function setBinaryTransfer($binaryTransfer = TRUE)
+    public function setBinaryTransfer(bool $binaryTransfer = true): self
     {
         $this->binaryTransfer = $binaryTransfer;
 
@@ -551,7 +551,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:03
      */
-    public function isBinaryTransfer()
+    public function isBinaryTransfer(): bool
     {
         return $this->binaryTransfer;
     }
@@ -566,7 +566,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:10
      */
-    public function setNoBody($noBody = TRUE)
+    public function setNoBody(bool $noBody = true): self
     {
         $this->noBody = $noBody;
 
@@ -581,7 +581,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:14
      */
-    public function getNoBody()
+    public function getNoBody(): bool
     {
         return $this->noBody;
     }
@@ -596,7 +596,7 @@ class CurlData implements CurlDataInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:20
      */
-    public function createCurl($url = '')
+    public function createCurl(string $url = ''): self
     {
         if (!empty($url)) {
             $this->url = $url;
@@ -606,7 +606,7 @@ class CurlData implements CurlDataInterface
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curl, CURLOPT_MAXREDIRS, $this->maxRedirect);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, $this->followLocation);
         curl_setopt($curl, CURLOPT_COOKIEJAR, $this->cookieFileLocation);
         curl_setopt($curl, CURLOPT_COOKIEFILE, $this->cookieFileLocation);
@@ -614,26 +614,26 @@ class CurlData implements CurlDataInterface
             curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
         }
         if ($this->includeHeader) {
-            curl_setopt($curl, CURLOPT_HEADER, TRUE);
+            curl_setopt($curl, CURLOPT_HEADER, true);
         }
         if ($this->isPost) {
-            curl_setopt($curl, CURLOPT_POST, TRUE);
+            curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
         }
         if ($this->isJson) {
             $header[] = 'Accept: application/json';
             curl_setopt($curl, CURLOPT_HEADER, $header[]);
-            curl_setopt($curl, CURLOPT_POST, TRUE);
+            curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($this->data));
         }
         if ($this->isXML) {
             $header[] = 'Accept: text/xml';
             curl_setopt($curl, CURLOPT_HEADER, $header[]);
-            curl_setopt($curl, CURLOPT_POST, TRUE);
+            curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
         }
         if ($this->noBody) {
-            curl_setopt($curl, CURLOPT_NOBODY, TRUE);
+            curl_setopt($curl, CURLOPT_NOBODY, true);
         }
         if ($this->referer) {
             curl_setopt($curl, CURLOPT_REFERER, $this->referer);
@@ -646,16 +646,16 @@ class CurlData implements CurlDataInterface
         $this->curl_error_message = curl_error($curl);
         $this->curl_error         = !($this->curl_error_code === 0);
         $this->http_status_code   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        $this->http_error         = in_array(floor($this->http_status_code / 100), array(4, 5));
+        $this->http_error         = in_array(floor($this->http_status_code / 100), array(4, 5), true);
         $this->error              = $this->curl_error || $this->http_error;
         $this->error_code         = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
-        $this->request_headers    = preg_split('/\r\n/', curl_getinfo($curl, CURLINFO_HEADER_OUT), NULL, PREG_SPLIT_NO_EMPTY);
+        $this->request_headers    = preg_split('/\r\n/', curl_getinfo($curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
         if (isset($this->response_headers['0'])) {
             $this->http_error_message = $this->error ? ($this->response_headers['0']) : '';
         } else {
             $this->http_error_message = $this->error ? ('') : '';
         }
-        $this->error_message      = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
+        $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
         curl_close($curl);
 
         return $this;

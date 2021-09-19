@@ -19,26 +19,31 @@ use nguyenanhung\MyDebug\Benchmark;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
+class BackgroundRequest implements ProjectInterface
 {
-    const REQUEST_TIMEOUT = 30;
-    const PORT_SSL        = 443;
-    const PORT_HTTP       = 80;
+    public const REQUEST_TIMEOUT = 30;
+    public const PORT_SSL        = 443;
+    public const PORT_HTTP       = 80;
 
     use Version;
 
     /** @var object \nguyenanhung\MyDebug\Benchmark */
     private $benchmark;
+
     /** @var object \nguyenanhung\MyDebug\Debug Call to class */
     private $logger;
+
     /** @var bool Set Debug Status */
     public $debugStatus = false;
+
     /** @var null|string Set level Debug: DEBUG, INFO, ERROR .... */
-    public $debugLevel = null;
-    /** @var null|string Set Logger Path to Save */
-    public $debugLoggerPath = null;
-    /** @var null|string Set Logger Filename to Save */
-    public $debugLoggerFilename;
+    public $debugLevel = 'error';
+
+    /** @var string Set Logger Path to Save */
+    public $debugLoggerPath = '';
+
+    /** @var string|null Set Logger Filename to Save */
+    public $debugLoggerFilename = '';
 
     /**
      * BackgroundRequest constructor.
@@ -89,10 +94,10 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/16/18 17:15
      */
-    public static function backgroundHttpGet($url)
+    public static function backgroundHttpGet(string $url): bool
     {
         $parts = parse_url($url);
-        if (strtolower($parts['scheme']) == 'https') {
+        if (strtolower($parts['scheme']) === 'https') {
             $fp = fsockopen('ssl://' . $parts['host'], $parts['port'] ?? self::PORT_SSL, $errno, $errStr, self::REQUEST_TIMEOUT);
         } else {
             $fp = fsockopen($parts['host'], $parts['port'] ?? self::PORT_HTTP, $errno, $errStr, self::REQUEST_TIMEOUT);
@@ -103,16 +108,16 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             }
 
             return false;
-        } else {
-            $out = "GET " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
-            $out .= "Host: " . $parts['host'] . "\r\n";
-            $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
-            $out .= "Connection: Close\r\n\r\n";
-            fwrite($fp, $out);
-            fclose($fp);
-
-            return true;
         }
+
+        $out = "GET " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
+        $out .= "Host: " . $parts['host'] . "\r\n";
+        $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $out .= "Connection: Close\r\n\r\n";
+        fwrite($fp, $out);
+        fclose($fp);
+
+        return true;
     }
 
     /**
@@ -127,10 +132,10 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/16/18 17:16
      */
-    public static function backgroundHttpPost($url, $paramString = '')
+    public static function backgroundHttpPost(string $url, string $paramString = ''): bool
     {
         $parts = parse_url($url);
-        if ($parts['scheme'] == 'https') {
+        if ($parts['scheme'] === 'https') {
             $fp = fsockopen('ssl://' . $parts['host'], $parts['port'] ?? self::PORT_SSL, $errno, $errStr, self::REQUEST_TIMEOUT);
         } else {
             $fp = fsockopen($parts['host'], $parts['port'] ?? self::PORT_HTTP, $errno, $errStr, self::REQUEST_TIMEOUT);
@@ -141,19 +146,19 @@ class BackgroundRequest implements ProjectInterface, BackgroundRequestInterface
             }
 
             return false;
-        } else {
-            $out = "POST " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
-            $out .= "Host: " . $parts['host'] . "\r\n";
-            $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
-            $out .= "Content-Length: " . strlen($paramString) . "\r\n";
-            $out .= "Connection: Close\r\n\r\n";
-            if ($paramString != '') {
-                $out .= $paramString;
-            }
-            fwrite($fp, $out);
-            fclose($fp);
-
-            return true;
         }
+
+        $out = "POST " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
+        $out .= "Host: " . $parts['host'] . "\r\n";
+        $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $out .= "Content-Length: " . strlen($paramString) . "\r\n";
+        $out .= "Connection: Close\r\n\r\n";
+        if ($paramString !== '') {
+            $out .= $paramString;
+        }
+        fwrite($fp, $out);
+        fclose($fp);
+
+        return true;
     }
 }

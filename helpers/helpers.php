@@ -11,23 +11,23 @@ if (!function_exists('sendSimpleRequest')) {
     /**
      * Function sendSimpleRequest
      *
-     * @param string       $url    URL Target Endpoint
-     * @param string|array $data   Array Data to Request
-     * @param string       $method GET or POST
+     * @param string              $url    URL Target Endpoint
+     * @param string|array|object $data   Array Data to Request
+     * @param string              $method GET or POST
      *
      * @return bool|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/03/2021 20:38
      */
-    function sendSimpleRequest($url = '', $data = [], $method = 'GET')
+    function sendSimpleRequest(string $url = '', $data = [], string $method = 'GET')
     {
         $target = (!empty($data) && (is_array($data) || is_object($data))) ? $url . '?' . http_build_query($data) : $url;
         $method = strtoupper($method);
         $curl   = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL            => $target,
-            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING       => "",
             CURLOPT_MAXREDIRS      => 10,
             CURLOPT_TIMEOUT        => 30,
@@ -44,9 +44,27 @@ if (!function_exists('sendSimpleRequest')) {
                 log_message('error', $message);
             }
 
-            return NULL;
-        } else {
-            return $response;
+            return null;
         }
+
+        return $response;
+    }
+}
+if (!function_exists('getIpAddress')) {
+    /**
+     * Function getIpAddress
+     *
+     * @param bool $convertToInteger
+     *
+     * @return bool|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/20/2021 10:36
+     */
+    function getIpAddress(bool $convertToInteger = false)
+    {
+        $ip = new nguyenanhung\MyRequests\Ip();
+
+        return $ip->getIpAddress($convertToInteger);
     }
 }

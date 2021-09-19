@@ -69,7 +69,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 44:11
      */
-    public function setHaProxy(bool $haProxyStatus = FALSE)
+    public function setHaProxy(bool $haProxyStatus = FALSE): self
     {
         $this->haProxyStatus = $haProxyStatus;
 
@@ -118,15 +118,16 @@ class Ip implements ProjectInterface
     public function getRawIpAddress(bool $convertToInteger = FALSE)
     {
         $ip_keys = array(
-            0 => 'HTTP_X_FORWARDED_FOR',
-            1 => 'HTTP_X_FORWARDED',
-            2 => 'HTTP_X_IPADDRESS',
-            3 => 'HTTP_X_CLUSTER_CLIENT_IP',
-            4 => 'HTTP_FORWARDED_FOR',
-            5 => 'HTTP_FORWARDED',
-            6 => 'HTTP_CLIENT_IP',
-            7 => 'HTTP_IP',
-            8 => 'REMOTE_ADDR'
+            0 => 'HTTP_CF_CONNECTING_IP',
+            1 => 'HTTP_X_FORWARDED_FOR',
+            2 => 'HTTP_X_FORWARDED',
+            3 => 'HTTP_X_IPADDRESS',
+            4 => 'HTTP_X_CLUSTER_CLIENT_IP',
+            5 => 'HTTP_FORWARDED_FOR',
+            6 => 'HTTP_FORWARDED',
+            7 => 'HTTP_CLIENT_IP',
+            8 => 'HTTP_IP',
+            9 => 'REMOTE_ADDR'
         );
         foreach ($ip_keys as $key) {
             if (array_key_exists($key, $_SERVER) === TRUE) {
@@ -155,7 +156,7 @@ class Ip implements ProjectInterface
      * @return bool|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/08/2020 46:26
+     * @time     : 09/20/2021 07:43
      */
     public function ipInRange(string $ip_address = '', string $network_range = '')
     {
@@ -220,13 +221,9 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 47:25
      */
-    public function ipValidate($ip)
+    public function ipValidate($ip): bool
     {
-        if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
-            return FALSE;
-        }
-
-        return TRUE;
+        return !(filter_var($ip, FILTER_VALIDATE_IP) === false);
     }
 
     /**
@@ -239,13 +236,9 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 47:31
      */
-    public function ipValidateV4($ip)
+    public function ipValidateV4($ip): bool
     {
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === FALSE) {
-            return FALSE;
-        }
-
-        return TRUE;
+        return !(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false);
     }
 
     /**
@@ -258,13 +251,9 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 47:40
      */
-    public function ipValidateV6($ip)
+    public function ipValidateV6($ip): bool
     {
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === FALSE) {
-            return FALSE;
-        }
-
-        return TRUE;
+        return !(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === false);
     }
 
     /**
@@ -277,7 +266,7 @@ class Ip implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 47:45
      */
-    public function ip2longV6($ip)
+    public function ip2longV6($ip): string
     {
         if (substr_count($ip, '::')) {
             $ip = str_replace('::', str_repeat(':0000', 8 - substr_count($ip, ':')) . ':', $ip);
@@ -299,9 +288,9 @@ class Ip implements ProjectInterface
      * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 01/21/2021 58:35
+     * @time     : 09/20/2021 14:49
      */
-    public function ipInfo(string $ip = '')
+    public function ipInfo(string $ip = ''): ?string
     {
         if (empty($ip)) {
             $ip = $this->getIpAddress();
@@ -310,7 +299,11 @@ class Ip implements ProjectInterface
             $curl = new Curl();
             $curl->get('http://ip-api.com/json/' . $ip);
 
-            return $curl->error ? "cURL Error: " . $curl->errorMessage : $curl->response;
+            if ($curl->error) {
+                return "cURL Error: " . $curl->errorMessage;
+            }
+
+            return $curl->rawResponse;
         }
         catch (Exception $e) {
             if (function_exists('log_message')) {
