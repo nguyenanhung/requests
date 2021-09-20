@@ -26,10 +26,9 @@
         "symfony/http-foundation": "^5.3 || ^4.4",
         "php-curl-class/php-curl-class": "^9.4",
         "guzzlehttp/guzzle": "^7 || ^6",
-        "markrogoyski/ipv4-subnet-calculator": "^3.1",
-        "mlocati/ip-lib": "^1.17",
         "nguyenanhung/nusoap": "^0.9",
-        "nguyenanhung/my-debug": "^3.0"
+        "nguyenanhung/my-debug": "^3.0",
+        "nguyenanhung/ip-helper": "^1.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.3"
