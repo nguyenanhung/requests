@@ -25,11 +25,11 @@ class SoapRequest implements ProjectInterface
 {
     use Version;
 
-    public const SOAP_ENCODING = 'utf-8'; // Default SOAP Encoding
+    const SOAP_ENCODING = 'utf-8'; // Default SOAP Encoding
 
-    public const XML_ENCODING = 'utf-8'; // Default XML Encoding
+    const XML_ENCODING = 'utf-8'; // Default XML Encoding
 
-    public const DECODE_UTF8 = false; // Default Decode UTF8 Status
+    const DECODE_UTF8 = false; // Default Decode UTF8 Status
 
     /**@var string Url Endpoint to Request */
     private $endpoint;

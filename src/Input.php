@@ -324,7 +324,7 @@ class Input
      *
      * @return    array
      */
-    public function requestHeaders(bool $xss_clean = false): ?array
+    public function requestHeaders(bool $xss_clean = false)
     {
         // If header is already defined, return it immediately
         if (!empty($this->headers)) {
@@ -359,7 +359,7 @@ class Input
      *
      * @return    string|null    The requested header on success or NULL on failure
      */
-    public function getRequestHeader(string $index, bool $xss_clean = false): ?string
+    public function getRequestHeader(string $index, bool $xss_clean = false)
     {
         static $headers;
         if (!isset($headers)) {

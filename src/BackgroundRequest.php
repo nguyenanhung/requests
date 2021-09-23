@@ -21,9 +21,9 @@ use nguyenanhung\MyDebug\Benchmark;
  */
 class BackgroundRequest implements ProjectInterface
 {
-    public const REQUEST_TIMEOUT = 30;
-    public const PORT_SSL        = 443;
-    public const PORT_HTTP       = 80;
+     const REQUEST_TIMEOUT = 30;
+     const PORT_SSL        = 443;
+     const PORT_HTTP       = 80;
 
     use Version;
 

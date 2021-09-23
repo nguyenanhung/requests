@@ -18,22 +18,22 @@ namespace nguyenanhung\MyRequests;
  */
 interface ProjectInterface
 {
-    public const VERSION         = '3.0.3';
-    public const LAST_MODIFIED   = '2021-09-20';
-    public const MIN_PHP_VERSION = '7.1';
-    public const GET             = 'GET';
-    public const HEAD            = 'HEAD';
-    public const DELETE          = 'DELETE';
-    public const TRACE           = 'TRACE';
-    public const POST            = 'POST';
-    public const PUT             = 'PUT';
-    public const OPTIONS         = 'OPTIONS';
-    public const PATCH           = 'PATCH';
-    public const ENCODING        = "utf-8";
-    public const MAX_REDIRECT    = 10;
-    public const RETURN_TRANSFER = true;
-    public const FOLLOW_LOCATION = true;
-    public const USE_BENCHMARK   = false;
+    const VERSION         = '3.0.4';
+    const LAST_MODIFIED   = '2021-09-24';
+    const MIN_PHP_VERSION = '7.0';
+    const GET             = 'GET';
+    const HEAD            = 'HEAD';
+    const DELETE          = 'DELETE';
+    const TRACE           = 'TRACE';
+    const POST            = 'POST';
+    const PUT             = 'PUT';
+    const OPTIONS         = 'OPTIONS';
+    const PATCH           = 'PATCH';
+    const ENCODING        = "utf-8";
+    const MAX_REDIRECT    = 10;
+    const RETURN_TRANSFER = true;
+    const FOLLOW_LOCATION = true;
+    const USE_BENCHMARK   = false;
 
     /**
      * Hàm lấy phiên bản hiện tại của Package

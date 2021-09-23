@@ -562,7 +562,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 12:09
      */
-    public function getHttpMessage(): ?string
+    public function getHttpMessage()
     {
         return $this->http_message;
     }
@@ -588,7 +588,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 12:04
      */
-    public function getRequestsHeader(): ?array
+    public function getRequestsHeader()
     {
         return $this->requests_header;
     }
@@ -601,7 +601,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 12:01
      */
-    public function getResponseHeader(): ?array
+    public function getResponseHeader()
     {
         return $this->response_header;
     }
@@ -1256,7 +1256,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugLevel(?string $debugLevel): MyRequests
+    public function setDebugLevel(string $debugLevel): MyRequests
     {
         $this->debugLevel = $debugLevel;
 
@@ -1273,7 +1273,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugLoggerPath(?string $debugLoggerPath): MyRequests
+    public function setDebugLoggerPath(string $debugLoggerPath): MyRequests
     {
         $this->debugLoggerPath = $debugLoggerPath;
 
