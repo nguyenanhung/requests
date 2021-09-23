@@ -400,7 +400,6 @@ class GetContents implements ProjectInterface
         } elseif (count($this->data) > 0) {
             $output = http_build_query($this->data);
         }
-
         return $output;
     }
 
@@ -499,17 +498,20 @@ class GetContents implements ProjectInterface
     /**
      * Set Data contents. Must be supplied as an array
      *
-     * @param array|string $data The contents to be sent to the target URL
+     * @param array|string $inputData The contents to be sent to the target URL
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:18
      */
-    public function setData($data = array())
+    public function setData($inputData = array())
     {
-        if (!is_array($data) && is_string($data)) {
-            $data = parse_str($data);
+        if (!is_array($inputData) && is_string($inputData)) {
+            $data = parse_str($inputData, $data);
+        } else {
+            $data = $inputData;
         }
+
         if (count($data) === 0) {
             $this->data = array();
         } else {
@@ -521,21 +523,23 @@ class GetContents implements ProjectInterface
     /**
      * Set query string data. Must be supplied as an array
      *
-     * @param array|string $query_string The query string to be sent to the target URL
+     * @param array|string $inputQueryString The query string to be sent to the target URL
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 01:36
      */
-    public function setQueryString($query_string = array())
+    public function setQueryString($inputQueryString = array())
     {
-        if (!is_array($query_string) && is_string($query_string)) {
-            $query_string = parse_str($query_string);
+        if (!is_array($inputQueryString) && is_string($inputQueryString)) {
+            $queryString = parse_str($inputQueryString, $queryString);
+        } else {
+            $queryString = $inputQueryString;
         }
-        if (count($query_string) === 0) {
+        if (count($queryString) === 0) {
             $this->query_string = array();
         } else {
-            $this->query_string = $query_string;
+            $this->query_string = $queryString;
         }
     }
 
