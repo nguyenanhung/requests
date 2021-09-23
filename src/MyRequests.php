@@ -251,7 +251,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 09:44
      */
-    public function setHeader(array $headers = array()): self
+    public function setHeader($headers = array())
     {
         $this->headers = $headers;
         $this->logger->info(__FUNCTION__, 'setHeaders: ', $this->headers);
@@ -269,7 +269,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 09:51
      */
-    public function setCookie(array $cookies = array()): self
+    public function setCookie($cookies = array())
     {
         $this->cookies = $cookies;
         $this->logger->info(__FUNCTION__, 'setCookie: ', $this->cookies);
@@ -287,7 +287,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 20:13
      */
-    public function setOptions(array $options = array()): self
+    public function setOptions($options = array())
     {
         $this->options = $options;
         $this->logger->info(__FUNCTION__, 'setOptions: ', $this->options);
@@ -305,7 +305,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 10:06
      */
-    public function setTimeout(int $timeout = 60): self
+    public function setTimeout($timeout = 60)
     {
         $this->timeout = $timeout;
         $this->logger->info(__FUNCTION__, 'setTimeout: ' . $this->timeout);
@@ -323,7 +323,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 10:15
      */
-    public function setUserAgent(string $userAgent = ''): self
+    public function setUserAgent($userAgent = '')
     {
         $this->userAgent = $userAgent;
         if (is_array($this->userAgent)) {
@@ -346,7 +346,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 10:28
      */
-    public function setReferrer(string $referrer = ''): self
+    public function setReferrer($referrer = '')
     {
         $this->referrer = $referrer;
         if (is_array($this->referrer)) {
@@ -368,7 +368,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 11:34
      */
-    public function setUserBody(bool $isBody = false): self
+    public function setUserBody($isBody = false)
     {
         $this->isBody = $isBody;
         if (is_array($this->isBody)) {
@@ -390,7 +390,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:00
      */
-    public function setRequestIsXml(bool $isXml = false): self
+    public function setRequestIsXml($isXml = false)
     {
         $this->isXml = $isXml;
         if ($this->isXml === true) {
@@ -413,7 +413,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:31
      */
-    public function setRequestIsJson(bool $isJson = false): self
+    public function setRequestIsJson($isJson = false)
     {
         $this->isJson = $isJson;
         if ($this->isJson === true) {
@@ -436,7 +436,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 01/21/2021 12:38
      */
-    public function setRequestIsSSL(bool $isSSL = false): self
+    public function setRequestIsSSL($isSSL = false)
     {
         $this->isSSL = $isSSL;
         $this->logger->info(__FUNCTION__, 'setRequestIsSSL: ' . $this->isSSL);
@@ -455,7 +455,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 23:02
      *
      */
-    public function setErrorResponseIsData(bool $errorResponseIsData = false): self
+    public function setErrorResponseIsData($errorResponseIsData = false)
     {
         $this->errorResponseIsData = $errorResponseIsData;
         $this->logger->info(__FUNCTION__, 'setErrorResponseIsData: ' . $this->errorResponseIsData);
@@ -474,7 +474,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 23:04
      *
      */
-    public function setErrorResponseIsNull(bool $errorResponseIsNull = false): self
+    public function setErrorResponseIsNull($errorResponseIsNull = false)
     {
         $this->errorResponseIsNull = $errorResponseIsNull;
         $this->logger->info(__FUNCTION__, 'setErrorResponseIsNull: ' . $this->errorResponseIsNull);
@@ -493,7 +493,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 05:24
      *
      */
-    public function setBasicAuthentication(string $username = '', string $password = ''): self
+    public function setBasicAuthentication($username = '', $password = '')
     {
         $this->basicAuthentication = [
             'username' => $username,
@@ -514,7 +514,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/04/2021 18:11
      */
-    public function setBearerToken(string $bearerToken = ''): self
+    public function setBearerToken($bearerToken = '')
     {
         $this->bearerToken = $bearerToken;
         $this->logger->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
@@ -533,7 +533,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 06:28
      *
      */
-    public function setDigestAuthentication(string $username = '', string $password = ''): self
+    public function setDigestAuthentication($username = '', $password = '')
     {
         $this->digestAuthentication = [$username, $password, 'digest'];
         $this->logger->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
@@ -549,7 +549,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 12:11
      */
-    public function getHttpCode(): int
+    public function getHttpCode()
     {
         return $this->http_code;
     }
@@ -575,7 +575,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 12:06
      */
-    public function getErrorCode(): int
+    public function getErrorCode()
     {
         return $this->error_code;
     }
@@ -622,7 +622,7 @@ class MyRequests implements ProjectInterface
      *
      * @see       https://packagist.org/packages/guzzlehttp/guzzle
      */
-    public function guzzlePhpRequest(string $url = '', array $data = array(), string $method = 'GET')
+    public function guzzlePhpRequest($url = '', $data = array(), $method = 'GET')
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
@@ -775,7 +775,7 @@ class MyRequests implements ProjectInterface
      *
      * @see   https://packagist.org/packages/php-curl-class/php-curl-class
      */
-    public function curlRequest(string $url = '', array $data = array(), string $method = 'GET')
+    public function curlRequest($url = '', $data = array(), $method = 'GET')
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
@@ -910,7 +910,7 @@ class MyRequests implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/24/2021 17:53
      */
-    protected function curlRequestErrorParse($curl): array
+    protected function curlRequestErrorParse($curl)
     {
         if ($curl->errorCode) {
             $resErrorCode = $curl->errorCode;
@@ -1019,7 +1019,7 @@ class MyRequests implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 07:07
      */
-    public function sendRequest(string $url = '', $data = array(), string $method = 'GET')
+    public function sendRequest($url = '', $data = array(), $method = 'GET')
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
@@ -1085,7 +1085,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 07:11
      *
      */
-    public function xmlRequest(string $url = '', string $data = '', int $timeout = 60)
+    public function xmlRequest($url = '', $data = '', $timeout = 60)
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $endpoint = trim($url);
@@ -1140,7 +1140,7 @@ class MyRequests implements ProjectInterface
      * @time  : 10/7/18 07:13
      *
      */
-    public function jsonRequest(string $url = '', array $data = array(), int $timeout = 60)
+    public function jsonRequest($url = '', $data = array(), $timeout = 60)
     {
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $endpoint = trim($url);
@@ -1197,7 +1197,7 @@ class MyRequests implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 06:57
      */
-    public function xmlGetValue(string $xml = '', string $openTag = '', string $closeTag = '')
+    public function xmlGetValue($xml = '', $openTag = '', $closeTag = '')
     {
         if (empty($xml) || empty($openTag) || empty($closeTag)) {
             return '';
@@ -1219,7 +1219,7 @@ class MyRequests implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 06:57
      */
-    public function parseXmlDataRequest(string $resultXml = '')
+    public function parseXmlDataRequest($resultXml = '')
     {
         $array = array(
             'ec'  => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
@@ -1239,7 +1239,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugStatus(bool $debugStatus): MyRequests
+    public function setDebugStatus($debugStatus)
     {
         $this->debugStatus = $debugStatus;
 
@@ -1256,7 +1256,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugLevel(string $debugLevel): MyRequests
+    public function setDebugLevel($debugLevel)
     {
         $this->debugLevel = $debugLevel;
 
@@ -1273,7 +1273,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugLoggerPath(string $debugLoggerPath): MyRequests
+    public function setDebugLoggerPath($debugLoggerPath)
     {
         $this->debugLoggerPath = $debugLoggerPath;
 
@@ -1290,7 +1290,7 @@ class MyRequests implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function setDebugLoggerFilename(string $debugLoggerFilename): MyRequests
+    public function setDebugLoggerFilename($debugLoggerFilename)
     {
         $this->debugLoggerFilename = $debugLoggerFilename;
 

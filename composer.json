@@ -19,16 +19,16 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=5.6",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-iconv": "*",
-        "symfony/http-foundation": "^5.3 || ^4.4 || ^3.4",
+        "symfony/http-foundation": "^4 || ^3",
         "php-curl-class/php-curl-class": "^9 || ^8",
-        "guzzlehttp/guzzle": "^7 || ^6",
+        "guzzlehttp/guzzle": "^7 || ^6 || ^5 || ^4 || ^3",
         "nguyenanhung/nusoap": "^0.9",
-        "nguyenanhung/my-debug": "^3.0 || ^2.0",
-        "nguyenanhung/ip-helper": "^2.0 || ^1.0"
+        "nguyenanhung/my-debug": "^2.0",
+        "nguyenanhung/ip-helper": "^1.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.3"

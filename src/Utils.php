@@ -28,7 +28,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:29
      */
-    public static function httpStatus($num): array
+    public static function httpStatus($num)
     {
         $http = array(
             100 => 'HTTP/1.1 100 Continue',
@@ -88,7 +88,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:34
      */
-    public static function getHost(): string
+    public static function getHost()
     {
         $host = '';
         if (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && $host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
@@ -133,7 +133,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 28:56
      */
-    public static function paddingWebsitePrefix($url): string
+    public static function paddingWebsitePrefix($url)
     {
         if (strpos($url, 'http') !== 0) {
             $url = 'http://' . $url;
@@ -153,7 +153,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 29:03
      */
-    public static function urlAddParam($url, $paramString): string
+    public static function urlAddParam($url, $paramString)
     {
         // neu chua co dau ?
         if (strpos($url, '?') === false) {
@@ -224,7 +224,7 @@ class Utils
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 19:21
      */
-    public static function saveExternalFile($img, $fullPath, $type = 'image', bool $isUseCurl = true)
+    public static function saveExternalFile($img, $fullPath, $type = 'image', $isUseCurl = true)
     {
         if ($isUseCurl) {
             //$fullPath = urlencode($fullPath);

@@ -102,7 +102,7 @@ class SoapRequest implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 32:50
      */
-    public function setEndpoint(string $endpoint = ''): self
+    public function setEndpoint($endpoint = '')
     {
         $this->endpoint = $endpoint;
         $this->logger->debug(__FUNCTION__, 'setEndpoint: ' . $this->endpoint);
@@ -120,7 +120,7 @@ class SoapRequest implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 33:22
      */
-    public function setData(array $data = array()): self
+    public function setData(array $data = array())
     {
         $this->data = $data;
         $this->logger->debug(__FUNCTION__, 'setData: ', $this->data);
@@ -138,7 +138,7 @@ class SoapRequest implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 34:00
      */
-    public function setCallFunction(string $callFunction = ''): self
+    public function setCallFunction($callFunction = '')
     {
         $this->callFunction = $callFunction;
         $this->logger->debug(__FUNCTION__, 'setCallFunction: ' . $this->callFunction);
@@ -159,7 +159,7 @@ class SoapRequest implements ProjectInterface
      * @time     : 08/08/2020 34:39
      *
      */
-    public function setFieldResult(string $fieldResult = ''): self
+    public function setFieldResult($fieldResult = '')
     {
         $this->fieldResult = $fieldResult;
         $this->logger->debug(__FUNCTION__, 'setFieldResult: ' . $this->fieldResult);
@@ -179,7 +179,7 @@ class SoapRequest implements ProjectInterface
      *
      * @see      clientRequestWsdl() method
      */
-    public function setResponseIsJson(bool $responseIsJson = false): self
+    public function setResponseIsJson($responseIsJson = false)
     {
         $this->responseIsJson = $responseIsJson;
         $this->logger->debug(__FUNCTION__, 'setResponseIsJson: ' . $this->responseIsJson);

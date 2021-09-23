@@ -100,7 +100,7 @@ class GetContents implements ProjectInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function __construct(string $url = '', string $method = 'GET', array $data = array(), array $headers = array())
+    public function __construct($url = '', $method = 'GET', $data = array(), $headers = array())
     {
         if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
@@ -155,9 +155,9 @@ class GetContents implements ProjectInterface
             if ($this->response) {
                 if (isset($this->response['content'])) {
                     return $this->response['content'];
-                } else {
-                    return $this->response;
                 }
+
+                return $this->response;
             }
         } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
@@ -186,9 +186,9 @@ class GetContents implements ProjectInterface
             if ($this->response) {
                 if (isset($this->response['error'])) {
                     return $this->response['error'];
-                } else {
-                    return $this->response;
                 }
+
+                return $this->response;
             }
         } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
@@ -280,9 +280,9 @@ class GetContents implements ProjectInterface
             $options['http']['header'] = implode("\r\n", $headers);
         }
 
-        if ($this->method == 'POST') {
+        if ($this->method === 'POST') {
             $post = $this->getPostBody();
-            if (mb_strlen($post) > 0) {
+            if ($post !== '') {
                 $options['http']['content'] = $post;
             }
             $return['post'] = $post;
@@ -302,7 +302,7 @@ class GetContents implements ProjectInterface
                 $return['content'] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($response));
                 if ($this->isJson === true && $this->isDecodeJson === true) {
                     $responseJson = json_decode(trim($return['content']));
-                    if (json_last_error() == JSON_ERROR_NONE) {
+                    if (json_last_error() === JSON_ERROR_NONE) {
                         $return['content'] = $responseJson;
                         $this->logger->debug(__FUNCTION__, 'Set Response is Json: ', $return['content']);
                     }
@@ -320,7 +320,7 @@ class GetContents implements ProjectInterface
 
         if (isset($return['headers']['response_code'])) {
             $responseType = substr($return['headers']['response_code'], 0, 1);
-            if ($responseType != '2') {
+            if ($responseType !== '2') {
                 $return['error'] = array(
                     'code'    => $return['headers']['response_code'],
                     'message' => 'Server returned an error.'
@@ -365,11 +365,11 @@ class GetContents implements ProjectInterface
         if ($this->isXML) {
             $headerArray[] = 'Accept: text/xml';
         }
-        if ($this->method == 'POST' && count($this->data) > 0 && $this->isJson) {
+        if ($this->method === 'POST' && count($this->data) > 0 && $this->isJson) {
             $headerArray[] = 'Content-type: application/json';
-        } elseif ($this->method == 'POST' && count($this->data) > 0 && $this->isXML) {
+        } elseif ($this->method === 'POST' && count($this->data) > 0 && $this->isXML) {
             $headerArray[] = 'Content-type: text/xml';
-        } elseif ($this->method == 'POST' && count($this->data) > 0) {
+        } elseif ($this->method === 'POST' && count($this->data) > 0) {
             $headerArray[] = 'Content-type: application/x-www-form-urlencoded';
         }
         if (count($this->cookies) > 0) {
@@ -454,10 +454,10 @@ class GetContents implements ProjectInterface
     {
         try {
             if (mb_strlen($url) > 0) {
-                if (substr($url, 0, 8) == 'https://') {
+                if (substr($url, 0, 8) === 'https://') {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
-                } elseif (substr($url, 0, 7) == 'http://') {
+                } elseif (substr($url, 0, 7) === 'http://') {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
@@ -520,7 +520,7 @@ class GetContents implements ProjectInterface
         if (!is_array($data) && is_string($data)) {
             $data = parse_str($data);
         }
-        if (count($data) == 0) {
+        if (count($data) === 0) {
             $this->data = array();
         } else {
             $this->data = $data;

@@ -101,7 +101,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 16:42
      */
-    public function setAuthentication(bool $authentication = false): self
+    public function setAuthentication($authentication = false)
     {
         $this->authentication = $authentication;
 
@@ -116,7 +116,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:08
      */
-    public function getAuthentication(): bool
+    public function getAuthentication()
     {
         return $this->authentication;
     }
@@ -131,7 +131,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:11
      */
-    public function setUsername(string $username = ''): self
+    public function setUsername($username = '')
     {
         $this->username = $username;
 
@@ -146,7 +146,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:19
      */
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -161,7 +161,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:25
      */
-    public function setPassword(string $password = ''): self
+    public function setPassword($password = '')
     {
         $this->password = $password;
 
@@ -176,7 +176,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:29
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -191,7 +191,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:32
      */
-    public function setUrl(string $url = ''): self
+    public function setUrl($url = '')
     {
         $this->url = $url;
 
@@ -206,7 +206,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:35
      */
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
@@ -221,7 +221,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:38
      */
-    public function setData($data = array()): self
+    public function setData($data = array())
     {
         $this->data = $data;
 
@@ -251,7 +251,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:45
      */
-    public function setTimeout(int $timeout = 60): self
+    public function setTimeout($timeout = 60)
     {
         $this->timeout = $timeout;
 
@@ -266,7 +266,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:47
      */
-    public function getTimeout(): int
+    public function getTimeout()
     {
         return $this->timeout;
     }
@@ -279,7 +279,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 54:51
      */
-    public function isPost(): self
+    public function isPost()
     {
         $this->isPost = true;
 
@@ -294,7 +294,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:02
      */
-    public function isJson(): self
+    public function isJson()
     {
         $this->isJson = true;
 
@@ -309,7 +309,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:05
      */
-    public function isXML(): self
+    public function isXML()
     {
         $this->isXML = true;
 
@@ -326,7 +326,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:09
      */
-    public function setUserAgent(string $userAgent = ''): self
+    public function setUserAgent($userAgent = '')
     {
         $this->userAgent = $userAgent;
 
@@ -341,7 +341,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:12
      */
-    public function getUserAgent(): string
+    public function getUserAgent()
     {
         return $this->userAgent;
     }
@@ -356,7 +356,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:15
      */
-    public function setCookieFileLocation(string $cookieFileLocation = ''): self
+    public function setCookieFileLocation($cookieFileLocation = '')
     {
         $this->cookieFileLocation = $cookieFileLocation;
 
@@ -371,7 +371,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:18
      */
-    public function getCookieFileLocation(): string
+    public function getCookieFileLocation()
     {
         return $this->cookieFileLocation;
     }
@@ -386,7 +386,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:21
      */
-    public function setFollowLocation(bool $followLocation = true): self
+    public function setFollowLocation($followLocation = true)
     {
         $this->followLocation = $followLocation;
 
@@ -401,7 +401,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:25
      */
-    public function getFollowLocation(): bool
+    public function getFollowLocation()
     {
         return $this->followLocation;
     }
@@ -416,7 +416,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:29
      */
-    public function setMaxRedirect(int $maxRedirect = 10): self
+    public function setMaxRedirect($maxRedirect = 10)
     {
         $this->maxRedirect = $maxRedirect;
 
@@ -431,7 +431,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:34
      */
-    public function getMaxRedirect(): int
+    public function getMaxRedirect()
     {
         return $this->maxRedirect;
     }
@@ -446,7 +446,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:38
      */
-    public function setReferer(string $referer = ''): self
+    public function setReferer($referer = '')
     {
         $this->referer = $referer;
 
@@ -461,7 +461,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:42
      */
-    public function getReferer(): string
+    public function getReferer()
     {
         return $this->referer;
     }
@@ -476,7 +476,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:44
      */
-    public function setSession($session = array()): self
+    public function setSession($session = array())
     {
         $this->session = $session;
 
@@ -506,7 +506,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:51
      */
-    public function setIncludeHeader(bool $includeHeader = true): self
+    public function setIncludeHeader($includeHeader = true)
     {
         $this->includeHeader = $includeHeader;
 
@@ -521,7 +521,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 55:57
      */
-    public function getIncludeHeader(): bool
+    public function getIncludeHeader()
     {
         return $this->includeHeader;
     }
@@ -536,7 +536,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:00
      */
-    public function setBinaryTransfer(bool $binaryTransfer = true): self
+    public function setBinaryTransfer($binaryTransfer = true)
     {
         $this->binaryTransfer = $binaryTransfer;
 
@@ -551,7 +551,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:03
      */
-    public function isBinaryTransfer(): bool
+    public function isBinaryTransfer()
     {
         return $this->binaryTransfer;
     }
@@ -566,7 +566,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:10
      */
-    public function setNoBody(bool $noBody = true): self
+    public function setNoBody($noBody = true)
     {
         $this->noBody = $noBody;
 
@@ -581,7 +581,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:14
      */
-    public function getNoBody(): bool
+    public function getNoBody()
     {
         return $this->noBody;
     }
@@ -596,7 +596,7 @@ class CurlData
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/08/2020 56:20
      */
-    public function createCurl(string $url = ''): self
+    public function createCurl($url = '')
     {
         if (!empty($url)) {
             $this->url = $url;

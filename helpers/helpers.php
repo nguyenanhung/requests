@@ -20,7 +20,7 @@ if (!function_exists('sendSimpleRequest')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/03/2021 20:38
      */
-    function sendSimpleRequest(string $url = '', $data = [], string $method = 'GET')
+    function sendSimpleRequest($url = '', $data = array(), $method = 'GET')
     {
         $target = (!empty($data) && (is_array($data) || is_object($data))) ? $url . '?' . http_build_query($data) : $url;
         $method = strtoupper($method);
@@ -61,7 +61,7 @@ if (!function_exists('getIpAddress')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 10:36
      */
-    function getIpAddress(bool $convertToInteger = false)
+    function getIpAddress($convertToInteger = false)
     {
         $ip = new nguyenanhung\MyRequests\Ip();
 

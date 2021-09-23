@@ -86,7 +86,7 @@ class Input
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 10:38
      */
-    public function rawInputStream(): self
+    public function rawInputStream()
     {
         $rawInputStream       = file_get_contents('php://input');
         $this->rawInputStream = $rawInputStream;
@@ -102,7 +102,7 @@ class Input
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/04/2021 14:38
      */
-    public function getRawInputStream(): string
+    public function getRawInputStream()
     {
         return $this->rawInputStream;
     }
@@ -141,7 +141,7 @@ class Input
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 03/18/2021 00:27
      */
-    public function method(bool $upper = false): string
+    public function method($upper = false)
     {
         return ($upper)
             ? strtoupper($this->server('REQUEST_METHOD', true))
@@ -160,7 +160,7 @@ class Input
      * @time     : 10/18/18 10:58
      *
      */
-    public function post($key = '', bool $xss_clean = false)
+    public function post($key = '', $xss_clean = false)
     {
         if ($this->input->request->has($key)) {
             $content = $this->input->request->get($key);
@@ -186,7 +186,7 @@ class Input
      * @time     : 10/18/18 10:58
      *
      */
-    public function get($key = '', bool $xss_clean = false)
+    public function get($key = '', $xss_clean = false)
     {
         if ($this->input->query->has($key)) {
             $content = $this->input->query->get($key);
@@ -212,7 +212,7 @@ class Input
      * @time      : 10/18/18 10:58
      *
      */
-    public function server($key = '', bool $xss_clean = false)
+    public function server($key = '', $xss_clean = false)
     {
         if ($this->input->server->has($key)) {
             $content = $this->input->server->get($key);
@@ -238,7 +238,7 @@ class Input
      * @time      : 10/18/18 10:58
      *
      */
-    public function cookie($key = '', bool $xss_clean = false)
+    public function cookie($key = '', $xss_clean = false)
     {
         if ($this->input->cookies->has($key)) {
             $content = $this->input->cookies->get($key);
@@ -264,7 +264,7 @@ class Input
      * @time      : 10/18/18 10:58
      *
      */
-    public function file($key = '', bool $xss_clean = false)
+    public function file($key = '', $xss_clean = false)
     {
         if ($this->input->files->has($key)) {
             $content = $this->input->files->get($key);
@@ -290,7 +290,7 @@ class Input
      * @time      : 10/18/18 10:58
      *
      */
-    public function header($key = '', bool $xss_clean = false)
+    public function header($key = '', $xss_clean = false)
     {
         if ($this->input->headers->has($key)) {
             $content = $this->input->headers->get($key);
@@ -324,7 +324,7 @@ class Input
      *
      * @return    array
      */
-    public function requestHeaders(bool $xss_clean = false)
+    public function requestHeaders($xss_clean = false)
     {
         // If header is already defined, return it immediately
         if (!empty($this->headers)) {
@@ -359,7 +359,7 @@ class Input
      *
      * @return    string|null    The requested header on success or NULL on failure
      */
-    public function getRequestHeader(string $index, bool $xss_clean = false)
+    public function getRequestHeader($index, $xss_clean = false)
     {
         static $headers;
         if (!isset($headers)) {
@@ -385,7 +385,7 @@ class Input
      *
      * @return    bool
      */
-    public function isAjax(): bool
+    public function isAjax()
     {
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
@@ -397,7 +397,7 @@ class Input
      *
      * @return    bool
      */
-    public function isCLI(): bool
+    public function isCLI()
     {
         return (PHP_SAPI === 'cli' or defined('STDIN'));
     }
@@ -415,7 +415,7 @@ class Input
      * @copyright CodeIgniter
      *
      */
-    public function fetchFromArray(array &$array, $index = null, bool $xss_clean = null)
+    public function fetchFromArray(&$array, $index = null, $xss_clean = null)
     {
         is_bool($xss_clean) or $xss_clean = $this->enableXss;
 

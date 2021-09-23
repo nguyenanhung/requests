@@ -18,9 +18,9 @@ namespace nguyenanhung\MyRequests;
  */
 interface ProjectInterface
 {
-    const VERSION         = '3.0.4';
+    const VERSION         = '2.1.0';
     const LAST_MODIFIED   = '2021-09-24';
-    const MIN_PHP_VERSION = '7.0';
+    const MIN_PHP_VERSION = '5.6';
     const GET             = 'GET';
     const HEAD            = 'HEAD';
     const DELETE          = 'DELETE';
@@ -43,5 +43,5 @@ interface ProjectInterface
      *
      * @return string Phiên bản hiện tại của Package, VD: 3.0.2
      */
-    public function getVersion(): string;
+    public function getVersion();
 }

@@ -37,7 +37,7 @@ if (!function_exists('testCreateParamsOnRequest')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 52:27
      */
-    function testCreateParamsOnRequest(string $method = 'GET')
+    function testCreateParamsOnRequest($method = 'GET')
     {
         return array(
             'sdk'    => 'HungNG Request',
