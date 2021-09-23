@@ -542,7 +542,7 @@ class GetContents implements ProjectInterface
         if (!is_array($query_string) && is_string($query_string)) {
             $query_string = parse_str($query_string);
         }
-        if (count($query_string) == 0) {
+        if (count($query_string) === 0) {
             $this->query_string = array();
         } else {
             $this->query_string = $query_string;
