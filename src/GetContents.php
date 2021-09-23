@@ -153,11 +153,7 @@ class GetContents implements ProjectInterface
     {
         try {
             if ($this->response) {
-                if (isset($this->response['content'])) {
-                    return $this->response['content'];
-                } else {
-                    return $this->response;
-                }
+                return $this->response['content'] ?? $this->response;
             }
         } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
@@ -184,11 +180,7 @@ class GetContents implements ProjectInterface
     {
         try {
             if ($this->response) {
-                if (isset($this->response['error'])) {
-                    return $this->response['error'];
-                } else {
-                    return $this->response;
-                }
+                return $this->response['error'] ?? $this->response;
             }
         } catch (Exception $e) {
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
@@ -254,7 +246,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:19
      */
-    public function useFileGetContents()
+    public function useFileGetContents(): array
     {
         $return = array();
 
@@ -280,9 +272,9 @@ class GetContents implements ProjectInterface
             $options['http']['header'] = implode("\r\n", $headers);
         }
 
-        if ($this->method == 'POST') {
+        if ($this->method === 'POST') {
             $post = $this->getPostBody();
-            if (mb_strlen($post) > 0) {
+            if ($post !== '') {
                 $options['http']['content'] = $post;
             }
             $return['post'] = $post;
@@ -302,7 +294,7 @@ class GetContents implements ProjectInterface
                 $return['content'] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($response));
                 if ($this->isJson === true && $this->isDecodeJson === true) {
                     $responseJson = json_decode(trim($return['content']));
-                    if (json_last_error() == JSON_ERROR_NONE) {
+                    if (json_last_error() === JSON_ERROR_NONE) {
                         $return['content'] = $responseJson;
                         $this->logger->debug(__FUNCTION__, 'Set Response is Json: ', $return['content']);
                     }
@@ -320,7 +312,7 @@ class GetContents implements ProjectInterface
 
         if (isset($return['headers']['response_code'])) {
             $responseType = substr($return['headers']['response_code'], 0, 1);
-            if ($responseType != '2') {
+            if ($responseType !== '2') {
                 $return['error'] = array(
                     'code'    => $return['headers']['response_code'],
                     'message' => 'Server returned an error.'
@@ -356,7 +348,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:19
      */
-    public function getHeaderArray()
+    public function getHeaderArray(): array
     {
         $headerArray = (count($this->headers) > 0 ? $this->headers : []);
         if ($this->isJson) {
@@ -365,17 +357,17 @@ class GetContents implements ProjectInterface
         if ($this->isXML) {
             $headerArray[] = 'Accept: text/xml';
         }
-        if ($this->method == 'POST' && count($this->data) > 0 && $this->isJson) {
+        if ($this->isJson && $this->method === 'POST' && count($this->data) > 0) {
             $headerArray[] = 'Content-type: application/json';
-        } elseif ($this->method == 'POST' && count($this->data) > 0 && $this->isXML) {
+        } elseif ($this->isXML && $this->method === 'POST' && count($this->data) > 0) {
             $headerArray[] = 'Content-type: text/xml';
-        } elseif ($this->method == 'POST' && count($this->data) > 0) {
+        } elseif ($this->method === 'POST' && count($this->data) > 0) {
             $headerArray[] = 'Content-type: application/x-www-form-urlencoded';
         }
         if (count($this->cookies) > 0) {
             $cookies = '';
             foreach ($this->cookies as $key => $value) {
-                if (mb_strlen($cookies) > 0) {
+                if ($cookies !== '') {
                     $cookies .= '; ';
                 }
                 $cookies .= urlencode($key) . '=' . urlencode($value);
@@ -421,18 +413,16 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:19
      */
-    public function getQueryString()
+    public function getQueryString(): string
     {
         $query_string = '';
         if (count($this->query_string) > 0) {
             $query_string .= http_build_query($this->query_string);
         }
-        if ($this->method != 'POST') {
-            if (count($this->data) > 0) {
-                $query_string .= http_build_query($this->data);
-            }
+        if (($this->method !== 'POST') && count($this->data) > 0) {
+            $query_string .= http_build_query($this->data);
         }
-        if (mb_strlen($query_string) > 0) {
+        if ($query_string !== '') {
             $query_string = (mb_strpos($this->url, '?') ? '&' : '?') . $query_string;
         }
 
@@ -450,14 +440,14 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:10
      */
-    public function setURL($url = '')
+    public function setURL(string $url = ''): self
     {
         try {
-            if (mb_strlen($url) > 0) {
-                if (substr($url, 0, 8) == 'https://') {
+            if ($url !== '') {
+                if (strpos($url, 'https://') === 0) {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
-                } elseif (substr($url, 0, 7) == 'http://') {
+                } elseif (strpos($url, 'http://') === 0) {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
@@ -486,9 +476,9 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:15
      */
-    public function setMethod($method = '')
+    public function setMethod(string $method = '')
     {
-        if (mb_strlen($method) == 0) {
+        if ($method === '') {
             $this->logger->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
             $method = 'GET';
         } else {
@@ -509,7 +499,7 @@ class GetContents implements ProjectInterface
     /**
      * Set Data contents. Must be supplied as an array
      *
-     * @param array $data The contents to be sent to the target URL
+     * @param array|string $data The contents to be sent to the target URL
      *
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
@@ -520,7 +510,7 @@ class GetContents implements ProjectInterface
         if (!is_array($data) && is_string($data)) {
             $data = parse_str($data);
         }
-        if (count($data) == 0) {
+        if (count($data) === 0) {
             $this->data = array();
         } else {
             $this->data = $data;
@@ -558,7 +548,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:18
      */
-    public function setHeaders($headers = array())
+    public function setHeaders(array $headers = array())
     {
         if (!is_array($headers)) {
             $this->headers = array();
@@ -576,7 +566,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:18
      */
-    public function setCookies($cookies = array())
+    public function setCookies(array $cookies = array())
     {
         if (!is_array($cookies)) {
             $this->cookies = array();
@@ -595,7 +585,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:18
      */
-    public function setTrackCookies($value = false)
+    public function setTrackCookies(bool $value = false)
     {
         if (!$value) {
             $this->trackCookies = false;
@@ -613,7 +603,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 01:38
      */
-    public function setXML($value = false)
+    public function setXML(bool $value = false)
     {
         if (!$value) {
             $this->isXML = false;
@@ -631,7 +621,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setJson($value = false)
+    public function setJson(bool $value = false)
     {
         if (!$value) {
             $this->isJson = false;
@@ -649,7 +639,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setJsonPretty($value = false)
+    public function setJsonPretty(bool $value = false)
     {
         if (!$value) {
             $this->isJsonPretty = false;
@@ -667,7 +657,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function setVerifyPeer($value = false)
+    public function setVerifyPeer(bool $value = false)
     {
         if (!$value) {
             $this->verifyPeer = false;
@@ -687,7 +677,7 @@ class GetContents implements ProjectInterface
      * @copyright   : 713uk13m <dev@nguyenanhung.com>
      * @time        : 10/7/18 02:17
      */
-    public function setTimeout($timeout = 20)
+    public function setTimeout(int $timeout = 20)
     {
         $this->timeout = $timeout;
     }
@@ -703,7 +693,7 @@ class GetContents implements ProjectInterface
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/7/18 02:17
      */
-    public function parseReturnHeaders($headers)
+    public function parseReturnHeaders(array $headers): array
     {
         $head = array();
         foreach ($headers as $value) {
@@ -714,7 +704,7 @@ class GetContents implements ProjectInterface
                 $head[]      = $value;
                 $patternHttp = "#HTTP/[0-9\.]+\s+([0-9]+)#";
                 if (preg_match($patternHttp, $value, $out)) {
-                    $head['response_code'] = intval($out[1]);
+                    $head['response_code'] = (int) $out[1];
                 }
             }
         }
