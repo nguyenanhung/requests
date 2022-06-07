@@ -23,7 +23,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-iconv": "*",
-        "symfony/http-foundation": "^5.3 || ^4.4 || ^3.4",
+        "symfony/http-foundation": "^6.0 || ^5.3 || ^4.4 || ^3.4",
         "php-curl-class/php-curl-class": "^9 || ^8",
         "guzzlehttp/guzzle": "^7 || ^6",
         "nguyenanhung/nusoap": "^0.9",
