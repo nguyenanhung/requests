@@ -154,7 +154,7 @@ class Input
      * @param string|mixed $key       POST parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
+     * @return bool|float|int|string|string[]|mixed|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/18/18 10:58
@@ -180,7 +180,7 @@ class Input
      * @param string|mixed $key       GET parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
+     * @return bool|float|int|string|string[]|mixed|null $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 10/18/18 10:58
@@ -206,7 +206,7 @@ class Input
      * @param string|mixed $key       SERVER parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_SERVER f no parameters supplied, otherwise the SERVER value if found or NULL if not
+     * @return bool|float|int|string|string[]|mixed|null $_SERVER f no parameters supplied, otherwise the SERVER value if found or NULL if not
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/18/18 10:58
@@ -232,7 +232,7 @@ class Input
      * @param string|mixed $key       COOKIE parameter name
      * @param bool         $xss_clean Whether to apply XSS filtering
      *
-     * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
+     * @return bool|float|int|string|string[]|mixed|null $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
      * @author    : 713uk13m <dev@nguyenanhung.com>
      * @copyright : 713uk13m <dev@nguyenanhung.com>
      * @time      : 10/18/18 10:58
@@ -315,6 +315,19 @@ class Input
     public function ip_address()
     {
         return $this->ip->getIpAddress();
+    }
+
+    /**
+     * Function IPAddress - Alias of function ip_address
+     *
+     * @return bool|int|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 03/07/2022 52:11
+     */
+    public function IPAddress()
+    {
+        return $this->ip_address();
     }
 
     /**
