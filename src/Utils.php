@@ -74,10 +74,10 @@ class Utils
         );
         header($http[$num]);
 
-        return [
+        return array(
             'code'  => $num,
             'error' => $http[$num],
-        ];
+        );
     }
 
     /**
@@ -93,7 +93,7 @@ class Utils
         $host = '';
         if (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && $host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
             $elements = explode(',', $host);
-            $host     = trim(end($elements));
+            $host = trim(end($elements));
         } elseif (isset($_SERVER['HTTP_HOST']) && !$host = $_SERVER['HTTP_HOST']) {
             if (isset($_SERVER['SERVER_NAME']) && !$host = $_SERVER['SERVER_NAME']) {
                 $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
@@ -177,7 +177,7 @@ class Utils
         if ($_SERVER["HTTPS"] === "on") {
             $pageURL .= "s";
         }
-        $pageURL    .= "://";
+        $pageURL .= "://";
         $serverPort = $_SERVER["SERVER_PORT"];
         if ($serverPort !== 80) {
             $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
@@ -248,16 +248,13 @@ class Utils
 
                     return true;
                 }
-            } else {
-                return false;
-            }
-        } else {
-            $file_headers = @get_headers($img);
-            if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
-                return file_put_contents($fullPath, file_get_contents($img));
             }
 
             return false;
+        }
+        $file_headers = @get_headers($img);
+        if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
+            return file_put_contents($fullPath, file_get_contents($img));
         }
 
         return false;
@@ -295,7 +292,7 @@ class Utils
         do {
             // Remove really unwanted tags
             $old_data = $data;
-            $data     = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
+            $data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
         }
         while ($old_data !== $data);
 
