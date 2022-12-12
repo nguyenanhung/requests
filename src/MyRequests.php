@@ -63,7 +63,7 @@ class MyRequests implements ProjectInterface
     private $userAgent;
 
     /**
-     * An URL String referrer to be added to the request
+     * A URL String referrer to be added to the request
      *
      * @var string
      */
@@ -77,7 +77,7 @@ class MyRequests implements ProjectInterface
     private $basicAuthentication;
 
     /**
-     * An string of bearerToken to be added to the request
+     * A string of bearerToken to be added to the request
      *
      * @var string
      */

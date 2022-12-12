@@ -50,7 +50,7 @@ class CurlData
     protected $session;
     /** @var bool Include Header */
     protected $includeHeader;
-    /** @var bool No Body */
+    /** @var bool NoBody */
     protected $noBody;
     /** @var bool Binary Transfer */
     protected $binaryTransfer;

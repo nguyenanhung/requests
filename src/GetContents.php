@@ -92,7 +92,7 @@ class GetContents implements ProjectInterface
      *
      * @param string $url     Url Endpoint
      * @param string $method  The method to use - GET, POST, PUT, DELETE
-     * @param array  $data    An array of data to be added to the request.'
+     * @param array  $data    An array of data to be added to the request.
      *                        Where the method is POST these are sent as a form body,
      *                        otherwise - they are added as a query string
      * @param array  $headers An array of headers to be added to the request
@@ -222,7 +222,7 @@ class GetContents implements ProjectInterface
     {
         try {
             if (mb_strlen($this->url) >= 9) {
-                $response       = $this->useFileGetContents();
+                $response = $this->useFileGetContents();
                 $this->response = $response;
 
                 return $response;
@@ -280,16 +280,16 @@ class GetContents implements ProjectInterface
             $return['post'] = $post;
         }
 
-        $context      = stream_context_create($options);
+        $context = stream_context_create($options);
         $query_string = $this->getQueryString();
         $this->logger->debug(__FUNCTION__, 'Options into Request: ', $options);
         $this->logger->debug(__FUNCTION__, 'Data Query String into Request: ', $query_string);
         $this->logger->debug(__FUNCTION__, 'Endpoint URL into Request: ', $this->url);
         try {
-            $response          = file_get_contents($this->url . $query_string, false, $context);
-            $responseHeaders   = $http_response_header;
+            $response = file_get_contents($this->url . $query_string, false, $context);
+            $responseHeaders = $http_response_header;
             $return['headers'] = $this->parseReturnHeaders($responseHeaders);
-            $return['url']     = $this->url . $query_string;
+            $return['url'] = $this->url . $query_string;
             if ($response) {
                 $return['content'] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($response));
                 if ($this->isJson === true && $this->isDecodeJson === true) {
@@ -330,7 +330,7 @@ class GetContents implements ProjectInterface
         }
 
         if ($this->trackCookies) {
-            $cookies       = array_merge($this->cookies, $cookies);
+            $cookies = array_merge($this->cookies, $cookies);
             $this->cookies = $cookies;
         }
         $return['cookies'] = $cookies;
@@ -400,6 +400,7 @@ class GetContents implements ProjectInterface
         } elseif (count($this->data) > 0) {
             $output = http_build_query($this->data);
         }
+
         return $output;
     }
 
@@ -454,7 +455,7 @@ class GetContents implements ProjectInterface
             $this->url = $url;
         } catch (Exception $e) {
             $this->url = null;
-            $message   = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
+            $message = "Error: " . __CLASS__ . ": Invalid protocol specified. URL must start with http:// or https:// - " . $e->getFile() . ' - Line: ' . $e->getLine() . ' - Code: ' . $e->getCode() . ' - Message: ' . $e->getMessage();
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $message);
             $this->logger->error(__FUNCTION__, 'Error Message: ' . $e->getMessage());
             $this->logger->error(__FUNCTION__, 'Error Trace As String: ' . $e->getTraceAsString());
@@ -481,10 +482,10 @@ class GetContents implements ProjectInterface
             $this->logger->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
             $method = 'GET';
         } else {
-            $method       = strtoupper($method);
+            $method = strtoupper($method);
             $validMethods = array('GET', 'HEAD', 'PUT', 'POST', 'DELETE');
             if (!in_array($method, $validMethods)) {
-                $message = "Error: " . __CLASS__ . ": The requested method (${method}) is not valid here";
+                $message = "Error: " . __CLASS__ . ": The requested method (" . $method . ") is not valid here";
                 $this->logger->error(__FUNCTION__, $message);
 
                 return $message;
@@ -506,8 +507,8 @@ class GetContents implements ProjectInterface
      */
     public function setData($inputData = array())
     {
-        if (!is_array($inputData) && is_string($inputData)) {
-            $data = parse_str($inputData, $data);
+        if (is_string($inputData)) {
+            parse_str($inputData, $data);
         } else {
             $data = $inputData;
         }
@@ -531,8 +532,8 @@ class GetContents implements ProjectInterface
      */
     public function setQueryString($inputQueryString = array())
     {
-        if (!is_array($inputQueryString) && is_string($inputQueryString)) {
-            $queryString = parse_str($inputQueryString, $queryString);
+        if (is_string($inputQueryString)) {
+            parse_str($inputQueryString, $queryString);
         } else {
             $queryString = $inputQueryString;
         }
@@ -575,7 +576,7 @@ class GetContents implements ProjectInterface
         if (!is_array($cookies)) {
             $this->cookies = array();
         } else {
-            $this->cookies      = $cookies;
+            $this->cookies = $cookies;
             $this->trackCookies = true;
         }
     }
@@ -705,7 +706,7 @@ class GetContents implements ProjectInterface
             if (isset($t[1])) {
                 $head[trim($t[0])] = trim($t[1]);
             } else {
-                $head[]      = $value;
+                $head[] = $value;
                 $patternHttp = "#HTTP/[0-9\.]+\s+([0-9]+)#";
                 if (preg_match($patternHttp, $value, $out)) {
                     $head['response_code'] = (int) $out[1];

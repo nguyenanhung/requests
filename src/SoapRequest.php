@@ -31,6 +31,10 @@ class SoapRequest implements ProjectInterface
 
     const DECODE_UTF8 = false; // Default Decode UTF8 Status
 
+    const FIELD_FOUND_OR_FULL = 0;
+    const FIELD_NOT_FOUND = 1;
+    const EXCEPTION_FOUND = 2;
+
     /**@var string Url Endpoint to Request */
     private $endpoint;
     /**@var array Data to Request */
@@ -207,11 +211,11 @@ class SoapRequest implements ProjectInterface
             return null;
         }
         try {
-            $client                   = new nusoap_client($this->endpoint, true);
+            $client = new nusoap_client($this->endpoint, true);
             $client->soap_defencoding = self::SOAP_ENCODING;
-            $client->xml_encoding     = self::XML_ENCODING;
-            $client->decode_utf8      = self::DECODE_UTF8;
-            $error                    = $client->getError();
+            $client->xml_encoding = self::XML_ENCODING;
+            $client->decode_utf8 = self::DECODE_UTF8;
+            $error = $client->getError();
             if ($error) {
                 $message = "Client Request WSDL Error: " . json_encode($error);
                 $this->logger->error(__FUNCTION__, $message);
@@ -222,21 +226,21 @@ class SoapRequest implements ProjectInterface
                     if (isset($result[$this->fieldResult])) {
                         $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
                         $message = array(
-                            'status' => 0,
+                            'status' => self::FIELD_FOUND_OR_FULL,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
                         );
                     } else {
                         $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
                         $message = array(
-                            'status' => 1,
+                            'status' => self::FIELD_NOT_FOUND,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
                             'data'   => $result
                         );
                     }
                 } else {
                     $message = array(
-                        'status' => 0,
+                        'status' => self::FIELD_FOUND_OR_FULL,
                         'code'   => 'Return full Response',
                         'data'   => $result
                     );
@@ -244,7 +248,7 @@ class SoapRequest implements ProjectInterface
             }
         } catch (Exception $e) {
             $message = array(
-                'status' => 2,
+                'status' => self::EXCEPTION_FOUND,
                 'code'   => 'Exception Error',
                 'data'   => array(
                     'File'    => $e->getFile(),
@@ -285,11 +289,11 @@ class SoapRequest implements ProjectInterface
             return null;
         }
         try {
-            $client                   = new nusoap_client($this->endpoint, true);
+            $client = new nusoap_client($this->endpoint, true);
             $client->soap_defencoding = self::SOAP_ENCODING;
-            $client->xml_encoding     = self::XML_ENCODING;
-            $client->decode_utf8      = self::DECODE_UTF8;
-            $error                    = $client->getError();
+            $client->xml_encoding = self::XML_ENCODING;
+            $client->decode_utf8 = self::DECODE_UTF8;
+            $error = $client->getError();
             if ($error) {
                 $message = "Client Request SOAP Error: " . json_encode($error);
                 $this->logger->error(__FUNCTION__, $message);
@@ -300,21 +304,21 @@ class SoapRequest implements ProjectInterface
                     if (isset($result[$this->fieldResult])) {
                         $this->logger->debug(__FUNCTION__, 'Output Result: ', $result[$this->fieldResult]);
                         $message = array(
-                            'status' => 0,
+                            'status' => self::FIELD_FOUND_OR_FULL,
                             'code'   => $result[$this->fieldResult],
                             'data'   => $result
                         );
                     } else {
                         $this->logger->debug(__FUNCTION__, 'Missing Result from ' . $this->fieldResult);
                         $message = array(
-                            'status' => 1,
+                            'status' => self::FIELD_NOT_FOUND,
                             'code'   => 'Missing Result from ' . $this->fieldResult,
                             'data'   => $result
                         );
                     }
                 } else {
                     $message = array(
-                        'status' => 0,
+                        'status' => self::FIELD_FOUND_OR_FULL,
                         'code'   => 'Return full Response',
                         'data'   => $result
                     );
@@ -322,7 +326,7 @@ class SoapRequest implements ProjectInterface
             }
         } catch (Exception $e) {
             $message = array(
-                'status' => 2,
+                'status' => self::EXCEPTION_FOUND,
                 'code'   => 'Exception Error',
                 'data'   => array(
                     'File'    => $e->getFile(),
