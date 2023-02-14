@@ -22,8 +22,8 @@ use nguyenanhung\MyDebug\Benchmark;
 class BackgroundRequest implements ProjectInterface
 {
     const REQUEST_TIMEOUT = 30;
-    const PORT_SSL        = 443;
-    const PORT_HTTP       = 80;
+    const PORT_SSL = 443;
+    const PORT_HTTP = 80;
 
     use Version;
 
@@ -98,10 +98,10 @@ class BackgroundRequest implements ProjectInterface
     {
         $parts = parse_url($url);
         if (isset($parts['port'])) {
-            $portSSL  = $parts['port'];
+            $portSSL = $parts['port'];
             $portHTTP = $parts['port'];
         } else {
-            $portSSL  = self::PORT_SSL;
+            $portSSL = self::PORT_SSL;
             $portHTTP = self::PORT_HTTP;
         }
         if (strtolower($parts['scheme']) === 'https') {
@@ -143,10 +143,10 @@ class BackgroundRequest implements ProjectInterface
     {
         $parts = parse_url($url);
         if (isset($parts['port'])) {
-            $portSSL  = $parts['port'];
+            $portSSL = $parts['port'];
             $portHTTP = $parts['port'];
         } else {
-            $portSSL  = self::PORT_SSL;
+            $portSSL = self::PORT_SSL;
             $portHTTP = self::PORT_HTTP;
         }
         if ($parts['scheme'] === 'https') {

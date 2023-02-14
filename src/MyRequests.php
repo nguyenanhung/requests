@@ -495,10 +495,10 @@ class MyRequests implements ProjectInterface
      */
     public function setBasicAuthentication($username = '', $password = '')
     {
-        $this->basicAuthentication = [
+        $this->basicAuthentication = array(
             'username' => $username,
             'password' => $password
-        ];
+        );
         $this->logger->info(__FUNCTION__, 'setBasicAuthentication: ', $this->basicAuthentication);
 
         return $this;
@@ -535,7 +535,7 @@ class MyRequests implements ProjectInterface
      */
     public function setDigestAuthentication($username = '', $password = '')
     {
-        $this->digestAuthentication = [$username, $password, 'digest'];
+        $this->digestAuthentication = array($username, $password, 'digest');
         $this->logger->info(__FUNCTION__, 'setDigestAuthentication: ', $this->digestAuthentication);
 
         return $this;
@@ -657,9 +657,9 @@ class MyRequests implements ProjectInterface
                     $options['auth'] = $this->digestAuthentication;
                 }
                 if ($this->bearerToken) {
-                    $options['headers'] = [
+                    $options['headers'] = array(
                         'Authorization' => 'Bearer ' . $this->bearerToken
-                    ];
+                    );
                 }
                 if (($this->isBody === true) && ($method === self::POST || $method === self::PUT || $method === self::PATCH || $method === self::OPTIONS)) {
                     if ($this->isJson) {
@@ -1047,7 +1047,7 @@ class MyRequests implements ProjectInterface
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
             try {
-                $useGuzzlePhp = [self::HEAD, self::TRACE, self::OPTIONS];
+                $useGuzzlePhp = array(self::HEAD, self::TRACE, self::OPTIONS);
                 $this->logger->debug(__FUNCTION__, 'Make ' . $method . ' request to ' . $url . ' with Data: ', $data);
                 if (in_array($method, $useGuzzlePhp, true)) {
                     $result = $this->guzzlePhpRequest($url, $data, $method);

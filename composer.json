@@ -31,7 +31,7 @@
         "nguyenanhung/ip-helper": "^1.0"
     },
     "require-dev": {
-        "kint-php/kint": "^3.3"
+        "kint-php/kint": "^5 || ^4 || ^3 || ^2 || ^1"
     },
     "suggest": {
         "ext-curl": "Needed to support cURL",
