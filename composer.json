@@ -6,7 +6,9 @@
         "request",
         "http",
         "curl",
-        "get_content"
+        "get_content",
+        "rest",
+        "soap"
     ],
     "homepage": "https://github.com/nguyenanhung/requests",
     "license": "GPL-3.0",
