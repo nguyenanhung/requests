@@ -18,8 +18,8 @@ namespace nguyenanhung\MyRequests;
  */
 interface ProjectInterface
 {
-    const VERSION = '3.0.8';
-    const LAST_MODIFIED = '2023-02-14';
+    const VERSION = '3.0.9';
+    const LAST_MODIFIED = '2023-08-13';
     const MIN_PHP_VERSION = '7.0';
     const GET = 'GET';
     const HEAD = 'HEAD';
@@ -38,10 +38,10 @@ interface ProjectInterface
     /**
      * Hàm lấy phiên bản hiện tại của Package
      *
+     * @return string Phiên bản hiện tại của Package, VD: 3.0.2
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/7/18 01:05
      *
-     * @return string Phiên bản hiện tại của Package, VD: 3.0.2
      */
     public function getVersion(): string;
 }

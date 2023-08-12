@@ -117,7 +117,7 @@ class Utils
     {
         $language = '';
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+            $language = mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         }
 
         return $language;
@@ -135,7 +135,7 @@ class Utils
      */
     public static function paddingWebsitePrefix($url): string
     {
-        if (strpos($url, 'http') !== 0) {
+        if (mb_strpos($url, 'http') !== 0) {
             $url = 'http://' . $url;
         }
 
@@ -156,7 +156,7 @@ class Utils
     public static function urlAddParam($url, $paramString): string
     {
         // neu chua co dau ?
-        if (strpos($url, '?') === false) {
+        if (mb_strpos($url, '?') === false) {
             $url .= '?';
         }
 
@@ -202,10 +202,10 @@ class Utils
     {
         $url = preg_replace('/[-]+/', '-', $url);
         if ($url[0] === '-') {
-            $url = substr($url, 1);
+            $url = mb_substr($url, 1);
         }
-        if ($url[strlen($url) - 1] === '-') {
-            $url = substr($url, 0, -1);
+        if ($url[mb_strlen($url) - 1] === '-') {
+            $url = mb_substr($url, 0, -1);
         }
 
         return $url;
@@ -236,7 +236,7 @@ class Utils
             $raw_data = curl_exec($ch);
             curl_close($ch);
             //check if return error (include html in output)
-            if (strpos($raw_data, 'html') === false) {
+            if (mb_strpos($raw_data, 'html') === false) {
                 $fp = fopen($fullPath, 'wb');
                 if (!$fp) {
                     return false;
@@ -253,7 +253,7 @@ class Utils
             return false;
         }
         $file_headers = @get_headers($img);
-        if (strpos($file_headers[0], '200') || strpos($file_headers[0], '302') || strpos($file_headers[0], '304')) {
+        if (mb_strpos($file_headers[0], '200') || mb_strpos($file_headers[0], '302') || mb_strpos($file_headers[0], '304')) {
             return file_put_contents($fullPath, file_get_contents($img));
         }
 

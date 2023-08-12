@@ -55,7 +55,7 @@ class BackgroundRequest implements ProjectInterface
     {
         if (self::USE_BENCHMARK === true) {
             $this->benchmark = new Benchmark();
-            $this->benchmark->mark('code_start');
+            $this->benchmark->mark('code_background_request_start');
         }
         $this->logger = new Logger();
         if (empty($this->debugLoggerPath)) {
@@ -77,8 +77,8 @@ class BackgroundRequest implements ProjectInterface
     public function __destruct()
     {
         if (self::USE_BENCHMARK === true) {
-            $this->benchmark->mark('code_end');
-            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_start', 'code_end'));
+            $this->benchmark->mark('code_background_request_end');
+            $this->logger->debug(__FUNCTION__, 'Elapsed Time: ===> ' . $this->benchmark->elapsed_time('code_background_request_start', 'code_background_request_end'));
             $this->logger->debug(__FUNCTION__, 'Memory Usage: ===> ' . $this->benchmark->memory_usage());
         }
     }
@@ -97,7 +97,7 @@ class BackgroundRequest implements ProjectInterface
     public static function backgroundHttpGet(string $url): bool
     {
         $parts = parse_url($url);
-        if (strtolower($parts['scheme']) === 'https') {
+        if (mb_strtolower($parts['scheme']) === 'https') {
             $fp = fsockopen('ssl://' . $parts['host'], $parts['port'] ?? self::PORT_SSL, $errno, $errStr, self::REQUEST_TIMEOUT);
         } else {
             $fp = fsockopen($parts['host'], $parts['port'] ?? self::PORT_HTTP, $errno, $errStr, self::REQUEST_TIMEOUT);
@@ -123,7 +123,7 @@ class BackgroundRequest implements ProjectInterface
     /**
      * Hàm gọi 1 async POST Request để không delay Main Process
      *
-     * @param string $url         Url Endpoint
+     * @param string $url Url Endpoint
      * @param string $paramString Params to Request
      *
      * @return bool TRUE nếu thành công, FALSE nếu thất bại
@@ -151,7 +151,7 @@ class BackgroundRequest implements ProjectInterface
         $out = "POST " . $parts['path'] . "?" . $parts['query'] . " HTTP/1.1\r\n";
         $out .= "Host: " . $parts['host'] . "\r\n";
         $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $out .= "Content-Length: " . strlen($paramString) . "\r\n";
+        $out .= "Content-Length: " . mb_strlen($paramString) . "\r\n";
         $out .= "Connection: Close\r\n\r\n";
         if ($paramString !== '') {
             $out .= $paramString;
