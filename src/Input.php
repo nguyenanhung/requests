@@ -144,8 +144,8 @@ class Input
     public function method(bool $upper = false): string
     {
         return ($upper)
-            ? strtoupper($this->server('REQUEST_METHOD', true))
-            : strtolower($this->server('REQUEST_METHOD', true));
+            ? mb_strtoupper($this->server('REQUEST_METHOD', true))
+            : mb_strtolower($this->server('REQUEST_METHOD', true));
     }
 
     /**
@@ -339,7 +339,7 @@ class Input
             foreach ($_SERVER as $key => $val) {
                 if (sscanf($key, 'HTTP_%s', $header) === 1) {
                     // take SOME_HEADER and turn it into Some-Header
-                    $header                 = str_replace('_', ' ', strtolower($header));
+                    $header                 = str_replace('_', ' ', mb_strtolower($header));
                     $header                 = str_replace(' ', '-', ucwords($header));
                     $this->headers[$header] = $val;
                 }
@@ -365,10 +365,10 @@ class Input
         if (!isset($headers)) {
             empty($this->headers) && $this->requestHeaders();
             foreach ($this->headers as $key => $value) {
-                $headers[strtolower($key)] = $value;
+                $headers[mb_strtolower($key)] = $value;
             }
         }
-        $index = strtolower($index);
+        $index = mb_strtolower($index);
         if (!isset($headers[$index])) {
             return null;
         }
@@ -387,7 +387,7 @@ class Input
      */
     public function isAjax(): bool
     {
-        return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+        return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && mb_strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
     /**

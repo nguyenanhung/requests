@@ -311,7 +311,7 @@ class GetContents implements ProjectInterface
         }
 
         if (isset($return['headers']['response_code'])) {
-            $responseType = substr($return['headers']['response_code'], 0, 1);
+            $responseType = mb_substr($return['headers']['response_code'], 0, 1);
             if ($responseType !== '2') {
                 $return['error'] = array(
                     'code'    => $return['headers']['response_code'],
@@ -444,10 +444,10 @@ class GetContents implements ProjectInterface
     {
         try {
             if ($url !== '') {
-                if (strpos($url, 'https://') === 0) {
+                if (mb_strpos($url, 'https://') === 0) {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
-                } elseif (strpos($url, 'http://') === 0) {
+                } elseif (mb_strpos($url, 'http://') === 0) {
                     $this->isSSL = true;
                     $this->logger->debug(__FUNCTION__, 'Set SSL: ' . $this->isSSL);
                 }
@@ -482,7 +482,7 @@ class GetContents implements ProjectInterface
             $this->logger->debug(__FUNCTION__, 'Set Default Method = GET if $method is does not exist');
             $method = 'GET';
         } else {
-            $method = strtoupper($method);
+            $method = mb_strtoupper($method);
             $validMethods = array('GET', 'HEAD', 'PUT', 'POST', 'DELETE');
             if (!in_array($method, $validMethods)) {
                 $message = "Error: " . __CLASS__ . ": The requested method (" . $method . ") is not valid here";

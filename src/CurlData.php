@@ -651,9 +651,17 @@ class CurlData
         $this->error_code         = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
         $this->request_headers    = preg_split('/\r\n/', curl_getinfo($curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
         if (isset($this->response_headers['0'])) {
-            $this->http_error_message = $this->error ? ($this->response_headers['0']) : '';
+            if ($this->error) {
+                $this->http_error_message = ($this->response_headers['0']);
+            } else {
+                $this->http_error_message = '';
+            }
         } else {
-            $this->http_error_message = $this->error ? ('') : '';
+            if ($this->error) {
+                $this->http_error_message = ('');
+            } else {
+                $this->http_error_message = '';
+            }
         }
         $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
         curl_close($curl);
