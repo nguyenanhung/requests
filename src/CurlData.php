@@ -639,17 +639,24 @@ class CurlData
             curl_setopt($curl, CURLOPT_REFERER, $this->referer);
         }
         curl_setopt($curl, CURLOPT_USERAGENT, $this->userAgent);
-        $this->response_headers   = array();
-        $this->response           = curl_exec($curl);
-        $this->status             = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        $this->curl_error_code    = curl_errno($curl);
+        $parseUrl = parse_url($url);
+        if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'https') {
+            curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        }
+        if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'http') {
+            curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        }
+        $this->response_headers = array();
+        $this->response = curl_exec($curl);
+        $this->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $this->curl_error_code = curl_errno($curl);
         $this->curl_error_message = curl_error($curl);
-        $this->curl_error         = !($this->curl_error_code === 0);
-        $this->http_status_code   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        $this->http_error         = in_array(floor($this->http_status_code / 100), array(4, 5), true);
-        $this->error              = $this->curl_error || $this->http_error;
-        $this->error_code         = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
-        $this->request_headers    = preg_split('/\r\n/', curl_getinfo($curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
+        $this->curl_error = !($this->curl_error_code === 0);
+        $this->http_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5), true);
+        $this->error = $this->curl_error || $this->http_error;
+        $this->error_code = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
+        $this->request_headers = preg_split('/\r\n/', curl_getinfo($curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
         if (isset($this->response_headers['0'])) {
             if ($this->error) {
                 $this->http_error_message = ($this->response_headers['0']);
