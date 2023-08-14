@@ -242,6 +242,74 @@ class MyRequests implements ProjectInterface
     }
 
     /**
+     * Function setDebugStatus
+     *
+     * @param bool $debugStatus
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugStatus($debugStatus)
+    {
+        $this->debugStatus = $debugStatus;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLevel
+     *
+     * @param string|null $debugLevel
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLevel($debugLevel)
+    {
+        $this->debugLevel = $debugLevel;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLoggerPath
+     *
+     * @param string|null $debugLoggerPath
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLoggerPath($debugLoggerPath)
+    {
+        $this->debugLoggerPath = $debugLoggerPath;
+
+        return $this;
+    }
+
+    /**
+     * Function setDebugLoggerFilename
+     *
+     * @param string $debugLoggerFilename
+     *
+     * @return MyRequests
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     */
+    public function setDebugLoggerFilename($debugLoggerFilename)
+    {
+        $this->debugLoggerFilename = $debugLoggerFilename;
+
+        return $this;
+    }
+
+    /**
      * Function setHeader
      *
      * @param array $headers
@@ -394,9 +462,9 @@ class MyRequests implements ProjectInterface
     {
         $this->isXml = $isXml;
         if ($this->isXml === true) {
-            $header['Accept']       = 'text/xml; charset=utf-8';
+            $header['Accept'] = 'text/xml; charset=utf-8';
             $header['Content-type'] = 'text/xml; charset=utf-8';
-            $this->headers          = $header;
+            $this->headers = $header;
         }
         $this->logger->info(__FUNCTION__, 'setRequestIsXml: ' . $this->isXml);
 
@@ -417,9 +485,9 @@ class MyRequests implements ProjectInterface
     {
         $this->isJson = $isJson;
         if ($this->isJson === true) {
-            $header['Accept']       = 'application/json; charset=utf-8';
+            $header['Accept'] = 'application/json; charset=utf-8';
             $header['Content-type'] = 'application/json; charset=utf-8';
-            $this->headers          = $header;
+            $this->headers = $header;
         }
         $this->logger->info(__FUNCTION__, 'setRequestIsJson: ' . $this->isJson);
 
@@ -627,7 +695,7 @@ class MyRequests implements ProjectInterface
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
         $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
-        $method   = strtoupper($method);
+        $method = strtoupper($method);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ' . $endpoint);
         if (PHP_VERSION_ID < 50400) {
@@ -694,10 +762,10 @@ class MyRequests implements ProjectInterface
                     $request = $client->get($endpoint, $this->options);
                 }
                 // Debug
-                $status_code        = $request->getStatusCode();
-                $status_message     = $request->getReasonPhrase();
-                $http_error         = in_array(floor($this->http_code / 100), [4, 5], true);
-                $error_code         = array(
+                $status_code = $request->getStatusCode();
+                $status_message = $request->getReasonPhrase();
+                $http_error = in_array(floor($this->http_code / 100), [4, 5], true);
+                $error_code = array(
                     'status'        => $status_code,
                     'error'         => $status_code,
                     'error_code'    => $status_code,
@@ -723,9 +791,9 @@ class MyRequests implements ProjectInterface
                         'response_body'    => $request->getBody()
                     )
                 );
-                $this->http_code    = $status_code;
+                $this->http_code = $status_code;
                 $this->http_message = $request->getReasonPhrase();
-                $this->error_code   = $error_code;
+                $this->error_code = $error_code;
                 $this->logger->debug(__FUNCTION__, 'Full Data Curl Message and Http Message: ', $error_code);
                 if ($http_error) {
                     if ($this->errorResponseIsData === true) {
@@ -813,10 +881,16 @@ class MyRequests implements ProjectInterface
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
                 }
+                $parseUrl = parse_url($url);
+                if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'https') {
+                    $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
+                    $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
+                    $curl->setOpt(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+                }
+                if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'http') {
+                    $curl->setOpt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+                }
                 $curl->setOpt(CURLOPT_RETURNTRANSFER, self::RETURN_TRANSFER);
-                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
-                $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
-                $curl->setOpt(CURLOPT_SSLVERSION, 6);
                 $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
                 $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
                 $curl->setOpt(CURLOPT_TIMEOUT, $this->timeout);
@@ -850,9 +924,9 @@ class MyRequests implements ProjectInterface
                 }
                 $error_code = $this->curlRequestErrorParse($curl);
                 // Set Vars
-                $this->error_code      = $error_code;
-                $this->http_code       = $error_code['http_error']['http_status_code'];
-                $this->http_message    = $error_code['http_error']['http_error_message'];
+                $this->error_code = $error_code;
+                $this->http_code = $error_code['http_error']['http_status_code'];
+                $this->http_message = $error_code['http_error']['http_error_message'];
                 $this->requests_header = $error_code['headers']['request_headers'];
                 $this->response_header = $error_code['headers']['response_headers'];
                 // Response
@@ -866,7 +940,7 @@ class MyRequests implements ProjectInterface
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Null');
                         $response = null;
                     } else {
-                        $errMsg   = $error_code['error_message'];
+                        $errMsg = $error_code['error_message'];
                         $response = "cURL Error: " . $errMsg;
                         $this->logger->debug(__FUNCTION__, 'Return Error Response is Message: ' . $response);
                     }
@@ -1024,14 +1098,14 @@ class MyRequests implements ProjectInterface
         $this->logger->debug(__FUNCTION__, '/------------> ' . __FUNCTION__ . ' <------------\\');
         $inputParams = array('url' => $url, 'data' => $data, 'method' => $method);
         $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
-        $method   = strtoupper($method);
+        $method = strtoupper($method);
         $endpoint = trim($url);
         $this->logger->debug(__FUNCTION__, 'cURL Endpoint: ' . $endpoint);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
             // Create Request use File Get Content
-            $content                  = new GetContents();
-            $content->debugStatus     = $this->debugStatus;
+            $content = new GetContents();
+            $content->debugStatus = $this->debugStatus;
             $content->debugLoggerPath = $this->debugLoggerPath;
             $content->__construct();
             $content->setURL($url);
@@ -1040,9 +1114,9 @@ class MyRequests implements ProjectInterface
             $content->setData($data);
             $content->sendRequest();
             // Create Request
-            $result     = $content->response();
+            $result = $content->response();
             $getContent = $content->getContent();
-            $getError   = $content->getError();
+            $getError = $content->getError();
             $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
@@ -1094,10 +1168,9 @@ class MyRequests implements ProjectInterface
         $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
-
             // Create Request use File Get Content
-            $content                  = new GetContents();
-            $content->debugStatus     = $this->debugStatus;
+            $content = new GetContents();
+            $content->debugStatus = $this->debugStatus;
             $content->debugLoggerPath = $this->debugLoggerPath;
             $content->__construct();
             $content->setURL($url);
@@ -1105,11 +1178,10 @@ class MyRequests implements ProjectInterface
             $content->setXML(true);
             $content->setData($data);
             $content->sendRequest();
-
             // Create Request
-            $result     = $content->response();
+            $result = $content->response();
             $getContent = $content->getContent();
-            $getError   = $content->getError();
+            $getError = $content->getError();
             $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
@@ -1149,10 +1221,9 @@ class MyRequests implements ProjectInterface
         $this->logger->debug(__FUNCTION__, 'input Params: ', $inputParams);
         if (!extension_loaded('curl')) {
             $this->logger->critical(__FUNCTION__, 'Server is not Support cURL, Please cURL. Library fallback user File Get Contents');
-
             // Create Request use File Get Content
-            $content                  = new GetContents();
-            $content->debugStatus     = $this->debugStatus;
+            $content = new GetContents();
+            $content->debugStatus = $this->debugStatus;
             $content->debugLoggerPath = $this->debugLoggerPath;
             $content->__construct();
             $content->setURL($url);
@@ -1160,11 +1231,10 @@ class MyRequests implements ProjectInterface
             $content->setJson(true);
             $content->setData($data);
             $content->sendRequest();
-
             // Create Request
-            $result     = $content->response();
+            $result = $content->response();
             $getContent = $content->getContent();
-            $getError   = $content->getError();
+            $getError = $content->getError();
             $this->logger->debug(__FUNCTION__, 'Get Content Result: ' . $getContent);
             $this->logger->debug(__FUNCTION__, 'Get Error Result: ' . $getError);
         } else {
@@ -1227,73 +1297,5 @@ class MyRequests implements ProjectInterface
         );
 
         return json_encode($array);
-    }
-
-    /**
-     * Function setDebugStatus
-     *
-     * @param bool $debugStatus
-     *
-     * @return MyRequests
-     *
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     */
-    public function setDebugStatus($debugStatus)
-    {
-        $this->debugStatus = $debugStatus;
-
-        return $this;
-    }
-
-    /**
-     * Function setDebugLevel
-     *
-     * @param string|null $debugLevel
-     *
-     * @return MyRequests
-     *
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     */
-    public function setDebugLevel($debugLevel)
-    {
-        $this->debugLevel = $debugLevel;
-
-        return $this;
-    }
-
-    /**
-     * Function setDebugLoggerPath
-     *
-     * @param string|null $debugLoggerPath
-     *
-     * @return MyRequests
-     *
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     */
-    public function setDebugLoggerPath($debugLoggerPath)
-    {
-        $this->debugLoggerPath = $debugLoggerPath;
-
-        return $this;
-    }
-
-    /**
-     * Function setDebugLoggerFilename
-     *
-     * @param string $debugLoggerFilename
-     *
-     * @return MyRequests
-     *
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     */
-    public function setDebugLoggerFilename($debugLoggerFilename)
-    {
-        $this->debugLoggerFilename = $debugLoggerFilename;
-
-        return $this;
     }
 }
