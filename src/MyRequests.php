@@ -254,6 +254,7 @@ class MyRequests implements ProjectInterface
     public function setDebugStatus(bool $debugStatus): self
     {
         $this->debugStatus = $debugStatus;
+
         return $this;
     }
 
@@ -270,6 +271,7 @@ class MyRequests implements ProjectInterface
     public function setDebugLevel(string $debugLevel): self
     {
         $this->debugLevel = $debugLevel;
+
         return $this;
     }
 
@@ -286,6 +288,7 @@ class MyRequests implements ProjectInterface
     public function setDebugLoggerPath(string $debugLoggerPath): self
     {
         $this->debugLoggerPath = $debugLoggerPath;
+
         return $this;
     }
 
@@ -302,6 +305,7 @@ class MyRequests implements ProjectInterface
     public function setDebugLoggerFilename(string $debugLoggerFilename): self
     {
         $this->debugLoggerFilename = $debugLoggerFilename;
+
         return $this;
     }
 
@@ -674,8 +678,8 @@ class MyRequests implements ProjectInterface
      * Function guzzlePhpRequest
      * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
-     * @param string $url URL Endpoint to be Request
-     * @param array $data Data Content to be Request
+     * @param string $url    URL Endpoint to be Request
+     * @param array  $data   Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null
@@ -705,7 +709,7 @@ class MyRequests implements ProjectInterface
                 $client = new Client();
                 // Create options
                 $options = array(
-                    'timeout' => $this->timeout,
+                    'timeout'         => $this->timeout,
                     'connect_timeout' => $this->timeout
                 );
                 if (is_array($this->headers) && count($this->headers) > 0) {
@@ -762,29 +766,29 @@ class MyRequests implements ProjectInterface
                 $status_message = $request->getReasonPhrase();
                 $http_error = in_array(floor($this->http_code / 100), [4, 5], true);
                 $error_code = array(
-                    'status' => $status_code,
-                    'error' => $status_code,
-                    'error_code' => $status_code,
+                    'status'        => $status_code,
+                    'error'         => $status_code,
+                    'error_code'    => $status_code,
                     'error_message' => $status_message,
-                    'http_error' => array(
-                        'http_error' => $http_error,
-                        'http_status_code' => $status_code,
+                    'http_error'    => array(
+                        'http_error'         => $http_error,
+                        'http_status_code'   => $status_code,
                         'http_error_message' => $status_message
                     ),
-                    'headers' => array(
-                        'request_headers' => $this->headers,
+                    'headers'       => array(
+                        'request_headers'  => $this->headers,
                         'response_headers' => $request->getHeaders()
                     ),
-                    'data' => array(
-                        'status' => $request->getStatusCode(),
-                        'error_code' => $request->getStatusCode(),
-                        'error_message' => $request->getReasonPhrase(),
-                        'reasonPhrase' => $request->getReasonPhrase(),
-                        'protocolVersion' => $request->getProtocolVersion(),
-                        'headers' => $request->getHeaders(),
-                        'requests_url' => $endpoint,
+                    'data'          => array(
+                        'status'           => $request->getStatusCode(),
+                        'error_code'       => $request->getStatusCode(),
+                        'error_message'    => $request->getReasonPhrase(),
+                        'reasonPhrase'     => $request->getReasonPhrase(),
+                        'protocolVersion'  => $request->getProtocolVersion(),
+                        'headers'          => $request->getHeaders(),
+                        'requests_url'     => $endpoint,
                         'requests_options' => $this->options,
-                        'response_body' => $request->getBody()
+                        'response_body'    => $request->getBody()
                     )
                 );
                 $this->http_code = $status_code;
@@ -828,9 +832,9 @@ class MyRequests implements ProjectInterface
      * Function curlRequest
      * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
-     * @param string $url URL Endpoint to be Request
-     * @param array|string $data Data Content to be Request
-     * @param string $method Set Method to be Request
+     * @param string       $url    URL Endpoint to be Request
+     * @param array|string $data   Data Content to be Request
+     * @param string       $method Set Method to be Request
      *
      * @return array|null|string Response content from server,
      *                           null of Exception Message if Error
@@ -877,9 +881,16 @@ class MyRequests implements ProjectInterface
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
                 }
+                $parseUrl = parse_url($url);
                 $curl->setOpt(CURLOPT_RETURNTRANSFER, self::RETURN_TRANSFER);
                 $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
                 $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
+                if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'https') {
+                    $curl->setOpt(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+                }
+                if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'http') {
+                    $curl->setOpt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+                }
                 $curl->setOpt(CURLOPT_SSLVERSION, 6);
                 $curl->setOpt(CURLOPT_ENCODING, self::ENCODING);
                 $curl->setOpt(CURLOPT_MAXREDIRS, self::MAX_REDIRECT);
@@ -1048,22 +1059,22 @@ class MyRequests implements ProjectInterface
         }
 
         return array(
-            'status' => $resErrorCode,
-            'error' => $curl->error,
-            'error_code' => $resErrorCode,
+            'status'        => $resErrorCode,
+            'error'         => $curl->error,
+            'error_code'    => $resErrorCode,
             'error_message' => $resErrorMessage,
-            'curl_error' => array(
-                'curl_error' => $resErrorCurl,
-                'curl_error_code' => $resErrorCurlCode,
+            'curl_error'    => array(
+                'curl_error'         => $resErrorCurl,
+                'curl_error_code'    => $resErrorCurlCode,
                 'curl_error_message' => $resErrorCurlMessage
             ),
-            'http_error' => array(
-                'http_error' => $resErrorHttp,
-                'http_status_code' => $resErrorHttpStatusCode,
+            'http_error'    => array(
+                'http_error'         => $resErrorHttp,
+                'http_status_code'   => $resErrorHttpStatusCode,
                 'http_error_message' => $resErrorHttpMessage
             ),
-            'headers' => array(
-                'request_headers' => $resRequestHeaders,
+            'headers'       => array(
+                'request_headers'  => $resRequestHeaders,
                 'response_headers' => $resResponseHeaders
             )
         );
@@ -1073,9 +1084,9 @@ class MyRequests implements ProjectInterface
      * Function sendRequest
      * Handle send Request use Multi Method
      *
-     * @param string $url URL Endpoint to be Request
-     * @param array|string $data Data Content to be Request
-     * @param string $method Set Method to be Request
+     * @param string       $url    URL Endpoint to be Request
+     * @param array|string $data   Data Content to be Request
+     * @param string       $method Set Method to be Request
      *
      * @return array|mixed|object|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
@@ -1140,9 +1151,9 @@ class MyRequests implements ProjectInterface
      * Function xmlRequest
      * Send XML Request to Server
      *
-     * @param string $url URL Endpoint to be Request
-     * @param string $data Data Content to be Request
-     * @param int $timeout Timeout Request
+     * @param string $url     URL Endpoint to be Request
+     * @param string $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -1192,9 +1203,9 @@ class MyRequests implements ProjectInterface
      * Function jsonRequest
      * Send JSON Request to Server
      *
-     * @param string $url URL Endpoint to be Request
-     * @param array $data Data Content to be Request
-     * @param int $timeout Timeout Request
+     * @param string $url     URL Endpoint to be Request
+     * @param array  $data    Data Content to be Request
+     * @param int    $timeout Timeout Request
      *
      * @return array|null|string Response from Server
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -1246,8 +1257,8 @@ class MyRequests implements ProjectInterface
     /**
      * Function xmlGetValue
      *
-     * @param string $xml XML String
-     * @param string $openTag OpenTag to find
+     * @param string $xml      XML String
+     * @param string $openTag  OpenTag to find
      * @param string $closeTag CloseTag to find
      *
      * @return string  Result from Tag, Empty string if not
@@ -1281,7 +1292,7 @@ class MyRequests implements ProjectInterface
     public function parseXmlDataRequest(string $resultXml = '')
     {
         $array = array(
-            'ec' => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
+            'ec'  => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
             'msg' => $this->xmlGetValue($resultXml, "<msg>", "</msg>")
         );
 
