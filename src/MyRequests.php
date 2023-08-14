@@ -881,10 +881,10 @@ class MyRequests implements ProjectInterface
                 if ($this->referrer) {
                     $curl->setReferer($this->referrer);
                 }
+                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
+                $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
                 $parseUrl = parse_url($url);
                 if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'https') {
-                    $curl->setOpt(CURLOPT_SSL_VERIFYPEER, $this->isSSL);
-                    $curl->setOpt(CURLOPT_SSL_VERIFYHOST, $this->isSSL);
                     $curl->setOpt(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
                 }
                 if (isset($parseUrl['scheme']) && $parseUrl['scheme'] === 'http') {
