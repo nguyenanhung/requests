@@ -49,6 +49,14 @@ class MyRequests implements ProjectInterface
     private $options = array();
 
     /**
+     * You can customize requests created and transferred by a client using request options.
+     * Request options control various aspects of a request including, headers, query string parameters, timeout settings, the body of a request, and much more.
+     *
+     * @var array
+     */
+    private $requestOptions = array();
+
+    /**
      * How long to wait for a server to respond to a  request.
      *
      * @var integer
@@ -117,6 +125,20 @@ class MyRequests implements ProjectInterface
      * @var bool
      */
     private $isSSL = false;
+
+    /**
+     * Describes the SSL certificate verification behavior of a request.
+     *
+     * @var bool
+     */
+    private $isVerify = true;
+
+    /**
+     * Protocol version to use with the request.
+     *
+     * @var int|float
+     */
+    private $protocolVersion = 0;
 
     /**
      * Set Response Error is Array Data
@@ -364,6 +386,35 @@ class MyRequests implements ProjectInterface
     }
 
     /**
+     * Function setRequestOptions
+     *
+     * @param array $requestOptions
+     *
+     * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/20/2021 20:13
+     */
+    public function setRequestOptions(array $requestOptions = array()): self
+    {
+        $this->requestOptions = $requestOptions;
+        $this->logger->info(__FUNCTION__, 'setRequestOptions: ', $this->requestOptions);
+        return $this;
+    }
+
+    /**
+     * Function getRequestOptions
+     *
+     * User: 713uk13m <dev@nguyenanhung.com>
+     * Copyright: 713uk13m <dev@nguyenanhung.com>
+     * @return array
+     */
+    public function getRequestOptions(): array
+    {
+        return $this->requestOptions;
+    }
+
+    /**
      * Function setTimeout
      *
      * @param int $timeout
@@ -509,6 +560,33 @@ class MyRequests implements ProjectInterface
         $this->isSSL = $isSSL;
         $this->logger->info(__FUNCTION__, 'setRequestIsSSL: ' . $this->isSSL);
 
+        return $this;
+    }
+
+    /**
+     * Function setRequestNoVerify
+     *
+     * User: 713uk13m <dev@nguyenanhung.com>
+     * Copyright: 713uk13m <dev@nguyenanhung.com>
+     * @return $this
+     */
+    public function setRequestNoVerify(): self
+    {
+        $this->isVerify = false;
+        return $this;
+    }
+
+    /**
+     * Function setRequestProtocolVersion
+     *
+     * @param int|float $protocolVersion
+     * User: 713uk13m <dev@nguyenanhung.com>
+     * Copyright: 713uk13m <dev@nguyenanhung.com>
+     * @return $this
+     */
+    public function setRequestProtocolVersion(int $protocolVersion = 0): self
+    {
+        $this->protocolVersion = $protocolVersion;
         return $this;
     }
 
@@ -678,8 +756,8 @@ class MyRequests implements ProjectInterface
      * Function guzzlePhpRequest
      * Send Request use GuzzleHttp\Client - https://packagist.org/packages/guzzlehttp/guzzle
      *
-     * @param string $url    URL Endpoint to be Request
-     * @param array  $data   Data Content to be Request
+     * @param string $url URL Endpoint to be Request
+     * @param array $data Data Content to be Request
      * @param string $method Set Method to be Request
      *
      * @return array|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null
@@ -709,7 +787,7 @@ class MyRequests implements ProjectInterface
                 $client = new Client();
                 // Create options
                 $options = array(
-                    'timeout'         => $this->timeout,
+                    'timeout' => $this->timeout,
                     'connect_timeout' => $this->timeout
                 );
                 if (is_array($this->headers) && count($this->headers) > 0) {
@@ -738,7 +816,12 @@ class MyRequests implements ProjectInterface
                 } else {
                     $options['query'] = $data;
                 }
-                $this->setOptions($options);
+                if (!empty($this->options)) {
+                    $clientOptions = array_merge($options, $this->options, $this->requestOptions);
+                } else {
+                    $clientOptions = array_merge($options, $this->requestOptions);
+                }
+                $this->setOptions($clientOptions);
                 if ($method === self::GET) {
                     $this->logger->debug(__FUNCTION__, 'Make ' . self::GET . ' request to ' . $url . ' with Data: ', $data);
                     $request = $client->get($endpoint, $this->options);
@@ -766,29 +849,29 @@ class MyRequests implements ProjectInterface
                 $status_message = $request->getReasonPhrase();
                 $http_error = in_array(floor($this->http_code / 100), [4, 5], true);
                 $error_code = array(
-                    'status'        => $status_code,
-                    'error'         => $status_code,
-                    'error_code'    => $status_code,
+                    'status' => $status_code,
+                    'error' => $status_code,
+                    'error_code' => $status_code,
                     'error_message' => $status_message,
-                    'http_error'    => array(
-                        'http_error'         => $http_error,
-                        'http_status_code'   => $status_code,
+                    'http_error' => array(
+                        'http_error' => $http_error,
+                        'http_status_code' => $status_code,
                         'http_error_message' => $status_message
                     ),
-                    'headers'       => array(
-                        'request_headers'  => $this->headers,
+                    'headers' => array(
+                        'request_headers' => $this->headers,
                         'response_headers' => $request->getHeaders()
                     ),
-                    'data'          => array(
-                        'status'           => $request->getStatusCode(),
-                        'error_code'       => $request->getStatusCode(),
-                        'error_message'    => $request->getReasonPhrase(),
-                        'reasonPhrase'     => $request->getReasonPhrase(),
-                        'protocolVersion'  => $request->getProtocolVersion(),
-                        'headers'          => $request->getHeaders(),
-                        'requests_url'     => $endpoint,
+                    'data' => array(
+                        'status' => $request->getStatusCode(),
+                        'error_code' => $request->getStatusCode(),
+                        'error_message' => $request->getReasonPhrase(),
+                        'reasonPhrase' => $request->getReasonPhrase(),
+                        'protocolVersion' => $request->getProtocolVersion(),
+                        'headers' => $request->getHeaders(),
+                        'requests_url' => $endpoint,
                         'requests_options' => $this->options,
-                        'response_body'    => $request->getBody()
+                        'response_body' => $request->getBody()
                     )
                 );
                 $this->http_code = $status_code;
@@ -832,9 +915,9 @@ class MyRequests implements ProjectInterface
      * Function curlRequest
      * Send Request use \Curl\Curl class - https://packagist.org/packages/curl/curl
      *
-     * @param string       $url    URL Endpoint to be Request
-     * @param array|string $data   Data Content to be Request
-     * @param string       $method Set Method to be Request
+     * @param string $url URL Endpoint to be Request
+     * @param array|string $data Data Content to be Request
+     * @param string $method Set Method to be Request
      *
      * @return array|null|string Response content from server,
      *                           null of Exception Message if Error
@@ -1059,22 +1142,22 @@ class MyRequests implements ProjectInterface
         }
 
         return array(
-            'status'        => $resErrorCode,
-            'error'         => $curl->error,
-            'error_code'    => $resErrorCode,
+            'status' => $resErrorCode,
+            'error' => $curl->error,
+            'error_code' => $resErrorCode,
             'error_message' => $resErrorMessage,
-            'curl_error'    => array(
-                'curl_error'         => $resErrorCurl,
-                'curl_error_code'    => $resErrorCurlCode,
+            'curl_error' => array(
+                'curl_error' => $resErrorCurl,
+                'curl_error_code' => $resErrorCurlCode,
                 'curl_error_message' => $resErrorCurlMessage
             ),
-            'http_error'    => array(
-                'http_error'         => $resErrorHttp,
-                'http_status_code'   => $resErrorHttpStatusCode,
+            'http_error' => array(
+                'http_error' => $resErrorHttp,
+                'http_status_code' => $resErrorHttpStatusCode,
                 'http_error_message' => $resErrorHttpMessage
             ),
-            'headers'       => array(
-                'request_headers'  => $resRequestHeaders,
+            'headers' => array(
+                'request_headers' => $resRequestHeaders,
                 'response_headers' => $resResponseHeaders
             )
         );
@@ -1084,9 +1167,9 @@ class MyRequests implements ProjectInterface
      * Function sendRequest
      * Handle send Request use Multi Method
      *
-     * @param string       $url    URL Endpoint to be Request
-     * @param array|string $data   Data Content to be Request
-     * @param string       $method Set Method to be Request
+     * @param string $url URL Endpoint to be Request
+     * @param array|string $data Data Content to be Request
+     * @param string $method Set Method to be Request
      *
      * @return array|mixed|object|\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface|string|null Response content from server
      *                                              null of Exception Message if Error
@@ -1151,9 +1234,9 @@ class MyRequests implements ProjectInterface
      * Function xmlRequest
      * Send XML Request to Server
      *
-     * @param string $url     URL Endpoint to be Request
-     * @param string $data    Data Content to be Request
-     * @param int    $timeout Timeout Request
+     * @param string $url URL Endpoint to be Request
+     * @param string $data Data Content to be Request
+     * @param int $timeout Timeout Request
      *
      * @return array|null|string Response from Server
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -1203,9 +1286,9 @@ class MyRequests implements ProjectInterface
      * Function jsonRequest
      * Send JSON Request to Server
      *
-     * @param string $url     URL Endpoint to be Request
-     * @param array  $data    Data Content to be Request
-     * @param int    $timeout Timeout Request
+     * @param string $url URL Endpoint to be Request
+     * @param array $data Data Content to be Request
+     * @param int $timeout Timeout Request
      *
      * @return array|null|string Response from Server
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -1257,8 +1340,8 @@ class MyRequests implements ProjectInterface
     /**
      * Function xmlGetValue
      *
-     * @param string $xml      XML String
-     * @param string $openTag  OpenTag to find
+     * @param string $xml XML String
+     * @param string $openTag OpenTag to find
      * @param string $closeTag CloseTag to find
      *
      * @return string  Result from Tag, Empty string if not
@@ -1292,7 +1375,7 @@ class MyRequests implements ProjectInterface
     public function parseXmlDataRequest(string $resultXml = '')
     {
         $array = array(
-            'ec'  => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
+            'ec' => $this->xmlGetValue($resultXml, "<ec>", "</ec>"),
             'msg' => $this->xmlGetValue($resultXml, "<msg>", "</msg>")
         );
 
