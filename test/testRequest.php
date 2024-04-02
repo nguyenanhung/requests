@@ -14,12 +14,12 @@ use nguyenanhung\MyRequests\MyRequests;
 
 $loggerPath = dirname(__DIR__) . '/tmp';
 
-$request                      = new MyRequests();
-$request->debugStatus         = true;
-$request->debugLevel          = 'info';
-$request->debugLoggerPath     = dirname(__DIR__) . '/tmp';
+$request = new MyRequests();
+$request->debugStatus = true;
+$request->debugLevel = 'info';
+$request->debugLoggerPath = dirname(__DIR__) . '/tmp';
 $request->debugLoggerFilename = 'Log-' . date('Y-m-d') . '.log';
-$request->debugStatus         = true;
+$request->debugStatus = true;
 $request->__construct();
 
 $url = 'https://httpbin.org';
@@ -28,6 +28,6 @@ echo dirname(__DIR__) . '/tmp';
 // Test Request GET
 
 testOutputWriteLnOnRequest('Test GET Request', $request->sendRequest(
-    $url . '/get',
-    testCreateParamsOnRequest()
+	$url . '/get',
+	testCreateParamsOnRequest()
 ));

@@ -1,54 +1,54 @@
 {
-    "name": "nguyenanhung/requests",
-    "type": "library",
-    "description": "My Requests Library",
-    "keywords": [
-        "request",
-        "http",
-        "curl",
-        "get_content",
-        "rest",
-        "soap"
-    ],
-    "homepage": "https://github.com/nguyenanhung/requests",
-    "license": "GPL-3.0",
-    "authors": [
-        {
-            "name": "Nguyen An Hung",
-            "email": "dev@nguyenanhung.com",
-            "homepage": "https://nguyenanhung.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=7.0",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "ext-iconv": "*",
-        "symfony/http-foundation": "^6.0 || ^5.3 || ^4.4 || ^3.4",
-        "symfony/polyfill-mbstring": ">= 1.0",
-        "php-curl-class/php-curl-class": "^9 || ^8",
-        "guzzlehttp/guzzle": "^7 || ^6",
-        "nguyenanhung/nusoap": "^0.9",
-        "nguyenanhung/my-debug": "^3.0 || ^2.0",
-        "nguyenanhung/ip-helper": "^2.0 || ^1.0"
-    },
-    "require-dev": {
-        "kint-php/kint": "^5 || ^4 || ^3 || ^2 || ^1"
-    },
-    "suggest": {
-        "ext-curl": "Needed to support cURL",
-        "ext-json": "Needed to support JSON",
-        "ext-iconv": "Needed to support iconv",
-        "ext-openssl": "Needed to support SSL",
-        "ext-mbstring": "Needed to support mb_string"
-    },
-    "autoload": {
-        "psr-4": {
-            "nguyenanhung\\MyRequests\\": "src/"
-        },
-        "files": [
-            "helpers/helpers.php"
-        ]
-    }
+	"name": "nguyenanhung/requests",
+	"type": "library",
+	"description": "My Requests Library",
+	"keywords": [
+		"request",
+		"http",
+		"curl",
+		"get_content",
+		"rest",
+		"soap"
+	],
+	"homepage": "https://github.com/nguyenanhung/requests",
+	"license": "GPL-3.0",
+	"authors": [
+		{
+			"name": "Nguyen An Hung",
+			"email": "dev@nguyenanhung.com",
+			"homepage": "https://nguyenanhung.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.0",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"ext-iconv": "*",
+		"symfony/http-foundation": "^6.0 || ^5.3 || ^4.4 || ^3.4",
+		"symfony/polyfill-mbstring": ">= 1.0",
+		"php-curl-class/php-curl-class": "^9 || ^8",
+		"guzzlehttp/guzzle": "^7 || ^6",
+		"nguyenanhung/nusoap": "^0.9",
+		"nguyenanhung/my-debug": "^4.0 || ^3.0 || ^2.0",
+		"nguyenanhung/ip-helper": "^2.0 || ^1.0"
+	},
+	"require-dev": {
+		"kint-php/kint": "^5 || ^4 || ^3 || ^2 || ^1"
+	},
+	"suggest": {
+		"ext-curl": "Needed to support cURL",
+		"ext-json": "Needed to support JSON",
+		"ext-iconv": "Needed to support iconv",
+		"ext-openssl": "Needed to support SSL",
+		"ext-mbstring": "Needed to support mb_string"
+	},
+	"autoload": {
+		"psr-4": {
+			"nguyenanhung\\MyRequests\\": "src/"
+		},
+		"files": [
+			"helpers/helpers.php"
+		]
+	}
 }

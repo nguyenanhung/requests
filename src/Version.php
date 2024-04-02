@@ -19,16 +19,16 @@ namespace nguyenanhung\MyRequests;
  */
 trait Version
 {
-    /**
-     * Function getVersion
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:07
-     *
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return self::VERSION;
-    }
+	/**
+	 * Function getVersion
+	 *
+	 * @return string
+	 * @author: 713uk13m <dev@nguyenanhung.com>
+	 * @time  : 10/7/18 01:07
+	 *
+	 */
+	public function getVersion(): string
+	{
+		return self::VERSION;
+	}
 }
