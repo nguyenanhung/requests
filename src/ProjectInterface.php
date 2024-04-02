@@ -18,30 +18,30 @@ namespace nguyenanhung\MyRequests;
  */
 interface ProjectInterface
 {
-    const VERSION = '3.1.1';
-    const LAST_MODIFIED = '2023-10-14';
-    const MIN_PHP_VERSION = '7.0';
-    const GET = 'GET';
-    const HEAD = 'HEAD';
-    const DELETE = 'DELETE';
-    const TRACE = 'TRACE';
-    const POST = 'POST';
-    const PUT = 'PUT';
-    const OPTIONS = 'OPTIONS';
-    const PATCH = 'PATCH';
-    const ENCODING = "utf-8";
-    const MAX_REDIRECT = 10;
-    const RETURN_TRANSFER = true;
-    const FOLLOW_LOCATION = true;
-    const USE_BENCHMARK = false;
+	const VERSION = '3.1.2';
+	const LAST_MODIFIED = '2024-04-02';
+	const MIN_PHP_VERSION = '7.0';
+	const GET = 'GET';
+	const HEAD = 'HEAD';
+	const DELETE = 'DELETE';
+	const TRACE = 'TRACE';
+	const POST = 'POST';
+	const PUT = 'PUT';
+	const OPTIONS = 'OPTIONS';
+	const PATCH = 'PATCH';
+	const ENCODING = "utf-8";
+	const MAX_REDIRECT = 10;
+	const RETURN_TRANSFER = true;
+	const FOLLOW_LOCATION = true;
+	const USE_BENCHMARK = false;
 
-    /**
-     * Hàm lấy phiên bản hiện tại của Package
-     *
-     * @return string Phiên bản hiện tại của Package, VD: 3.0.2
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 10/7/18 01:05
-     *
-     */
-    public function getVersion(): string;
+	/**
+	 * Hàm lấy phiên bản hiện tại của Package
+	 *
+	 * @return string Phiên bản hiện tại của Package, VD: 3.0.2
+	 * @author: 713uk13m <dev@nguyenanhung.com>
+	 * @time  : 10/7/18 01:05
+	 *
+	 */
+	public function getVersion(): string;
 }

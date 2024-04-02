@@ -10,6 +10,7 @@ Library use package: Curl, GuzzleHttp and nuSOAP
 
 - [x] V1.x, V2.x support all PHP version `>=5.6`
 - [x] V3.x support all PHP version `>=7.0`
+- [x] V4.x support all PHP version `>=8.0`
 
 ## Installation
 
@@ -26,7 +27,7 @@ unzip master.zip
 Step 2: Init to Project
 
 ```php
-<?php 
+<?php
 require '/your/to/path/MyRequests.php';
 use \nguyenanhung\MyRequests\MyRequests;
 
@@ -45,7 +46,7 @@ composer require nguyenanhung/requests
 Step 2: Init to Project
 
 ```php
-<?php 
+<?php
 require '/your/to/path/vendor/autoload.php';
 use \nguyenanhung\MyRequests\MyRequests;
 $requests = new MyRequests();

@@ -14,7 +14,7 @@ require_once __DIR__ . '/functions.php';
 use nguyenanhung\MyRequests\Utils;
 
 $tmpFolder = dirname(__DIR__) . '/tmp';
-$utils     = new Utils();
+$utils = new Utils();
 
 testOutputWriteLnOnRequest('Utils HTTP Status with 200', $utils::httpStatus(200));
 testOutputWriteLnOnRequest('Utils getHost', $utils::getHost());

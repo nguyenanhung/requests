@@ -18,9 +18,9 @@ testOutputWriteLnOnRequest('GET IP Address', getIpAddress());
 
 $url = 'https://httpbin.org';
 testOutputWriteLnOnRequest(
-    'Test GET Request',
-    sendSimpleRequest(
-        $url . '/get',
-        testCreateParamsOnRequest()
-    )
+	'Test GET Request',
+	sendSimpleRequest(
+		$url . '/get',
+		testCreateParamsOnRequest()
+	)
 );
