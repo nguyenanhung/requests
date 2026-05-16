@@ -234,7 +234,7 @@ class Utils
             curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             $raw_data = curl_exec($ch);
-            if (is_resource($ch)) {
+            if (PHP_VERSION_ID < 80000 && is_resource($ch)) {
                 curl_close($ch);
             }
 
