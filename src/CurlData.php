@@ -664,7 +664,9 @@ class CurlData
             $this->http_error_message = $this->error ? ('') : '';
         }
         $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
-        curl_close($curl);
+        if (is_resource($curl)) {
+            curl_close($curl);
+        }
 
         return $this;
     }
