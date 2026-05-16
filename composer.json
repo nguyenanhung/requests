@@ -25,7 +25,7 @@
 		"ext-curl": "*",
 		"ext-json": "*",
 		"ext-iconv": "*",
-		"symfony/http-foundation": "^7.0 || ^6.0 || ^5.4 || ^4.4 || ^3.4",
+		"symfony/http-foundation": "^7.4 || ^6.4.29 || ^5.4.50",
 		"symfony/polyfill-mbstring": ">= 1.0",
 		"php-curl-class/php-curl-class": "^9 || ^8",
 		"guzzlehttp/guzzle": "^7 || ^6",
