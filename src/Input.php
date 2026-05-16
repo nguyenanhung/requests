@@ -154,7 +154,7 @@ class Input
 	 * @param string|mixed $key POST parameter name
 	 * @param bool $xss_clean Whether to apply XSS filtering
 	 *
-	 * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
+	 * @return bool|float|int|string|string[]|null $_POST if no parameters supplied, otherwise the POST value if found or NULL if not
 	 * @author   : 713uk13m <dev@nguyenanhung.com>
 	 * @copyright: 713uk13m <dev@nguyenanhung.com>
 	 * @time     : 10/18/18 10:58
@@ -180,7 +180,7 @@ class Input
 	 * @param string|mixed $key GET parameter name
 	 * @param bool $xss_clean Whether to apply XSS filtering
 	 *
-	 * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
+	 * @return bool|float|int|string|string[]|null $_GET if no parameters supplied, otherwise the GET value if found or NULL if not
 	 * @author   : 713uk13m <dev@nguyenanhung.com>
 	 * @copyright: 713uk13m <dev@nguyenanhung.com>
 	 * @time     : 10/18/18 10:58
@@ -232,7 +232,7 @@ class Input
 	 * @param string|mixed $key COOKIE parameter name
 	 * @param bool $xss_clean Whether to apply XSS filtering
 	 *
-	 * @return bool|float|int|string|string[]|\Symfony\Component\HttpFoundation\InputBag|null $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
+	 * @return bool|float|int|string|string[]|null $_COOKIE f no parameters supplied, otherwise the COOKIE value if found or NULL if not
 	 * @author    : 713uk13m <dev@nguyenanhung.com>
 	 * @copyright : 713uk13m <dev@nguyenanhung.com>
 	 * @time      : 10/18/18 10:58

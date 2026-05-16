@@ -234,7 +234,10 @@ class Utils
 			curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 			$raw_data = curl_exec($ch);
-			curl_close($ch);
+            // Function curl_close() is deprecated since 8.5, as it has no effect since PHP 8.0
+            if (PHP_VERSION_ID <= 80100) {
+                curl_close($ch);
+            }
 			//check if return error (include html in output)
 			if (mb_strpos($raw_data, 'html') === false) {
 				$fp = fopen($fullPath, 'wb');
