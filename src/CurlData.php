@@ -671,7 +671,9 @@ class CurlData
 			}
 		}
 		$this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
-		curl_close($curl);
+        if (PHP_VERSION_ID < 80000 && is_resource($curl)) {
+            curl_close($curl);
+        }
 
 		return $this;
 	}
