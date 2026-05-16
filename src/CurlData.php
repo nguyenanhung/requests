@@ -674,7 +674,7 @@ class CurlData
         }
 		$this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
         // Function curl_close() is deprecated since 8.5, as it has no effect since PHP 8.0
-        if (is_resource($curl)) {
+        if (PHP_VERSION_ID < 80000) {
             curl_close($curl);
         }
 		return $this;
